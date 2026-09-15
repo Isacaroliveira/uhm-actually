@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,42 +11,35 @@
 
     <meta
         name="description"
-        content="Uhm, Actually... Aprenda inglês e francês com desafios, expressões reais e pegadinhas linguísticas."
+        content="Uhm, Actually... Aulas particulares de inglês e francês, personalizadas e focadas em conversação."
     >
 
-    <title>Uhm, Actually...</title>
+    <title>Uhm, Actually... | Inglês e Francês</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
 
-
-    <!-- =====================================
+    <!-- =========================================
          HEADER
-         ===================================== -->
+    ========================================== -->
 
-    <header>
+    <header class="site-header">
 
-        <div
+        <button
             class="logo"
+            type="button"
             onclick="mostrarPagina('home')"
-            role="button"
-            tabindex="0"
+            aria-label="Ir para o início"
         >
             Uhm,
-            <span>
-                Actually...
-            </span>
-        </div>
+            <span>Actually...</span>
+        </button>
 
 
-        <nav>
+        <nav class="menu-principal">
 
             <button
                 type="button"
@@ -56,6 +48,12 @@
                 Início
             </button>
 
+            <button
+                type="button"
+                onclick="irParaAulas()"
+            >
+                Aulas
+            </button>
 
             <button
                 type="button"
@@ -64,7 +62,6 @@
                 Inglês
             </button>
 
-
             <button
                 type="button"
                 onclick="mostrarPagina('frances')"
@@ -72,63 +69,414 @@
                 Francês
             </button>
 
+            <a
+                class="menu-contato"
+                href="https://wa.me/5514991112390?text=Oi%21%20Encontrei%20a%20Uhm%2C%20Actually...%20pelo%20site%20e%20queria%20saber%20mais%20sobre%20as%20aulas%20particulares%20%F0%9F%98%8A"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Fale conosco
+            </a>
+
         </nav>
 
     </header>
 
 
 
-    <!-- =====================================
-         CONTEÚDO PRINCIPAL
-         ===================================== -->
-
     <main>
 
-
-        <!-- =================================
-             HOME / DASHBOARD
-             ================================= -->
+        <!-- =========================================
+             HOME
+        ========================================== -->
 
         <section
             id="home"
             class="pagina ativa"
         >
 
-            <div class="dashboard">
+            <!-- =====================================
+                 HERO
+            ====================================== -->
+
+            <section class="hero">
+
+                <div class="hero-decoracao hero-decoracao-1"></div>
+                <div class="hero-decoracao hero-decoracao-2"></div>
 
 
-                <!-- CABEÇALHO -->
+                <div class="hero-conteudo">
 
-                <div class="dashboard-cabecalho">
+                    <div class="hero-texto">
+
+                        <span class="etiqueta">
+                            INGLÊS • FRANCÊS • CONVERSAÇÃO
+                        </span>
+
+
+                        <h1>
+                            Chega do
+                            <span class="destaque-roxo">
+                                “eu entendo,
+                                mas não consigo falar”.
+                            </span>
+                        </h1>
+
+
+                        <p class="hero-descricao">
+                            Aulas particulares de inglês e francês,
+                            personalizadas para você aprender a usar
+                            o idioma de verdade, com muito mais
+                            conversação e muito menos decoreba.
+                        </p>
+
+
+                        <div class="hero-botoes">
+
+                            <button
+                                type="button"
+                                class="botao principal"
+                                onclick="irParaAulas()"
+                            >
+                                Quero conhecer as aulas
+                                <span>→</span>
+                            </button>
+
+
+                            <a
+                                class="botao botao-whatsapp"
+                                href="https://wa.me/5514991112390?text=Oi%21%20Encontrei%20a%20Uhm%2C%20Actually...%20pelo%20site%20e%20queria%20saber%20mais%20sobre%20as%20aulas%20particulares%20%F0%9F%98%8A"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                💬 Falar pelo WhatsApp
+                            </a>
+
+                        </div>
+
+
+                        <div class="hero-mini-info">
+
+                            <span>💻 Aulas online</span>
+
+                            <span>✨ Personalizadas</span>
+
+                            <span>💬 Foco em conversação</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CARD DECORATIVO -->
+
+                    <div class="hero-card">
+
+                        <div class="hero-card-topo">
+
+                            <span class="hero-card-bolinha"></span>
+
+                            <span class="hero-card-bolinha"></span>
+
+                            <span class="hero-card-bolinha"></span>
+
+                        </div>
+
+
+                        <div class="hero-card-conteudo">
+
+                            <span class="mini-etiqueta">
+                                UHM, ACTUALLY...
+                            </span>
+
+
+                            <p class="hero-card-pergunta">
+                                E se aprender um idioma
+                                não precisasse parecer
+                                uma prova?
+                            </p>
+
+
+                            <div class="hero-card-resposta">
+                                <span>☝️🤓</span>
+
+                                <p>
+                                    Uhm, actually...
+                                    <strong>
+                                        não precisa.
+                                    </strong>
+                                </p>
+                            </div>
+
+
+                            <div class="hero-card-tags">
+
+                                <span>🎬 séries</span>
+
+                                <span>🎮 jogos</span>
+
+                                <span>🎧 músicas</span>
+
+                                <span>💬 conversa</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 AULAS
+            ====================================== -->
+
+            <section
+                class="secao-aulas"
+                id="aulas"
+            >
+
+                <div class="secao-cabecalho">
 
                     <span class="etiqueta">
-                        UHM, ACTUALLY...
+                        COMO FUNCIONA?
                     </span>
 
 
-                    <h1 id="saudacao">
-                        Olá ✨
-                    </h1>
+                    <h2>
+                        Aulas que se adaptam
+                        <span>a você.</span>
+                    </h2>
 
 
                     <p>
-                        O que vamos descobrir agora?
+                        O idioma deixa de ser uma coleção
+                        de regras e começa a virar algo
+                        que você realmente consegue usar.
                     </p>
 
                 </div>
 
 
 
-                <!-- =================================
-                     CARDS DOS IDIOMAS
-                     ================================= -->
+                <div class="beneficios-grid">
+
+
+                    <article class="beneficio-card">
+
+                        <div class="beneficio-icone">
+                            💬
+                        </div>
+
+                        <h3>
+                            Conversação
+                            de verdade
+                        </h3>
+
+                        <p>
+                            Você não vai passar a aula inteira
+                            preenchendo lacunas. O idioma entra
+                            em uso desde o começo.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="beneficio-card destaque">
+
+                        <div class="beneficio-icone">
+                            🎬
+                        </div>
+
+                        <h3>
+                            Filmes, séries
+                            e cultura
+                        </h3>
+
+                        <p>
+                            Cenas, músicas e situações reais
+                            ajudam a descobrir como o idioma
+                            aparece fora do livro.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="beneficio-card">
+
+                        <div class="beneficio-icone">
+                            🎮
+                        </div>
+
+                        <h3>
+                            Atividades
+                            interativas
+                        </h3>
+
+                        <p>
+                            Jogos, desafios e situações criadas
+                            para fazer você pensar e se comunicar
+                            no idioma.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="beneficio-card amarelo">
+
+                        <div class="beneficio-icone">
+                            ✨
+                        </div>
+
+                        <h3>
+                            Feito para
+                            você
+                        </h3>
+
+                        <p>
+                            As aulas acompanham seu nível,
+                            seus objetivos, seus interesses
+                            e aquilo que você precisa desenvolver.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 EXPERIÊNCIA / SOBRE AS AULAS
+            ====================================== -->
+
+            <section class="secao-experiencia">
+
+                <div class="experiencia-card">
+
+                    <div class="experiencia-texto">
+
+                        <span class="etiqueta">
+                            SEM AULA ENGESSADA
+                        </span>
+
+
+                        <h2>
+                            Aprender também pode
+                            fazer parte das coisas
+                            que você gosta.
+                        </h2>
+
+
+                        <p>
+                            Em vez de usar sempre o mesmo material
+                            para todo mundo, as aulas podem incluir
+                            assuntos que fazem sentido para você.
+                        </p>
+
+
+                        <div class="experiencia-lista">
+
+                            <div>
+                                <span>✓</span>
+                                Conversação e situações reais
+                            </div>
+
+                            <div>
+                                <span>✓</span>
+                                Séries, filmes e músicas
+                            </div>
+
+                            <div>
+                                <span>✓</span>
+                                Jogos e atividades
+                            </div>
+
+                            <div>
+                                <span>✓</span>
+                                Vocabulário usado no cotidiano
+                            </div>
+
+                            <div>
+                                <span>✓</span>
+                                Conteúdo adaptado ao seu nível
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="experiencia-visual">
+
+                        <div class="post-it post-it-roxo">
+                            “Como eu falaria
+                            isso de verdade?”
+                        </div>
+
+                        <div class="post-it post-it-amarelo">
+                            🎧 + 🎬 + 💬
+                        </div>
+
+                        <div class="post-it post-it-claro">
+                            Grammar?
+                            <strong>
+                                Yes.
+                            </strong>
+                            <br>
+                            Só não precisa
+                            viver só dela.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 EXPERIMENTE
+            ====================================== -->
+
+            <section class="secao-pratique">
+
+                <div class="secao-cabecalho">
+
+                    <span class="etiqueta">
+                        EXPERIMENTE
+                    </span>
+
+
+                    <h2>
+                        Aprenda um pouquinho
+                        <span>agora.</span>
+                    </h2>
+
+
+                    <p>
+                        Explore gratuitamente alguns dos
+                        desafios da Uhm, Actually...
+                    </p>
+
+                </div>
+
+
 
                 <div class="dashboard-grid">
 
 
-                    <!-- =============================
-                         INGLÊS
-                         ============================= -->
+                    <!-- INGLÊS -->
 
                     <div
                         class="dashboard-card"
@@ -159,9 +507,6 @@
                         </p>
 
 
-
-                        <!-- PROGRESSO -->
-
                         <div class="dashboard-progresso">
 
                             <div class="dashboard-progresso-info">
@@ -173,7 +518,7 @@
                                 <strong
                                     class="dashboard-progresso-texto"
                                 >
-                                    0/90 desafios
+                                    0 desafios
                                 </strong>
 
                             </div>
@@ -190,30 +535,20 @@
                         </div>
 
 
-
-                        <!-- BOTÃO -->
-
                         <button
                             type="button"
                             class="dashboard-botao"
                             onclick="mostrarPagina('ingles')"
                         >
-
                             Começar
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
 
 
 
-                    <!-- =============================
-                         FRANCÊS
-                         ============================= -->
+                    <!-- FRANCÊS -->
 
                     <div
                         class="dashboard-card"
@@ -245,9 +580,6 @@
                         </p>
 
 
-
-                        <!-- PROGRESSO -->
-
                         <div class="dashboard-progresso">
 
                             <div class="dashboard-progresso-info">
@@ -276,57 +608,79 @@
                         </div>
 
 
-
-                        <!-- BOTÃO -->
-
                         <button
                             type="button"
                             class="dashboard-botao frances"
                             onclick="mostrarPagina('frances')"
                         >
-
                             Começar
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>→</span>
                         </button>
 
                     </div>
 
                 </div>
 
+            </section>
 
 
-                <!-- =================================
-                     MENSAGEM
-                     ================================= -->
 
-                <div class="dashboard-frase">
+            <!-- =====================================
+                 CONTATO
+            ====================================== -->
 
-                    <span>
-                        💡
+            <section class="secao-contato">
+
+                <div class="contato-card">
+
+                    <div class="contato-emoji">
+                        💬
+                    </div>
+
+
+                    <span class="etiqueta">
+                        VAMOS CONVERSAR?
                     </span>
 
 
+                    <h2>
+                        Quer aprender com
+                        acompanhamento de verdade?
+                    </h2>
+
+
                     <p>
-                        Aprenda no seu ritmo.
-                        Faça 3 desafios ou encare
-                        os 90 de uma vez. Você decide.
+                        Entre em contato para saber mais
+                        sobre as aulas particulares,
+                        horários e valores.
                     </p>
+
+
+                    <a
+                        class="botao contato-botao"
+                        href="https://wa.me/5514991112390?text=Oi%21%20Encontrei%20a%20Uhm%2C%20Actually...%20pelo%20site%20e%20queria%20saber%20mais%20sobre%20as%20aulas%20particulares%20%F0%9F%98%8A"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        💬 Quero saber mais sobre as aulas
+                    </a>
+
+
+                    <small>
+                        WhatsApp: +55 (14) 99111-2390
+                    </small>
 
                 </div>
 
-            </div>
+            </section>
 
         </section>
 
 
 
-        <!-- =================================
-             PÁGINA DE INGLÊS
-             ================================= -->
+        <!-- =========================================
+             INGLÊS
+        ========================================== -->
 
         <section
             id="ingles"
@@ -339,25 +693,17 @@
                     🇬🇧 ENGLISH
                 </span>
 
-
                 <h2>
                     English Lab
                 </h2>
 
-
                 <p>
-                    Cuidado: algumas palavras
-                    estão prontas para te enganar.
+                    Cuidado: algumas palavras estão
+                    prontas para te enganar.
                 </p>
 
             </div>
 
-
-
-            <!--
-                O JAVASCRIPT COLOCA
-                O QUIZ AQUI DENTRO
-            -->
 
             <div class="quiz">
 
@@ -371,9 +717,9 @@
 
 
 
-        <!-- =================================
-             PÁGINA DE FRANCÊS
-             ================================= -->
+        <!-- =========================================
+             FRANCÊS
+        ========================================== -->
 
         <section
             id="frances"
@@ -386,26 +732,17 @@
                     🇫🇷 FRANÇAIS
                 </span>
 
-
                 <h2>
                     Le Coin Français
                 </h2>
 
-
                 <p>
-                    Francês real,
-                    expressões curiosas
+                    Francês real, expressões curiosas
                     e um pouco de caos linguístico.
                 </p>
 
             </div>
 
-
-
-            <!--
-                O JAVASCRIPT COLOCA
-                O QUIZ AQUI DENTRO
-            -->
 
             <div class="quiz">
 
@@ -417,31 +754,105 @@
 
         </section>
 
-
     </main>
 
 
 
-    <!-- =====================================
+    <!-- =========================================
          FOOTER
-         ===================================== -->
+    ========================================== -->
 
     <footer>
 
-        <p>
+        <div class="footer-conteudo">
+
+            <div class="footer-marca">
+                <strong>
+                    Uhm, <span>Actually...</span>
+                </strong>
+
+                <p>
+                    Inglês e francês para usar
+                    fora do livro.
+                </p>
+            </div>
+
+
+            <div class="footer-links">
+
+                <button
+                    type="button"
+                    onclick="mostrarPagina('home')"
+                >
+                    Início
+                </button>
+
+                <button
+                    type="button"
+                    onclick="irParaAulas()"
+                >
+                    Aulas
+                </button>
+
+                <button
+                    type="button"
+                    onclick="mostrarPagina('ingles')"
+                >
+                    Inglês
+                </button>
+
+                <button
+                    type="button"
+                    onclick="mostrarPagina('frances')"
+                >
+                    Francês
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-final">
             Uhm, Actually... 💜
-        </p>
+        </div>
 
     </footer>
 
 
 
-    <!-- =====================================
-         JAVASCRIPT
-         ===================================== -->
-
     <script src="script.js"></script>
 
+
+    <!-- =========================================
+         FUNÇÕES EXTRAS DA HOME
+    ========================================== -->
+
+    <script>
+
+        function irParaAulas() {
+
+            mostrarPagina("home");
+
+            setTimeout(function () {
+
+                const aulas =
+                    document.getElementById("aulas");
+
+                if (aulas) {
+
+                    aulas.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            }, 100);
+
+        }
+
+    </script>
 
 </body>
 
