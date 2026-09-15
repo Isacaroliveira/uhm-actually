@@ -1,0 +1,2198 @@
+/* ==========================================
+   UHM, ACTUALLY...
+   STYLE.CSS
+   ========================================== */
+
+
+/* ==========================================
+   CORES
+   ========================================== */
+
+:root {
+    --roxo: #B59DFF;
+    --roxo-claro: #EEE8FF;
+    --roxo-medio: #8063DD;
+    --roxo-escuro: #39275F;
+
+    --amarelo: #FFD966;
+    --amarelo-claro: #FFF1B8;
+
+    --creme: #F7F5EF;
+    --rosa: #F4C7D9;
+    --azul: #DDE5FF;
+
+    --texto: #242027;
+    --texto-claro: #77717F;
+
+    --branco: #FFFFFF;
+
+    --borda: #E9E4DF;
+
+    --sombra:
+        0 18px 50px
+        rgba(57, 39, 95, 0.10);
+}
+
+
+/* ==========================================
+   RESET
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--creme);
+
+    color:
+        var(--texto);
+}
+
+
+button {
+    font-family: inherit;
+}
+
+
+button,
+a {
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+header {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding:
+        18px
+        7%;
+
+    background:
+        rgba(
+            247,
+            245,
+            239,
+            0.92
+        );
+
+    backdrop-filter:
+        blur(15px);
+
+    border-bottom:
+        1px solid
+        rgba(
+            57,
+            39,
+            95,
+            0.08
+        );
+}
+
+
+/* ==========================================
+   LOGO
+   ========================================== */
+
+.logo {
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        24px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -0.7px;
+
+    cursor:
+        pointer;
+}
+
+
+.logo span {
+    color:
+        var(--roxo-medio);
+}
+
+
+/* ==========================================
+   MENU
+   ========================================== */
+
+nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+nav button {
+    border: none;
+
+    background:
+        transparent;
+
+    color:
+        var(--roxo-escuro);
+
+    padding:
+        10px
+        15px;
+
+    border-radius:
+        999px;
+
+    cursor:
+        pointer;
+
+    font-weight:
+        700;
+
+    font-size:
+        14px;
+
+    transition:
+        0.2s ease;
+}
+
+
+nav button:hover {
+    background:
+        var(--roxo-claro);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ==========================================
+   SISTEMA DE PÁGINAS
+   ========================================== */
+
+.pagina {
+    display:
+        none;
+
+    width:
+        min(
+            1100px,
+            90%
+        );
+
+    margin:
+        auto;
+
+    padding:
+        55px
+        0
+        80px;
+}
+
+
+.pagina.ativa {
+    display:
+        block;
+
+    animation:
+        aparecerPagina
+        0.35s ease;
+}
+
+
+@keyframes aparecerPagina {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* ==========================================
+   ETIQUETAS
+   ========================================== */
+
+.etiqueta {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    background:
+        var(--roxo-claro);
+
+    color:
+        #6445BE;
+
+    padding:
+        8px
+        14px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.8px;
+}
+
+
+/* ==========================================
+   HOME ANTIGA
+   caso ainda exista no HTML
+   ========================================== */
+
+.hero {
+    min-height:
+        65vh;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.2fr
+        0.8fr;
+
+    gap:
+        60px;
+
+    align-items:
+        center;
+}
+
+
+.hero h1 {
+    margin:
+        25px
+        0;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            60px,
+            9vw,
+            110px
+        );
+
+    line-height:
+        0.85;
+
+    letter-spacing:
+        -5px;
+}
+
+
+.hero h1 span {
+    color:
+        var(--roxo-medio);
+}
+
+
+.hero-texto > p {
+    max-width:
+        600px;
+
+    color:
+        #5F5963;
+
+    font-size:
+        18px;
+
+    line-height:
+        1.7;
+}
+
+
+/* ==========================================
+   BOTÕES GERAIS
+   ========================================== */
+
+.botoes {
+    display:
+        flex;
+
+    gap:
+        12px;
+
+    flex-wrap:
+        wrap;
+
+    margin-top:
+        30px;
+}
+
+
+.botao {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    border:
+        none;
+
+    padding:
+        14px
+        20px;
+
+    border-radius:
+        15px;
+
+    cursor:
+        pointer;
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.botao:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+.botao:active {
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+.principal {
+    background:
+        var(--roxo-escuro);
+
+    color:
+        var(--branco);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            57,
+            39,
+            95,
+            0.18
+        );
+}
+
+
+.principal:hover {
+    box-shadow:
+        0 12px 26px
+        rgba(
+            57,
+            39,
+            95,
+            0.25
+        );
+}
+
+
+.amarelo {
+    background:
+        var(--amarelo);
+
+    color:
+        var(--roxo-escuro);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            190,
+            150,
+            30,
+            0.14
+        );
+}
+
+
+/* ==========================================
+   CARD DA HOME ANTIGA
+   ========================================== */
+
+.card-destaque {
+    background:
+        var(--branco);
+
+    padding:
+        35px;
+
+    border-radius:
+        30px;
+
+    box-shadow:
+        var(--sombra);
+}
+
+
+.card-destaque > span {
+    display:
+        inline-block;
+
+    background:
+        var(--amarelo);
+
+    padding:
+        7px
+        12px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+}
+
+
+.card-destaque h2 {
+    margin:
+        25px
+        0
+        10px;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        55px;
+
+    letter-spacing:
+        -2px;
+}
+
+
+/* ==========================================
+   TÍTULO DAS PÁGINAS
+   ========================================== */
+
+.titulo-pagina {
+    max-width:
+        750px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.titulo-pagina h2 {
+    margin:
+        15px
+        0
+        5px;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            42px,
+            6vw,
+            60px
+        );
+
+    letter-spacing:
+        -2px;
+}
+
+
+.titulo-pagina p {
+    color:
+        var(--texto-claro);
+
+    font-size:
+        18px;
+
+    line-height:
+        1.6;
+}
+
+
+/* ==========================================
+   QUIZ
+   ========================================== */
+
+.quiz {
+    max-width:
+        740px;
+
+    margin:
+        40px
+        auto;
+
+    padding:
+        35px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.96
+        );
+
+    border:
+        1px solid
+        rgba(
+            57,
+            39,
+            95,
+            0.07
+        );
+
+    border-radius:
+        30px;
+
+    box-shadow:
+        var(--sombra);
+}
+
+
+.categoria {
+    margin:
+        8px
+        0;
+
+    color:
+        #7C5CE0;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.2px;
+}
+
+
+.quiz h3 {
+    margin:
+        10px
+        0;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            38px,
+            7vw,
+            58px
+        );
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -2px;
+}
+
+
+.pergunta {
+    margin-bottom:
+        25px;
+
+    color:
+        #57505B;
+
+    font-size:
+        18px;
+
+    line-height:
+        1.5;
+}
+
+
+/* ==========================================
+   BOTÃO BACK / VOLTAR
+   ========================================== */
+
+.voltar {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    min-height:
+        42px;
+
+    margin-bottom:
+        28px;
+
+    padding:
+        9px
+        15px
+        9px
+        10px;
+
+    border:
+        1.5px solid
+        #DED4F7;
+
+    border-radius:
+        14px;
+
+    background:
+        #FBF9FF;
+
+    color:
+        var(--roxo-escuro);
+
+    box-shadow:
+        0 4px 12px
+        rgba(
+            57,
+            39,
+            95,
+            0.06
+        );
+
+    cursor:
+        pointer;
+
+    font-size:
+        14px;
+
+    font-weight:
+        800;
+
+    transition:
+        0.2s ease;
+}
+
+
+.voltar-seta {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        27px;
+
+    height:
+        27px;
+
+    background:
+        var(--roxo-claro);
+
+    border-radius:
+        9px;
+
+    color:
+        #6549BD;
+
+    font-size:
+        17px;
+
+    transition:
+        0.2s ease;
+}
+
+
+.voltar:hover {
+    background:
+        var(--branco);
+
+    border-color:
+        var(--roxo);
+
+    transform:
+        translateX(-3px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(
+            57,
+            39,
+            95,
+            0.10
+        );
+}
+
+
+.voltar:hover
+.voltar-seta {
+    background:
+        var(--roxo);
+
+    color:
+        var(--branco);
+
+    transform:
+        translateX(-2px);
+}
+
+
+.voltar:active {
+    transform:
+        translateX(-1px)
+        scale(0.98);
+}
+
+
+/* ==========================================
+   PROGRESSO DO QUIZ
+   ========================================== */
+
+.progresso-topo {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        18px;
+
+    padding:
+        8px
+        13px;
+
+    background:
+        var(--roxo-claro);
+
+    color:
+        #6445BE;
+
+    border-radius:
+        999px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+}
+
+
+/* ==========================================
+   ALTERNATIVAS
+   ========================================== */
+
+.alternativas {
+    display:
+        grid;
+
+    gap:
+        12px;
+}
+
+
+.alternativas button {
+    width:
+        100%;
+
+    min-height:
+        56px;
+
+    padding:
+        15px
+        17px;
+
+    border:
+        2px solid
+        #EEEAE7;
+
+    border-radius:
+        16px;
+
+    background:
+        #FCFBFA;
+
+    color:
+        var(--texto);
+
+    cursor:
+        pointer;
+
+    text-align:
+        left;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.4;
+
+    transition:
+        0.18s ease;
+}
+
+
+.alternativas button strong {
+    margin-right:
+        5px;
+
+    color:
+        var(--roxo-medio);
+}
+
+
+.alternativas button:hover:not(:disabled) {
+    background:
+        #F7F3FF;
+
+    border-color:
+        var(--roxo);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(
+            57,
+            39,
+            95,
+            0.07
+        );
+}
+
+
+.alternativas button:active:not(:disabled) {
+    transform:
+        scale(0.99);
+}
+
+
+.alternativas button:disabled {
+    cursor:
+        default;
+
+    opacity:
+        0.72;
+}
+
+
+/* resposta correta */
+
+.alternativas
+.alternativa-correta {
+    opacity:
+        1;
+
+    border-color:
+        #E9BC35;
+
+    background:
+        #FFF4C8;
+}
+
+
+/* resposta errada escolhida */
+
+.alternativas
+.alternativa-errada {
+    opacity:
+        1;
+
+    border-color:
+        #C6B5F7;
+
+    background:
+        #EEE8FF;
+}
+
+
+/* ==========================================
+   FEEDBACK
+   ========================================== */
+
+.resposta {
+    display:
+        none;
+
+    margin-top:
+        20px;
+
+    padding:
+        22px;
+
+    border-radius:
+        20px;
+
+    line-height:
+        1.6;
+
+    animation:
+        aparecerResposta
+        0.3s ease;
+}
+
+
+@keyframes aparecerResposta {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+.resposta.mostrar {
+    display:
+        block;
+}
+
+
+.resposta.correto,
+.correto {
+    background:
+        var(--amarelo-claro);
+
+    border:
+        1px solid
+        rgba(
+            190,
+            150,
+            30,
+            0.15
+        );
+}
+
+
+.resposta.errado,
+.errado {
+    background:
+        var(--roxo-claro);
+
+    border:
+        1px solid
+        rgba(
+            128,
+            99,
+            221,
+            0.12
+        );
+}
+
+
+.resposta h4 {
+    margin:
+        0
+        0
+        10px;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        23px;
+}
+
+
+.resposta p {
+    margin:
+        8px
+        0;
+}
+
+
+.exemplo-resposta {
+    margin:
+        18px
+        0;
+
+    padding:
+        16px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-radius:
+        14px;
+}
+
+
+.exemplo-resposta strong {
+    display:
+        block;
+
+    margin-bottom:
+        7px;
+
+    color:
+        #6B50BF;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        1px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.exemplo-resposta p {
+    margin:
+        4px
+        0;
+}
+
+
+.botao-proximo {
+    margin-top:
+        8px;
+}
+
+
+/* ==========================================
+   FINAL DO DIA
+   ========================================== */
+
+.fim-dia {
+    padding:
+        20px
+        10px
+        10px;
+
+    text-align:
+        center;
+}
+
+
+.icone-final {
+    margin-bottom:
+        12px;
+
+    font-size:
+        58px;
+}
+
+
+.fim-dia h3 {
+    margin:
+        10px
+        0;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            50px
+        );
+
+    letter-spacing:
+        -2px;
+}
+
+
+.fim-dia > p {
+    max-width:
+        510px;
+
+    margin:
+        10px
+        auto;
+
+    color:
+        #625B68;
+
+    line-height:
+        1.6;
+}
+
+
+/* ==========================================
+   CONTADOR
+   ========================================== */
+
+.contador-card {
+    max-width:
+        410px;
+
+    margin:
+        30px
+        auto;
+
+    padding:
+        25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #EEE8FF,
+            #F8F3FF
+        );
+
+    border:
+        1px solid
+        #DED4F7;
+
+    border-radius:
+        24px;
+}
+
+
+.contador-card small {
+    display:
+        block;
+
+    margin-bottom:
+        10px;
+
+    color:
+        #6445BE;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.2px;
+}
+
+
+.contador-card strong {
+    display:
+        block;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            32px,
+            7vw,
+            44px
+        );
+
+    letter-spacing:
+        3px;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+.contador-card p {
+    margin:
+        9px
+        0
+        0;
+
+    color:
+        #82778C;
+
+    font-size:
+        13px;
+}
+
+
+/* ==========================================
+   DASHBOARD
+   ========================================== */
+
+.dashboard {
+    max-width:
+        1000px;
+
+    margin:
+        auto;
+}
+
+
+.dashboard-cabecalho {
+    margin-bottom:
+        30px;
+}
+
+
+.dashboard-cabecalho h1 {
+    margin:
+        15px
+        0
+        5px;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            75px
+        );
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -3px;
+}
+
+
+.dashboard-cabecalho p {
+    margin-top:
+        10px;
+
+    color:
+        var(--texto-claro);
+
+    font-size:
+        19px;
+}
+
+
+/* ==========================================
+   STREAK
+   ========================================== */
+
+.streak-card {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    margin-bottom:
+        26px;
+
+    padding:
+        14px
+        20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFF1B8,
+            #FFF8DB
+        );
+
+    border:
+        1px solid
+        rgba(
+            210,
+            160,
+            25,
+            0.14
+        );
+
+    border-radius:
+        20px;
+}
+
+
+.streak-icone {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.6
+        );
+
+    border-radius:
+        15px;
+
+    font-size:
+        28px;
+}
+
+
+.streak-card small {
+    display:
+        block;
+
+    margin-bottom:
+        3px;
+
+    color:
+        #866D25;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+}
+
+
+.streak-card strong {
+    display:
+        block;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        19px;
+}
+
+
+/* ==========================================
+   GRID DO DASHBOARD
+   ========================================== */
+
+.dashboard-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        20px;
+}
+
+
+/* ==========================================
+   CARDS DOS IDIOMAS
+   ========================================== */
+
+.dashboard-card {
+    position:
+        relative;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    padding:
+        30px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.94
+        );
+
+    border:
+        2px solid
+        transparent;
+
+    border-radius:
+        28px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(
+            60,
+            40,
+            90,
+            0.08
+        );
+
+    transition:
+        0.25s ease;
+}
+
+
+.dashboard-card:hover {
+    border-color:
+        #DED4FF;
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 20px 55px
+        rgba(
+            60,
+            40,
+            90,
+            0.12
+        );
+}
+
+
+.dashboard-card-topo {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        22px;
+}
+
+
+.dashboard-card-topo > span {
+    color:
+        #6E55BB;
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.4px;
+}
+
+
+.idioma-icone {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        47px;
+
+    height:
+        47px;
+
+    background:
+        #F4F0FF;
+
+    border-radius:
+        15px;
+
+    font-size:
+        24px;
+}
+
+
+#dashboard-frances
+.idioma-icone {
+    background:
+        #FFF5C9;
+}
+
+
+.dashboard-card h2 {
+    margin:
+        0
+        0
+        10px;
+
+    color:
+        var(--roxo-escuro);
+
+    font-size:
+        32px;
+
+    letter-spacing:
+        -1px;
+}
+
+
+.dashboard-card > p {
+    flex-grow:
+        1;
+
+    min-height:
+        52px;
+
+    margin:
+        0;
+
+    color:
+        var(--texto-claro);
+
+    line-height:
+        1.6;
+}
+
+
+/* ==========================================
+   PROGRESSO DO DASHBOARD
+   ========================================== */
+
+.dashboard-progresso {
+    margin:
+        30px
+        0
+        24px;
+}
+
+
+.dashboard-progresso-info {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    margin-bottom:
+        9px;
+
+    font-size:
+        12px;
+}
+
+
+.dashboard-progresso-info span {
+    color:
+        #888;
+}
+
+
+.dashboard-progresso-info strong {
+    color:
+        var(--roxo-escuro);
+}
+
+
+.dashboard-barra {
+    width:
+        100%;
+
+    height:
+        11px;
+
+    overflow:
+        hidden;
+
+    background:
+        #EEE9E5;
+
+    border-radius:
+        999px;
+}
+
+
+.dashboard-barra-preenchida {
+    width:
+        0%;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--roxo),
+            var(--roxo-medio)
+        );
+
+    border-radius:
+        999px;
+
+    transition:
+        width
+        0.6s ease;
+}
+
+
+#dashboard-frances
+.dashboard-barra-preenchida {
+    background:
+        linear-gradient(
+            90deg,
+            var(--amarelo),
+            #F3BC3E
+        );
+}
+
+
+/* ==========================================
+   BOTÕES DO DASHBOARD
+   ========================================== */
+
+.dashboard-botao {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    width:
+        100%;
+
+    min-height:
+        50px;
+
+    padding:
+        13px
+        17px;
+
+    border:
+        none;
+
+    border-radius:
+        15px;
+
+    background:
+        var(--roxo-escuro);
+
+    color:
+        var(--branco);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            57,
+            39,
+            95,
+            0.16
+        );
+
+    cursor:
+        pointer;
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    transition:
+        0.2s ease;
+}
+
+
+.dashboard-botao:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 11px 26px
+        rgba(
+            57,
+            39,
+            95,
+            0.23
+        );
+}
+
+
+.dashboard-botao:active {
+    transform:
+        scale(0.99);
+}
+
+
+.dashboard-botao span {
+    font-size:
+        20px;
+}
+
+
+.dashboard-botao.frances {
+    background:
+        var(--amarelo);
+
+    color:
+        var(--roxo-escuro);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            190,
+            150,
+            30,
+            0.14
+        );
+}
+
+
+/* ==========================================
+   CARD CONCLUÍDO
+   ========================================== */
+
+.dashboard-concluido {
+    background:
+        #FBFAF7;
+
+    border-color:
+        #E9E4DF;
+}
+
+
+.dashboard-concluido
+.dashboard-botao {
+    background:
+        #EAE6E0;
+
+    color:
+        #7C7771;
+
+    box-shadow:
+        none;
+}
+
+
+.dashboard-concluido
+.dashboard-botao:hover {
+    transform:
+        none;
+
+    box-shadow:
+        none;
+}
+
+
+/* ==========================================
+   FRASE DO DASHBOARD
+   ========================================== */
+
+.dashboard-frase {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        13px;
+
+    max-width:
+        620px;
+
+    margin:
+        35px
+        auto
+        0;
+
+    padding:
+        15px
+        20px;
+
+    background:
+        var(--roxo-claro);
+
+    border:
+        1px solid
+        #DED4F7;
+
+    border-radius:
+        18px;
+}
+
+
+.dashboard-frase span {
+    font-size:
+        25px;
+}
+
+
+.dashboard-frase p {
+    margin:
+        0;
+
+    color:
+        #625B6B;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.5;
+}
+
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+footer {
+    padding:
+        30px;
+
+    color:
+        #827B85;
+
+    text-align:
+        center;
+
+    font-size:
+        13px;
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (
+    max-width: 850px
+) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .hero {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            30px;
+    }
+
+}
+
+
+/* ==========================================
+   CELULAR
+   ========================================== */
+
+@media (
+    max-width: 650px
+) {
+
+    header {
+        position:
+            relative;
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            14px;
+
+        padding:
+            17px
+            5%;
+    }
+
+
+    .logo {
+        text-align:
+            center;
+    }
+
+
+    nav {
+        justify-content:
+            center;
+
+        flex-wrap:
+            wrap;
+    }
+
+
+    nav button {
+        padding:
+            9px
+            12px;
+
+        font-size:
+            13px;
+    }
+
+
+    .pagina {
+        width:
+            92%;
+
+        padding:
+            35px
+            0
+            60px;
+    }
+
+
+    .dashboard-cabecalho {
+        margin-bottom:
+            24px;
+    }
+
+
+    .dashboard-cabecalho h1 {
+        font-size:
+            45px;
+
+        letter-spacing:
+            -2px;
+    }
+
+
+    .dashboard-cabecalho p {
+        font-size:
+            16px;
+    }
+
+
+    .streak-card {
+        width:
+            100%;
+    }
+
+
+    .dashboard-card {
+        padding:
+            24px;
+    }
+
+
+    .dashboard-card h2 {
+        font-size:
+            28px;
+    }
+
+
+    .dashboard-progresso-info {
+        align-items:
+            flex-end;
+    }
+
+
+    .quiz {
+        margin:
+            25px
+            auto;
+
+        padding:
+            23px;
+
+        border-radius:
+            24px;
+    }
+
+
+    .quiz h3 {
+        font-size:
+            39px;
+
+        letter-spacing:
+            -1px;
+    }
+
+
+    .pergunta {
+        font-size:
+            16px;
+    }
+
+
+    .alternativas button {
+        padding:
+            14px;
+
+        font-size:
+            15px;
+    }
+
+
+    .voltar {
+        margin-bottom:
+            23px;
+    }
+
+
+    .fim-dia {
+        padding:
+            12px
+            0;
+    }
+
+
+    .contador-card {
+        padding:
+            20px;
+    }
+
+
+    .contador-card strong {
+        letter-spacing:
+            2px;
+    }
+
+
+    .hero h1 {
+        font-size:
+            62px;
+
+        letter-spacing:
+            -3px;
+    }
+
+
+    .titulo-pagina h2 {
+        font-size:
+            40px;
+    }
+
+}
+
+
+/* ==========================================
+   TELAS MUITO PEQUENAS
+   ========================================== */
+
+@media (
+    max-width: 390px
+) {
+
+    .dashboard-card {
+        padding:
+            20px;
+    }
+
+
+    .quiz {
+        padding:
+            19px;
+    }
+
+
+    .dashboard-progresso-info {
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap:
+            4px;
+    }
+
+
+    .contador-card strong {
+        font-size:
+            29px;
+    }
+
+}
