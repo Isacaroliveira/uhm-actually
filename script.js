@@ -1,2032 +1,2187 @@
-/* =========================================================
-   UHM, ACTUALLY...
-   SCRIPT.JS
-
-   90 desafios de inglês
-   3 desafios por dia
-   30 dias antes de completar o ciclo
-   ========================================================= */
-
-
-/* =========================================================
-   CONFIGURAÇÕES
-   ========================================================= */
-
-let idiomaAtual = null;
-let perguntaAtual = 0;
-
-/* =========================================================
-   BANCO DE PERGUNTAS
-   ========================================================= */
-
-const perguntas = {
-
-    /* =====================================================
-       ENGLISH LAB
-       90 DESAFIOS
-       ===================================================== */
-
-    ingles: [
-
-        /* 01 */
-        {
-            palavra: "actually",
-            categoria: "FALSO AMIGO",
-            pergunta: "O que “actually” significa?",
-            alternativas: [
-                "Atualmente",
-                "Na verdade",
-                "Antigamente",
-                "Eventualmente"
-            ],
-            correta: 1,
-            explicacao:
-                "Actually significa “na verdade”. Para dizer “atualmente”, podemos usar currently.",
-            exemplo:
-                "Actually, I don't drink coffee.",
-            traducao:
-                "Na verdade, eu não bebo café."
-        },
-
-
-        /* 02 */
-        {
-            palavra: "pretend",
-            categoria: "FALSO AMIGO",
-            pergunta: "Complete: The child ___ to be asleep.",
-            alternativas: [
-                "pretended",
-                "intended",
-                "expected",
-                "realized"
-            ],
-            correta: 0,
-            explicacao:
-                "Pretend significa fingir, não pretender.",
-            exemplo:
-                "She pretended not to hear me.",
-            traducao:
-                "Ela fingiu não me ouvir."
-        },
-
-
-        /* 03 */
-        {
-            palavra: "parents",
-            categoria: "NÃO CAIA NESSA",
-            pergunta: "Se alguém diz “my parents”, está falando de quem?",
-            alternativas: [
-                "Dos parentes",
-                "Dos pais",
-                "Dos primos",
-                "Dos avós"
-            ],
-            correta: 1,
-            explicacao:
-                "Parents são os pais. “Parentes” em geral são relatives.",
-            exemplo:
-                "My parents are visiting me.",
-            traducao:
-                "Meus pais estão me visitando."
-        },
-
-
-        /* 04 */
-        {
-            palavra: "library",
-            categoria: "SITUAÇÃO",
-            pergunta: "Você precisa pegar um livro emprestado. Para onde vai?",
-            alternativas: [
-                "Library",
-                "Bookstore",
-                "Bakery",
-                "Office"
-            ],
-            correta: 0,
-            explicacao:
-                "Library é biblioteca. Livraria é bookstore.",
-            exemplo:
-                "I borrowed this book from the library.",
-            traducao:
-                "Peguei este livro emprestado na biblioteca."
-        },
-
-
-        /* 05 */
-        {
-            palavra: "college",
-            categoria: "PEGADINHA",
-            pergunta: "Nos EUA, “I'm in college” normalmente quer dizer:",
-            alternativas: [
-                "Estou no colégio",
-                "Estou na faculdade",
-                "Estou no ensino fundamental",
-                "Estou fazendo um curso de idiomas"
-            ],
-            correta: 1,
-            explicacao:
-                "College normalmente se refere ao ensino superior, não ao colégio brasileiro.",
-            exemplo:
-                "She's starting college next year.",
-            traducao:
-                "Ela vai começar a faculdade no ano que vem."
-        },
-
-
-        /* 06 */
-        {
-            palavra: "lunch",
-            categoria: "VOCABULÁRIO",
-            pergunta: "It's noon. Let's have lunch! O que vamos fazer?",
-            alternativas: [
-                "Tomar café da manhã",
-                "Fazer um lanche",
-                "Almoçar",
-                "Jantar"
-            ],
-            correta: 2,
-            explicacao:
-                "Lunch é almoço. “Lanche” pode ser snack.",
-            exemplo:
-                "What did you have for lunch?",
-            traducao:
-                "O que você comeu no almoço?"
-        },
-
-
-        /* 07 */
-        {
-            palavra: "fabric",
-            categoria: "NA LOJA",
-            pergunta: "Você entra numa loja de “fabric”. O que provavelmente encontra?",
-            alternativas: [
-                "Máquinas industriais",
-                "Tecidos",
-                "Comida",
-                "Móveis"
-            ],
-            correta: 1,
-            explicacao:
-                "Fabric significa tecido. Fábrica é factory.",
-            exemplo:
-                "This fabric is very soft.",
-            traducao:
-                "Este tecido é muito macio."
-        },
-
-
-        /* 08 */
-        {
-            palavra: "costume",
-            categoria: "HALLOWEEN MODE 🎃",
-            pergunta: "What are you wearing for Halloween?",
-            alternativas: [
-                "A costume",
-                "A custom",
-                "A habit",
-                "A fantasy"
-            ],
-            correta: 0,
-            explicacao:
-                "Costume é fantasia ou traje. “Costume” no sentido de hábito é custom ou habit.",
-            exemplo:
-                "He wore a vampire costume.",
-            traducao:
-                "Ele usou uma fantasia de vampiro."
-        },
-
-
-        /* 09 */
-        {
-            palavra: "push",
-            categoria: "NA PORTA",
-            pergunta: "A placa diz PUSH. O que você faz?",
-            alternativas: [
-                "Puxa",
-                "Empurra",
-                "Pula",
-                "Espera"
-            ],
-            correta: 1,
-            explicacao:
-                "Push significa empurrar.",
-            exemplo:
-                "Push the door to open it.",
-            traducao:
-                "Empurre a porta para abri-la."
-        },
-
-
-        /* 10 */
-        {
-            palavra: "pull",
-            categoria: "NA PORTA",
-            pergunta: "Agora a placa diz PULL. O que você faz?",
-            alternativas: [
-                "Empurra",
-                "Pula",
-                "Puxa",
-                "Fecha"
-            ],
-            correta: 2,
-            explicacao:
-                "Pull significa puxar. O par clássico é push = empurrar e pull = puxar.",
-            exemplo:
-                "Pull the handle.",
-            traducao:
-                "Puxe a maçaneta."
-        },
-
-
-        /* 11 */
-        {
-            palavra: "sensible",
-            categoria: "QUEM É QUEM?",
-            pergunta: "A sensible person é uma pessoa...",
-            alternativas: [
-                "Sensível",
-                "Sensata",
-                "Sentimental",
-                "Tímida"
-            ],
-            correta: 1,
-            explicacao:
-                "Sensible significa sensato. Sensível é sensitive.",
-            exemplo:
-                "That sounds like a sensible decision.",
-            traducao:
-                "Isso parece uma decisão sensata."
-        },
-
-
-        /* 12 */
-        {
-            palavra: "sensitive",
-            categoria: "QUEM É QUEM?",
-            pergunta: "Qual palavra corresponde melhor a “sensível”?",
-            alternativas: [
-                "Sensible",
-                "Sensitive",
-                "Sensational",
-                "Sentimental"
-            ],
-            correta: 1,
-            explicacao:
-                "Sensitive é sensível. Sensible é sensato.",
-            exemplo:
-                "He's sensitive to criticism.",
-            traducao:
-                "Ele é sensível a críticas."
-        },
-
-
-        /* 13 */
-        {
-            palavra: "eventually",
-            categoria: "NO CONTEXTO",
-            pergunta: "“Eventually, she found a job.” O que aconteceu?",
-            alternativas: [
-                "Ela eventualmente encontrou trabalho",
-                "Ela finalmente encontrou trabalho",
-                "Ela talvez encontre trabalho",
-                "Ela encontrou trabalho imediatamente"
-            ],
-            correta: 1,
-            explicacao:
-                "Eventually significa finalmente, por fim ou com o tempo.",
-            exemplo:
-                "Eventually, everything worked out.",
-            traducao:
-                "No fim, tudo deu certo."
-        },
-
-
-        /* 14 */
-        {
-            palavra: "realize",
-            categoria: "COMPLETE A FRASE",
-            pergunta: "I suddenly ___ that I had forgotten my keys.",
-            alternativas: [
-                "realized",
-                "performed",
-                "produced",
-                "completed"
-            ],
-            correta: 0,
-            explicacao:
-                "Realize frequentemente significa perceber ou dar-se conta.",
-            exemplo:
-                "I didn't realize it was so late.",
-            traducao:
-                "Eu não percebi que estava tão tarde."
-        },
-
-
-        /* 15 */
-        {
-            palavra: "lecture",
-            categoria: "VIDA UNIVERSITÁRIA",
-            pergunta: "Your professor is giving a lecture. O que está acontecendo?",
-            alternativas: [
-                "Ele está fazendo uma leitura silenciosa",
-                "Ele está dando uma aula ou palestra",
-                "Ele está aplicando uma prova",
-                "Ele está lendo um romance"
-            ],
-            correta: 1,
-            explicacao:
-                "Lecture é uma palestra ou aula expositiva.",
-            exemplo:
-                "We attended a lecture on history.",
-            traducao:
-                "Assistimos a uma palestra sobre história."
-        },
-
-
-        /* 16 */
-        {
-            palavra: "novel",
-            categoria: "NA LIVRARIA",
-            pergunta: "Você compra um novel. O que comprou?",
-            alternativas: [
-                "Uma novela em vídeo",
-                "Um romance/livro de ficção",
-                "Um jornal",
-                "Uma revista"
-            ],
-            correta: 1,
-            explicacao:
-                "Novel é um romance literário. Novela de televisão é soap opera ou telenovela.",
-            exemplo:
-                "She's reading a mystery novel.",
-            traducao:
-                "Ela está lendo um romance de mistério."
-        },
-
-
-        /* 17 */
-        {
-            palavra: "exit",
-            categoria: "PLACA MISTERIOSA",
-            pergunta: "Você vê EXIT acima de uma porta. O que há ali?",
-            alternativas: [
-                "Sucesso",
-                "Entrada",
-                "Saída",
-                "Elevador"
-            ],
-            correta: 2,
-            explicacao:
-                "Exit significa saída. Não significa êxito.",
-            exemplo:
-                "Where is the emergency exit?",
-            traducao:
-                "Onde fica a saída de emergência?"
-        },
-
-
-        /* 18 */
-        {
-            palavra: "assist",
-            categoria: "VERBO TRAIÇOEIRO",
-            pergunta: "“Can you assist me?” significa:",
-            alternativas: [
-                "Você pode me assistir?",
-                "Você pode me ajudar?",
-                "Você pode me observar?",
-                "Você pode me acompanhar na TV?"
-            ],
-            correta: 1,
-            explicacao:
-                "Assist significa ajudar ou auxiliar. Assistir TV é watch TV.",
-            exemplo:
-                "A nurse assisted the doctor.",
-            traducao:
-                "Uma enfermeira auxiliou o médico."
-        },
-
-
-        /* 19 */
-        {
-            palavra: "injury",
-            categoria: "NO HOSPITAL",
-            pergunta: "An athlete has a knee injury. O que aconteceu?",
-            alternativas: [
-                "Ele sofreu uma injúria verbal",
-                "Ele sofreu uma lesão no joelho",
-                "Ele perdeu o jogo",
-                "Ele está com gripe"
-            ],
-            correta: 1,
-            explicacao:
-                "Injury significa ferimento ou lesão.",
-            exemplo:
-                "He returned after a knee injury.",
-            traducao:
-                "Ele voltou depois de uma lesão no joelho."
-        },
-
-
-        /* 20 */
-        {
-            palavra: "argument",
-            categoria: "DRAMA 👀",
-            pergunta: "“They had an argument last night.” O casal...",
-            alternativas: [
-                "Apresentou um argumento acadêmico",
-                "Teve uma discussão",
-                "Fez um acordo",
-                "Contou uma história"
-            ],
-            correta: 1,
-            explicacao:
-                "Argument pode significar argumento, mas também é muito usado para uma discussão ou briga verbal.",
-            exemplo:
-                "We had an argument about money.",
-            traducao:
-                "Nós tivemos uma discussão sobre dinheiro."
-        },
-
-
-        /* 21 */
-        {
-            palavra: "terrific",
-            categoria: "PLOT TWIST",
-            pergunta: "“The concert was terrific!” é um elogio ou uma crítica?",
-            alternativas: [
-                "Crítica: foi terrível",
-                "Elogio: foi fantástico",
-                "Nenhum dos dois",
-                "Significa que foi assustador"
-            ],
-            correta: 1,
-            explicacao:
-                "Terrific normalmente significa excelente, fantástico ou ótimo.",
-            exemplo:
-                "You did a terrific job!",
-            traducao:
-                "Você fez um trabalho fantástico!"
-        },
-
-
-        /* 22 */
-        {
-            palavra: "sympathy",
-            categoria: "SENTIMENTOS",
-            pergunta: "“I have a lot of sympathy for her.” transmite principalmente:",
-            alternativas: [
-                "Simpatia no sentido de achar alguém divertido",
-                "Compaixão e solidariedade",
-                "Paixão",
-                "Antipatia"
-            ],
-            correta: 1,
-            explicacao:
-                "Sympathy costuma expressar compaixão ou solidariedade.",
-            exemplo:
-                "I felt sympathy for the family.",
-            traducao:
-                "Senti compaixão pela família."
-        },
-
-
-        /* 23 */
-        {
-            palavra: "intend",
-            categoria: "INTENÇÕES",
-            pergunta: "“I intend to travel next year.” significa:",
-            alternativas: [
-                "Eu entendo viajar",
-                "Eu pretendo viajar",
-                "Eu preciso viajar",
-                "Eu evito viajar"
-            ],
-            correta: 1,
-            explicacao:
-                "Intend significa pretender ou ter a intenção de.",
-            exemplo:
-                "I intend to finish this today.",
-            traducao:
-                "Pretendo terminar isso hoje."
-        },
-
-
-        /* 24 */
-        {
-            palavra: "notice",
-            categoria: "VOCÊ PERCEBEU?",
-            pergunta: "“Did you notice her new haircut?” significa:",
-            alternativas: [
-                "Você noticiou o corte?",
-                "Você percebeu o corte novo dela?",
-                "Você cortou o cabelo dela?",
-                "Você aprovou o corte?"
-            ],
-            correta: 1,
-            explicacao:
-                "Como verbo, notice significa notar ou perceber.",
-            exemplo:
-                "I noticed something strange.",
-            traducao:
-                "Eu percebi algo estranho."
-        },
-
-
-        /* 25 */
-        {
-            palavra: "data",
-            categoria: "TECH ENGLISH",
-            pergunta: "A company collects customer data. Ela coleta...",
-            alternativas: [
-                "Datas do calendário",
-                "Dados dos clientes",
-                "Agendas",
-                "Aniversários"
-            ],
-            correta: 1,
-            explicacao:
-                "Data significa dados. Uma data do calendário é date.",
-            exemplo:
-                "We need more data.",
-            traducao:
-                "Precisamos de mais dados."
-        },
-
-
-        /* 26 */
-        {
-            palavra: "journal",
-            categoria: "LEITURA",
-            pergunta: "Em contexto acadêmico, journal costuma ser:",
-            alternativas: [
-                "Jornal diário de notícias",
-                "Periódico ou revista acadêmica",
-                "Programa de TV",
-                "Livro escolar"
-            ],
-            correta: 1,
-            explicacao:
-                "Journal pode ser diário pessoal ou periódico acadêmico, dependendo do contexto.",
-            exemplo:
-                "The study was published in a scientific journal.",
-            traducao:
-                "O estudo foi publicado em um periódico científico."
-        },
-
-
-        /* 27 */
-        {
-            palavra: "exquisite",
-            categoria: "RESTAURANTE CHIQUE",
-            pergunta: "“The food was exquisite.” O chef deveria ficar...",
-            alternativas: [
-                "Ofendido",
-                "Preocupado",
-                "Feliz",
-                "Confuso"
-            ],
-            correta: 2,
-            explicacao:
-                "Exquisite é um elogio: requintado, excelente, primoroso.",
-            exemplo:
-                "The restaurant serves exquisite desserts.",
-            traducao:
-                "O restaurante serve sobremesas requintadas."
-        },
-
-
-        /* 28 */
-        {
-            palavra: "comprehensive",
-            categoria: "QUALIDADE",
-            pergunta: "A comprehensive guide é um guia...",
-            alternativas: [
-                "Compreensivo emocionalmente",
-                "Abrangente e completo",
-                "Curto",
-                "Confuso"
-            ],
-            correta: 1,
-            explicacao:
-                "Comprehensive significa abrangente, completo ou amplo.",
-            exemplo:
-                "This is a comprehensive introduction.",
-            traducao:
-                "Esta é uma introdução abrangente."
-        },
-
-
-        /* 29 */
-        {
-            palavra: "support",
-            categoria: "ESCOLHA O SENTIDO",
-            pergunta: "“My family supports my decision.” significa:",
-            alternativas: [
-                "Minha família tolera minha decisão",
-                "Minha família apoia minha decisão",
-                "Minha família esqueceu minha decisão",
-                "Minha família impede minha decisão"
-            ],
-            correta: 1,
-            explicacao:
-                "Support normalmente significa apoiar, sustentar ou dar suporte.",
-            exemplo:
-                "Thank you for supporting me.",
-            traducao:
-                "Obrigado por me apoiar."
-        },
-
-
-        /* 30 */
-        {
-            palavra: "application",
-            categoria: "FACULDADE",
-            pergunta: "“I sent my university application yesterday.” O que foi enviado?",
-            alternativas: [
-                "Uma aplicação matemática",
-                "Uma candidatura/inscrição",
-                "Um aplicativo",
-                "Uma prova"
-            ],
-            correta: 1,
-            explicacao:
-                "Application pode ser inscrição ou candidatura, além de aplicação e aplicativo em outros contextos.",
-            exemplo:
-                "The application deadline is Friday.",
-            traducao:
-                "O prazo para a inscrição é sexta-feira."
-        },
-
-
-        /* 31 */
-        {
-            palavra: "resume",
-            categoria: "PROCURANDO EMPREGO",
-            pergunta: "Nos EUA, você envia seu résumé para uma empresa. O que é?",
-            alternativas: [
-                "Um resumo da reunião",
-                "Seu currículo",
-                "Uma carta de demissão",
-                "Seu diploma"
-            ],
-            correta: 1,
-            explicacao:
-                "Résumé, frequentemente escrito resume, significa currículo profissional.",
-            exemplo:
-                "Please send us your resume.",
-            traducao:
-                "Por favor, envie-nos seu currículo."
-        },
-
-
-        /* 32 */
-        {
-            palavra: "policy",
-            categoria: "EMPRESA",
-            pergunta: "“It's against company policy.” refere-se a...",
-            alternativas: [
-                "Um político da empresa",
-                "Uma regra ou política da empresa",
-                "Uma eleição",
-                "Um policial"
-            ],
-            correta: 1,
-            explicacao:
-                "Policy significa política no sentido de regra, diretriz ou princípio.",
-            exemplo:
-                "What's your return policy?",
-            traducao:
-                "Qual é a política de devolução de vocês?"
-        },
-
-
-        /* 33 */
-        {
-            palavra: "mayor",
-            categoria: "NA CIDADE",
-            pergunta: "Who is the mayor?",
-            alternativas: [
-                "Quem é o maior?",
-                "Quem é o prefeito?",
-                "Quem é o governador?",
-                "Quem é o vereador?"
-            ],
-            correta: 1,
-            explicacao:
-                "Mayor significa prefeito ou prefeita.",
-            exemplo:
-                "The mayor announced a new project.",
-            traducao:
-                "O prefeito anunciou um novo projeto."
-        },
-
-
-        /* 34 */
-        {
-            palavra: "mayor × major",
-            categoria: "UM R MUDA TUDO",
-            pergunta: "Qual palavra significa “principal/importante”?",
-            alternativas: [
-                "Mayor",
-                "Major",
-                "Mayority",
-                "Majory"
-            ],
-            correta: 1,
-            explicacao:
-                "Major pode significar principal ou importante. Mayor é prefeito.",
-            exemplo:
-                "This is a major problem.",
-            traducao:
-                "Este é um problema importante."
-        },
-
-
-        /* 35 */
-        {
-            palavra: "legend",
-            categoria: "STORY TIME",
-            pergunta: "Uma “legend” é normalmente...",
-            alternativas: [
-                "Uma legenda de filme",
-                "Uma lenda",
-                "Uma legenda de Instagram",
-                "Uma tradução"
-            ],
-            correta: 1,
-            explicacao:
-                "Legend significa lenda. Legenda de filme é subtitle; legenda de foto pode ser caption.",
-            exemplo:
-                "According to legend, the castle is haunted.",
-            traducao:
-                "Segundo a lenda, o castelo é assombrado."
-        },
-
-
-        /* 36 */
-        {
-            palavra: "caption",
-            categoria: "INSTAGRAM MODE",
-            pergunta: "“Write a caption for this photo.” O que você deve escrever?",
-            alternativas: [
-                "Uma legenda",
-                "Uma lenda",
-                "Uma tradução completa",
-                "Uma carta"
-            ],
-            correta: 0,
-            explicacao:
-                "Caption é a legenda ou texto associado a uma foto, imagem ou postagem.",
-            exemplo:
-                "I can't think of a good caption.",
-            traducao:
-                "Não consigo pensar em uma boa legenda."
-        },
-
-
-        /* 37 */
-        {
-            palavra: "subtitle",
-            categoria: "NETFLIX MODE",
-            pergunta: "Você quer assistir ao filme com legendas. Ativa...",
-            alternativas: [
-                "Legends",
-                "Captions only",
-                "Subtitles",
-                "Translations"
-            ],
-            correta: 2,
-            explicacao:
-                "Subtitles são legendas de filmes, séries e vídeos.",
-            exemplo:
-                "I watch French movies with subtitles.",
-            traducao:
-                "Eu assisto a filmes franceses com legendas."
-        },
-
-
-        /* 38 */
-        {
-            palavra: "pasta",
-            categoria: "NO RESTAURANTE 🍝",
-            pergunta: "Você pede pasta na Itália. O garçom traz...",
-            alternativas: [
-                "Uma pasta de documentos",
-                "Macarrão/massa",
-                "Pasta de dentes",
-                "Uma mochila"
-            ],
-            correta: 1,
-            explicacao:
-                "Pasta em inglês refere-se principalmente a massas alimentícias.",
-            exemplo:
-                "I ordered pasta with tomato sauce.",
-            traducao:
-                "Pedi massa com molho de tomate."
-        },
-
-
-        /* 39 */
-        {
-            palavra: "balcony",
-            categoria: "EM CASA",
-            pergunta: "“Let's sit on the balcony.” Para onde vamos?",
-            alternativas: [
-                "Para o balcão da cozinha",
-                "Para a varanda/sacada",
-                "Para o banheiro",
-                "Para o porão"
-            ],
-            correta: 1,
-            explicacao:
-                "Balcony significa varanda ou sacada. Balcão pode ser counter.",
-            exemplo:
-                "Our hotel room has a balcony.",
-            traducao:
-                "Nosso quarto de hotel tem uma varanda."
-        },
-
-
-        /* 40 */
-        {
-            palavra: "deception",
-            categoria: "PARECE, MAS NÃO É",
-            pergunta: "Deception significa...",
-            alternativas: [
-                "Decepção",
-                "Engano",
-                "Tristeza",
-                "Desistência"
-            ],
-            correta: 1,
-            explicacao:
-                "Deception significa engano ou fraude. Decepção costuma ser disappointment.",
-            exemplo:
-                "The plan relied on deception.",
-            traducao:
-                "O plano dependia de engano."
-        },
-
-
-        /* 41 */
-        {
-            palavra: "disappointed",
-            categoria: "SENTIMENTOS",
-            pergunta: "Qual é a melhor tradução de “I'm disappointed”?",
-            alternativas: [
-                "Estou enganado",
-                "Estou decepcionado",
-                "Estou desesperado",
-                "Estou distraído"
-            ],
-            correta: 1,
-            explicacao:
-                "Disappointed significa decepcionado.",
-            exemplo:
-                "I was disappointed with the result.",
-            traducao:
-                "Fiquei decepcionado com o resultado."
-        },
-
-
-        /* 42 */
-        {
-            palavra: "expert",
-            categoria: "QUEM É ESSA PESSOA?",
-            pergunta: "An expert in languages é...",
-            alternativas: [
-                "Uma pessoa esperta",
-                "Um especialista em idiomas",
-                "Um estudante iniciante",
-                "Um tradutor necessariamente"
-            ],
-            correta: 1,
-            explicacao:
-                "Expert significa especialista. Esperto pode ser smart ou clever.",
-            exemplo:
-                "She's an expert in linguistics.",
-            traducao:
-                "Ela é especialista em linguística."
-        },
-
-
-        /* 43 */
-        {
-            palavra: "educated",
-            categoria: "PERSONALIDADE?",
-            pergunta: "An educated person é principalmente alguém...",
-            alternativas: [
-                "Educado e gentil",
-                "Com boa formação/instrução",
-                "Silencioso",
-                "Elegante"
-            ],
-            correta: 1,
-            explicacao:
-                "Educated refere-se principalmente a alguém instruído ou com formação.",
-            exemplo:
-                "She is highly educated.",
-            traducao:
-                "Ela tem um alto nível de instrução."
-        },
-
-
-        /* 44 */
-        {
-            palavra: "polite",
-            categoria: "BOAS MANEIRAS",
-            pergunta: "Qual palavra significa “educado” no sentido de boas maneiras?",
-            alternativas: [
-                "Educated",
-                "Polite",
-                "Learned",
-                "Cultured"
-            ],
-            correta: 1,
-            explicacao:
-                "Polite é educado, cortês. Educated é instruído.",
-            exemplo:
-                "He was very polite to the waiter.",
-            traducao:
-                "Ele foi muito educado com o garçom."
-        },
-
-
-        /* 45 */
-        {
-            palavra: "particular",
-            categoria: "NO CONTEXTO",
-            pergunta: "“I'm not looking for anything in particular.” significa:",
-            alternativas: [
-                "Não estou procurando nada particular/privado",
-                "Não estou procurando nada específico",
-                "Não estou procurando nada caro",
-                "Não estou procurando nada estranho"
-            ],
-            correta: 1,
-            explicacao:
-                "In particular significa em particular ou especificamente.",
-            exemplo:
-                "Is there anything in particular you want?",
-            traducao:
-                "Há algo específico que você quer?"
-        },
-
-
-        /* 46 */
-        {
-            palavra: "preservative",
-            categoria: "NO SUPERMERCADO",
-            pergunta: "“This food contains no preservatives.” significa que não contém...",
-            alternativas: [
-                "Preservativos",
-                "Conservantes",
-                "Vitaminas",
-                "Açúcar"
-            ],
-            correta: 1,
-            explicacao:
-                "Preservative é conservante. Preservativo é condom.",
-            exemplo:
-                "This product contains artificial preservatives.",
-            traducao:
-                "Este produto contém conservantes artificiais."
-        },
-
-
-        /* 47 */
-        {
-            palavra: "condom",
-            categoria: "VOCABULÁRIO",
-            pergunta: "Qual palavra inglesa corresponde a “preservativo”?",
-            alternativas: [
-                "Preservative",
-                "Condom",
-                "Conservative",
-                "Protectioner"
-            ],
-            correta: 1,
-            explicacao:
-                "Condom significa preservativo. Preservative é conservante.",
-            exemplo:
-                "Condoms help reduce the risk of sexually transmitted infections.",
-            traducao:
-                "Preservativos ajudam a reduzir o risco de infecções sexualmente transmissíveis."
-        },
-
-
-        /* 48 */
-        {
-            palavra: "tax",
-            categoria: "DINHEIRO 💸",
-            pergunta: "“The price doesn't include tax.” O preço não inclui...",
-            alternativas: [
-                "Taxa de táxi",
-                "Imposto",
-                "Gorjeta",
-                "Desconto"
-            ],
-            correta: 1,
-            explicacao:
-                "Tax significa imposto.",
-            exemplo:
-                "How much do you pay in taxes?",
-            traducao:
-                "Quanto você paga em impostos?"
-        },
-
-
-        /* 49 */
-        {
-            palavra: "rate",
-            categoria: "NÚMEROS",
-            pergunta: "Em “interest rate”, rate significa...",
-            alternativas: [
-                "Rato",
-                "Taxa",
-                "Ritmo musical",
-                "Renda"
-            ],
-            correta: 1,
-            explicacao:
-                "Rate pode significar taxa, índice ou ritmo, dependendo do contexto.",
-            exemplo:
-                "The unemployment rate fell.",
-            traducao:
-                "A taxa de desemprego caiu."
-        },
-
-
-        /* 50 */
-        {
-            palavra: "estate",
-            categoria: "CASAS",
-            pergunta: "O que faz uma “real estate agent”?",
-            alternativas: [
-                "Trabalha para o Estado",
-                "Trabalha com imóveis",
-                "Trabalha com estatísticas",
-                "Trabalha em cartório"
-            ],
-            correta: 1,
-            explicacao:
-                "Real estate significa mercado imobiliário ou bens imóveis.",
-            exemplo:
-                "She works in real estate.",
-            traducao:
-                "Ela trabalha no mercado imobiliário."
-        },
-
-
-        /* 51 */
-        {
-            palavra: "commodity",
-            categoria: "ECONOMIA",
-            pergunta: "No inglês econômico, commodity é...",
-            alternativas: [
-                "Comodidade/conforto",
-                "Mercadoria ou matéria-prima negociável",
-                "Apartamento",
-                "Desconto"
-            ],
-            correta: 1,
-            explicacao:
-                "Commodity refere-se a mercadorias, especialmente matérias-primas comercializadas em grande escala.",
-            exemplo:
-                "Coffee is an important commodity.",
-            traducao:
-                "O café é uma commodity importante."
-        },
-
-
-        /* 52 */
-        {
-            palavra: "event",
-            categoria: "AGENDA",
-            pergunta: "“There's an event tonight.” significa:",
-            alternativas: [
-                "Há algo eventual esta noite",
-                "Há um evento esta noite",
-                "Talvez aconteça algo",
-                "Há uma emergência"
-            ],
-            correta: 1,
-            explicacao:
-                "Event significa evento ou acontecimento.",
-            exemplo:
-                "The event starts at eight.",
-            traducao:
-                "O evento começa às oito."
-        },
-
-
-        /* 53 */
-        {
-            palavra: "eventual",
-            categoria: "NÍVEL HARD",
-            pergunta: "Em inglês, “eventual success” é um sucesso...",
-            alternativas: [
-                "Ocasional",
-                "Que aconteceu finalmente/com o tempo",
-                "Improvável",
-                "Acidental"
-            ],
-            correta: 1,
-            explicacao:
-                "Eventual está ligado ao resultado final de um processo, não necessariamente a algo ocasional.",
-            exemplo:
-                "Their eventual victory surprised everyone.",
-            traducao:
-                "A vitória que eles finalmente alcançaram surpreendeu todos."
-        },
-
-
-        /* 54 */
-        {
-            palavra: "ordinary",
-            categoria: "DESCRIÇÃO",
-            pergunta: "“It was just an ordinary day.” foi um dia...",
-            alternativas: [
-                "Organizado",
-                "Comum",
-                "Extraordinário",
-                "Obrigatório"
-            ],
-            correta: 1,
-            explicacao:
-                "Ordinary significa comum, normal ou habitual.",
-            exemplo:
-                "There's nothing ordinary about her work.",
-            traducao:
-                "Não há nada de comum no trabalho dela."
-        },
-
-
-        /* 55 */
-        {
-            palavra: "lecture × reading",
-            categoria: "ESCOLHA CERTA",
-            pergunta: "Qual palavra você usa para “leitura”?",
-            alternativas: [
-                "Lecture",
-                "Reading",
-                "Lesson",
-                "Literature"
-            ],
-            correta: 1,
-            explicacao:
-                "Reading é leitura. Lecture é palestra ou aula expositiva.",
-            exemplo:
-                "Reading helps me relax.",
-            traducao:
-                "Ler me ajuda a relaxar."
-        },
-
-
-        /* 56 */
-        {
-            palavra: "record",
-            categoria: "PRONÚNCIA + SENTIDO",
-            pergunta: "“I recorded a video.” significa:",
-            alternativas: [
-                "Eu recordei/lembrei de um vídeo",
-                "Eu gravei um vídeo",
-                "Eu assisti a um vídeo",
-                "Eu apaguei um vídeo"
-            ],
-            correta: 1,
-            explicacao:
-                "To record significa gravar ou registrar.",
-            exemplo:
-                "Can you record the lesson?",
-            traducao:
-                "Você pode gravar a aula?"
-        },
-
-
-        /* 57 */
-        {
-            palavra: "remember",
-            categoria: "MEMÓRIA",
-            pergunta: "Qual verbo corresponde melhor a “lembrar-se”?",
-            alternativas: [
-                "Record",
-                "Remember",
-                "Remind",
-                "Recognize"
-            ],
-            correta: 1,
-            explicacao:
-                "Remember significa lembrar-se. Record normalmente é registrar ou gravar.",
-            exemplo:
-                "I remember meeting her.",
-            traducao:
-                "Eu me lembro de tê-la conhecido."
-        },
-
-
-        /* 58 */
-        {
-            palavra: "remind",
-            categoria: "MEMÓRIA 2.0",
-            pergunta: "“Remind me to call her.” significa:",
-            alternativas: [
-                "Lembre-se de ligar para ela",
-                "Me lembre de ligar para ela",
-                "Grave minha ligação",
-                "Avise a ela que eu liguei"
-            ],
-            correta: 1,
-            explicacao:
-                "Remind é fazer alguém se lembrar de alguma coisa.",
-            exemplo:
-                "Please remind me tomorrow.",
-            traducao:
-                "Por favor, me lembre amanhã."
-        },
-
-
-        /* 59 */
-        {
-            palavra: "appoint",
-            categoria: "TRABALHO",
-            pergunta: "“She was appointed director.” significa:",
-            alternativas: [
-                "Ela marcou uma consulta com o diretor",
-                "Ela foi nomeada diretora",
-                "Ela demitiu o diretor",
-                "Ela entrevistou o diretor"
-            ],
-            correta: 1,
-            explicacao:
-                "Appoint significa nomear ou designar alguém para um cargo.",
-            exemplo:
-                "They appointed a new manager.",
-            traducao:
-                "Eles nomearam um novo gerente."
-        },
-
-
-        /* 60 */
-        {
-            palavra: "appointment",
-            categoria: "AGENDA",
-            pergunta: "“I have a doctor's appointment.” significa:",
-            alternativas: [
-                "Tenho uma nomeação como médico",
-                "Tenho uma consulta médica",
-                "Tenho uma reunião escolar",
-                "Tenho uma emergência"
-            ],
-            correta: 1,
-            explicacao:
-                "Appointment é um compromisso marcado, inclusive consulta médica.",
-            exemplo:
-                "I have a dentist appointment at three.",
-            traducao:
-                "Tenho uma consulta com o dentista às três."
-        },
-
-
-        /* 61 */
-        {
-            palavra: "convict",
-            categoria: "TRIBUNAL",
-            pergunta: "“The jury convicted him.” significa:",
-            alternativas: [
-                "O júri o convenceu",
-                "O júri o condenou",
-                "O júri conversou com ele",
-                "O júri o absolveu"
-            ],
-            correta: 1,
-            explicacao:
-                "To convict significa declarar alguém culpado ou condenar judicialmente.",
-            exemplo:
-                "He was convicted of fraud.",
-            traducao:
-                "Ele foi condenado por fraude."
-        },
-
-
-        /* 62 */
-        {
-            palavra: "convince",
-            categoria: "NÃO CONFUNDA",
-            pergunta: "Qual verbo significa “convencer”?",
-            alternativas: [
-                "Convict",
-                "Convince",
-                "Convene",
-                "Confess"
-            ],
-            correta: 1,
-            explicacao:
-                "Convince significa convencer. Convict está relacionado a condenação criminal.",
-            exemplo:
-                "She convinced me to go.",
-            traducao:
-                "Ela me convenceu a ir."
-        },
-
-
-        /* 63 */
-        {
-            palavra: "comprehensive",
-            categoria: "NA ESCOLA",
-            pergunta: "“The exam requires a comprehensive understanding.” Você precisa de uma compreensão...",
-            alternativas: [
-                "Gentil",
-                "Abrangente",
-                "Pequena",
-                "Emocional"
-            ],
-            correta: 1,
-            explicacao:
-                "Comprehensive indica algo amplo e completo.",
-            exemplo:
-                "The book provides a comprehensive overview.",
-            traducao:
-                "O livro oferece uma visão geral abrangente."
-        },
-
-
-        /* 64 */
-        {
-            palavra: "compromise",
-            categoria: "NEGOCIAÇÃO",
-            pergunta: "“We need to reach a compromise.” significa:",
-            alternativas: [
-                "Precisamos assumir um compromisso",
-                "Precisamos chegar a um meio-termo",
-                "Precisamos cancelar tudo",
-                "Precisamos fazer uma promessa"
-            ],
-            correta: 1,
-            explicacao:
-                "A compromise é um acordo ou meio-termo em que as partes fazem concessões.",
-            exemplo:
-                "Both sides agreed to a compromise.",
-            traducao:
-                "Os dois lados concordaram com um meio-termo."
-        },
-
-
-        /* 65 */
-        {
-            palavra: "commitment",
-            categoria: "PROMESSAS",
-            pergunta: "Qual palavra expressa melhor “compromisso” no sentido de dedicação?",
-            alternativas: [
-                "Compromise",
-                "Commitment",
-                "Combination",
-                "Compliance"
-            ],
-            correta: 1,
-            explicacao:
-                "Commitment é compromisso, dedicação ou obrigação assumida.",
-            exemplo:
-                "Learning a language takes commitment.",
-            traducao:
-                "Aprender um idioma exige dedicação."
-        },
-
-
-        /* 66 */
-        {
-            palavra: "prejudice",
-            categoria: "SOCIEDADE",
-            pergunta: "Prejudice significa...",
-            alternativas: [
-                "Prejuízo financeiro",
-                "Preconceito",
-                "Benefício",
-                "Julgamento legal"
-            ],
-            correta: 1,
-            explicacao:
-                "Prejudice significa preconceito. Prejuízo financeiro pode ser loss ou damage.",
-            exemplo:
-                "We need to challenge prejudice.",
-            traducao:
-                "Precisamos combater o preconceito."
-        },
-
-
-        /* 67 */
-        {
-            palavra: "loss",
-            categoria: "DINHEIRO",
-            pergunta: "“The company reported a financial loss.” significa:",
-            alternativas: [
-                "A empresa relatou preconceito",
-                "A empresa relatou prejuízo financeiro",
-                "A empresa recebeu investimento",
-                "A empresa aumentou o lucro"
-            ],
-            correta: 1,
-            explicacao:
-                "Loss significa perda ou prejuízo.",
-            exemplo:
-                "The business suffered a major loss.",
-            traducao:
-                "A empresa sofreu um grande prejuízo."
-        },
-
-
-        /* 68 */
-        {
-            palavra: "intoxicated",
-            categoria: "PALAVRA TRAIÇOEIRA",
-            pergunta: "Em inglês cotidiano, “He was intoxicated” frequentemente quer dizer que ele estava...",
-            alternativas: [
-                "Com intoxicação alimentar necessariamente",
-                "Embriagado",
-                "Muito cansado",
-                "Com sono"
-            ],
-            correta: 1,
-            explicacao:
-                "Intoxicated pode indicar intoxicação, mas é muito usado para alguém sob efeito de álcool ou drogas.",
-            exemplo:
-                "The driver appeared intoxicated.",
-            traducao:
-                "O motorista parecia estar embriagado."
-        },
-
-
-        /* 69 */
-        {
-            palavra: "actually × currently",
-            categoria: "DUELO ⚔️",
-            pergunta: "Qual frase significa “Atualmente moro no Brasil”?",
-            alternativas: [
-                "Actually, I live in Brazil.",
-                "Currently, I live in Brazil.",
-                "Eventually, I live in Brazil.",
-                "Actually, I lived in Brazil."
-            ],
-            correta: 1,
-            explicacao:
-                "Currently significa atualmente. Actually significa na verdade.",
-            exemplo:
-                "I'm currently studying English.",
-            traducao:
-                "Atualmente estou estudando inglês."
-        },
-
-
-        /* 70 */
-        {
-            palavra: "pretend × intend",
-            categoria: "DUELO ⚔️",
-            pergunta: "Você quer dizer “Pretendo viajar”. Qual frase escolhe?",
-            alternativas: [
-                "I pretend to travel.",
-                "I intend to travel.",
-                "I pretend travelling.",
-                "I fake to travel."
-            ],
-            correta: 1,
-            explicacao:
-                "Intend = pretender. Pretend = fingir.",
-            exemplo:
-                "I intend to travel in December.",
-            traducao:
-                "Pretendo viajar em dezembro."
-        },
-
-
-        /* 71 */
-        {
-            palavra: "parents × relatives",
-            categoria: "DUELO ⚔️",
-            pergunta: "Como dizer “Meus parentes moram longe”?",
-            alternativas: [
-                "My parents live far away.",
-                "My relatives live far away.",
-                "My familiars live far away.",
-                "My parentals live far away."
-            ],
-            correta: 1,
-            explicacao:
-                "Relatives são parentes. Parents são especificamente pai e mãe/pais.",
-            exemplo:
-                "We're visiting relatives this weekend.",
-            traducao:
-                "Vamos visitar parentes neste fim de semana."
-        },
-
-
-        /* 72 */
-        {
-            palavra: "library × bookstore",
-            categoria: "DUELO ⚔️",
-            pergunta: "Você quer COMPRAR um livro. Qual lugar procura?",
-            alternativas: [
-                "Library",
-                "Bookstore",
-                "Bookhouse",
-                "Literary"
-            ],
-            correta: 1,
-            explicacao:
-                "Bookstore é livraria. Library é biblioteca.",
-            exemplo:
-                "There's a bookstore near my house.",
-            traducao:
-                "Há uma livraria perto da minha casa."
-        },
-
-
-        /* 73 */
-        {
-            palavra: "fabric × factory",
-            categoria: "DUELO ⚔️",
-            pergunta: "Qual palavra significa “fábrica”?",
-            alternativas: [
-                "Fabric",
-                "Factory",
-                "Fabrication",
-                "Factor"
-            ],
-            correta: 1,
-            explicacao:
-                "Factory é fábrica. Fabric é tecido.",
-            exemplo:
-                "My grandfather worked in a factory.",
-            traducao:
-                "Meu avô trabalhou em uma fábrica."
-        },
-
-
-        /* 74 */
-        {
-            palavra: "costume × custom",
-            categoria: "DUELO ⚔️",
-            pergunta: "Qual palavra pode significar um costume/tradição de uma sociedade?",
-            alternativas: [
-                "Costume",
-                "Custom",
-                "Clothing",
-                "Fantasy"
-            ],
-            correta: 1,
-            explicacao:
-                "Custom pode significar costume ou tradição. Costume normalmente é traje ou fantasia.",
-            exemplo:
-                "It's a local custom.",
-            traducao:
-                "É um costume local."
-        },
-
-
-        /* 75 */
-        {
-            palavra: "novel × soap opera",
-            categoria: "TV OU LIVRO?",
-            pergunta: "Como dizer “Minha avó está assistindo à novela”?",
-            alternativas: [
-                "My grandmother is watching a novel.",
-                "My grandmother is watching a soap opera.",
-                "My grandmother is reading a TV novel.",
-                "My grandmother is seeing a romance."
-            ],
-            correta: 1,
-            explicacao:
-                "Soap opera é usado para novelas televisivas. Novel é um romance literário.",
-            exemplo:
-                "She never misses her favorite soap opera.",
-            traducao:
-                "Ela nunca perde sua novela favorita."
-        },
-
-
-        /* 76 */
-        {
-            palavra: "support × tolerate",
-            categoria: "QUAL É A IDEIA?",
-            pergunta: "Você quer dizer “Eu não aguento esse barulho”. Qual opção é natural?",
-            alternativas: [
-                "I don't support this noise.",
-                "I can't stand this noise.",
-                "I don't sustain this noise.",
-                "I can't assist this noise."
-            ],
-            correta: 1,
-            explicacao:
-                "Support não é normalmente usado como “aguentar”. Can't stand é muito natural para “não aguentar”.",
-            exemplo:
-                "I can't stand this heat.",
-            traducao:
-                "Eu não aguento este calor."
-        },
-
-
-        /* 77 */
-        {
-            palavra: "legend × caption",
-            categoria: "SOCIAL MEDIA",
-            pergunta: "Você postou uma foto. Como chama o texto abaixo dela?",
-            alternativas: [
-                "Legend",
-                "Caption",
-                "Subtitle",
-                "Novel"
-            ],
-            correta: 1,
-            explicacao:
-                "Caption é a legenda de uma foto/post. Legend significa lenda.",
-            exemplo:
-                "Her caption made me laugh.",
-            traducao:
-                "A legenda dela me fez rir."
-        },
-
-
-        /* 78 */
-        {
-            palavra: "college × school",
-            categoria: "ESTUDOS",
-            pergunta: "Uma criança de 10 anos normalmente diz:",
-            alternativas: [
-                "I go to college.",
-                "I go to school.",
-                "I go to university.",
-                "I go to faculty."
-            ],
-            correta: 1,
-            explicacao:
-                "School é usado para escola. College está associado ao ensino superior.",
-            exemplo:
-                "The kids are at school.",
-            traducao:
-                "As crianças estão na escola."
-        },
-
-
-        /* 79 */
-        {
-            palavra: "faculty",
-            categoria: "UNIVERSIDADE",
-            pergunta: "Em inglês americano, “the faculty” de uma universidade frequentemente se refere...",
-            alternativas: [
-                "Ao prédio da faculdade",
-                "Ao corpo docente",
-                "Aos alunos",
-                "À cantina"
-            ],
-            correta: 1,
-            explicacao:
-                "Faculty frequentemente significa o conjunto de professores de uma instituição ou departamento.",
-            exemplo:
-                "She joined the university faculty.",
-            traducao:
-                "Ela passou a integrar o corpo docente da universidade."
-        },
-
-
-        /* 80 */
-        {
-            palavra: "graduation",
-            categoria: "FORMATURA 🎓",
-            pergunta: "“My graduation is next month.” significa:",
-            alternativas: [
-                "Minha graduação começa mês que vem",
-                "Minha formatura é mês que vem",
-                "Minha pós-graduação é mês que vem",
-                "Minha aula começa mês que vem"
-            ],
-            correta: 1,
-            explicacao:
-                "Graduation pode se referir à conclusão/formatura de um curso.",
-            exemplo:
-                "Her parents came to her graduation.",
-            traducao:
-                "Os pais dela vieram à formatura."
-        },
-
-
-        /* 81 */
-        {
-            palavra: "graduate",
-            categoria: "DEPOIS DA FACULDADE",
-            pergunta: "“I graduated last year.” significa:",
-            alternativas: [
-                "Comecei a graduação ano passado",
-                "Me formei ano passado",
-                "Abandonei a faculdade",
-                "Passei de ano"
-            ],
-            correta: 1,
-            explicacao:
-                "To graduate significa concluir um curso ou formar-se.",
-            exemplo:
-                "She graduated from university in 2025.",
-            traducao:
-                "Ela se formou na universidade em 2025."
-        },
-
-
-        /* 82 */
-        {
-            palavra: "eventually × occasionally",
-            categoria: "DUELO ⚔️",
-            pergunta: "Qual palavra significa “ocasionalmente”?",
-            alternativas: [
-                "Eventually",
-                "Occasionally",
-                "Actually",
-                "Finally"
-            ],
-            correta: 1,
-            explicacao:
-                "Occasionally = ocasionalmente. Eventually = finalmente/com o tempo.",
-            exemplo:
-                "I occasionally work from home.",
-            traducao:
-                "Ocasionalmente trabalho de casa."
-        },
-
-
-        /* 83 */
-        {
-            palavra: "actually",
-            categoria: "CORRIJA O ERRO",
-            pergunta: "Uma pessoa escreveu: “Actually I am studying French” querendo dizer “Atualmente estudo francês”. Qual é a correção?",
-            alternativas: [
-                "Eventually I am studying French.",
-                "Currently I am studying French.",
-                "Pretend I am studying French.",
-                "Actually está perfeito nesse sentido."
-            ],
-            correta: 1,
-            explicacao:
-                "Para “atualmente”, currently é a escolha adequada. Actually seria “na verdade”.",
-            exemplo:
-                "I'm currently learning French.",
-            traducao:
-                "Atualmente estou aprendendo francês."
-        },
-
-
-        /* 84 */
-        {
-            palavra: "pretend",
-            categoria: "CORRIJA O ERRO",
-            pergunta: "“I pretend to study abroad next year” queria dizer “Pretendo estudar fora”. Qual palavra deve entrar?",
-            alternativas: [
-                "fake",
-                "intend",
-                "suppose",
-                "simulate"
-            ],
-            correta: 1,
-            explicacao:
-                "Intend expressa intenção. Pretend significa fingir.",
-            exemplo:
-                "I intend to study abroad.",
-            traducao:
-                "Pretendo estudar no exterior."
-        },
-
-
-        /* 85 */
-        {
-            palavra: "parents",
-            categoria: "CORRIJA O ERRO",
-            pergunta: "“I have many parents in Brazil” queria dizer “Tenho muitos parentes no Brasil”. Troque parents por:",
-            alternativas: [
-                "parentals",
-                "relatives",
-                "families",
-                "familiar people"
-            ],
-            correta: 1,
-            explicacao:
-                "Relatives significa parentes. Parents significa pais.",
-            exemplo:
-                "Most of my relatives live in Brazil.",
-            traducao:
-                "A maioria dos meus parentes mora no Brasil."
-        },
-
-
-        /* 86 */
-        {
-            palavra: "library",
-            categoria: "CORRIJA O ERRO",
-            pergunta: "“I bought the book at the library.” Se a pessoa quer dizer “livraria”, qual palavra deve usar?",
-            alternativas: [
-                "Literature",
-                "Bookstore",
-                "Book library",
-                "Book office"
-            ],
-            correta: 1,
-            explicacao:
-                "Bookstore é livraria. Library é biblioteca.",
-            exemplo:
-                "I bought it at a bookstore.",
-            traducao:
-                "Eu comprei em uma livraria."
-        },
-
-
-        /* 87 */
-        {
-            palavra: "sensible",
-            categoria: "CORRIJA O ERRO",
-            pergunta: "“She's very sensible and cries easily.” Para dizer “sensível”, seria melhor usar:",
-            alternativas: [
-                "Sensible",
-                "Sensitive",
-                "Sensational",
-                "Emotionality"
-            ],
-            correta: 1,
-            explicacao:
-                "Sensitive significa sensível. Sensible significa sensato.",
-            exemplo:
-                "She's a very sensitive person.",
-            traducao:
-                "Ela é uma pessoa muito sensível."
-        },
-
-
-        /* 88 */
-        {
-            palavra: "exit",
-            categoria: "MISSÃO DE SOBREVIVÊNCIA",
-            pergunta: "Há fumaça no prédio e você precisa encontrar a saída. Qual placa procura?",
-            alternativas: [
-                "SUCCESS",
-                "EXIT",
-                "ENTRANCE",
-                "ESCAPE ROOM"
-            ],
-            correta: 1,
-            explicacao:
-                "Exit significa saída.",
-            exemplo:
-                "Follow the signs to the nearest exit.",
-            traducao:
-                "Siga as placas até a saída mais próxima."
-        },
-
-
-        /* 89 */
-        {
-            palavra: "push × pull",
-            categoria: "PORTA FINAL BOSS",
-            pergunta: "A porta diz PULL, mas você está empurrando. Por que ela não abre?",
-            alternativas: [
-                "Porque pull significa empurrar com força",
-                "Porque pull significa puxar",
-                "Porque pull significa esperar",
-                "Porque pull significa trancar"
-            ],
-            correta: 1,
-            explicacao:
-                "Pull = puxar. Push = empurrar. A humilde porta venceu novamente.",
-            exemplo:
-                "Pull the door, don't push it.",
-            traducao:
-                "Puxe a porta, não a empurre."
-        },
-
-
-        /* 90 */
-        {
-            palavra: "THE FINAL TRAP",
-            categoria: "BOSS FINAL ☝️🤓",
-            pergunta: "Qual frase está completamente correta?",
-            alternativas: [
-                "Actually, my parents are my relatives from Argentina.",
-                "I pretend to visit the library to buy a novel.",
-                "Currently, I intend to visit my relatives.",
-                "Eventually means eventualmente."
-            ],
-            correta: 2,
-            explicacao:
-                "Currently = atualmente, intend = pretender e relatives = parentes. Essa frase escapou de todas as armadilhas.",
-            exemplo:
-                "Currently, I intend to visit my relatives.",
-            traducao:
-                "Atualmente, pretendo visitar meus parentes."
-        }
-
+const bancos = {
+
+    ingles: [{
+    pergunta: "Você lê: “Actually, I don't like coffee.” O que “actually” significa?",
+    opcoes: [
+        "Atualmente",
+        "Na verdade",
+        "Eventualmente",
+        "Finalmente"
     ],
+    correta: 1,
+    explicacao: "Actually significa “na verdade” ou “na realidade”. Para “atualmente”, usamos currently."
+},
+{
+    pergunta: "Qual frase significa “Atualmente, eu trabalho de casa”?",
+    opcoes: [
+        "Actually, I work from home.",
+        "Eventually, I work from home.",
+        "Currently, I work from home.",
+        "Finally, I work from home."
+    ],
+    correta: 2,
+    explicacao: "Currently significa “atualmente”. Actually é o famoso falso cognato e significa “na verdade”."
+},
+{
+    pergunta: "“Eventually, she found a new job.” significa:",
+    opcoes: [
+        "Eventualmente, ela encontrou um novo emprego.",
+        "Por fim, ela encontrou um novo emprego.",
+        "Atualmente, ela encontrou um novo emprego.",
+        "Possivelmente, ela encontrou um novo emprego."
+    ],
+    correta: 1,
+    explicacao: "Eventually geralmente significa “por fim”, “finalmente” ou “com o tempo”, e não “eventualmente”."
+},
+{
+    pergunta: "Você quer dizer “Talvez eu viaje no fim de semana”. Qual opção funciona melhor?",
+    opcoes: [
+        "Eventually, I'll travel this weekend.",
+        "Maybe I'll travel this weekend.",
+        "Actually, I'll travel this weekend.",
+        "Finally, I'll travel this weekend."
+    ],
+    correta: 1,
+    explicacao: "Maybe significa “talvez”. Eventually indica que algo acontece por fim ou depois de algum tempo."
+},
+{
+    pergunta: "“I intend to study abroad next year.” O verbo “intend” significa:",
+    opcoes: [
+        "Entender",
+        "Tentar",
+        "Pretender / ter a intenção de",
+        "Atender"
+    ],
+    correta: 2,
+    explicacao: "To intend significa “pretender” ou “ter a intenção de”. “Entender” é to understand."
+},
+{
+    pergunta: "Como dizer “Eu não entendi a pergunta”?",
+    opcoes: [
+        "I didn't intend the question.",
+        "I didn't understand the question.",
+        "I didn't attend the question.",
+        "I didn't pretend the question."
+    ],
+    correta: 1,
+    explicacao: "Understand significa “entender”. Intend significa “pretender/ter a intenção de”."
+},
+{
+    pergunta: "“She pretended to be asleep.” significa:",
+    opcoes: [
+        "Ela pretendia dormir.",
+        "Ela fingiu estar dormindo.",
+        "Ela tentou dormir.",
+        "Ela preferiu dormir."
+    ],
+    correta: 1,
+    explicacao: "To pretend significa “fingir”. Para “pretender fazer algo”, normalmente usamos intend ou plan."
+},
+{
+    pergunta: "Qual frase significa “Pretendo aprender inglês este ano”?",
+    opcoes: [
+        "I pretend to learn English this year.",
+        "I intend to learn English this year.",
+        "I pretend English this year.",
+        "I attend English this year."
+    ],
+    correta: 1,
+    explicacao: "Em inglês, intend to significa “pretender fazer algo”. Pretend significa “fingir”."
+},
+{
+    pergunta: "“My parents are very supportive.” significa que os pais são:",
+    opcoes: [
+        "Muito suportáveis",
+        "Muito rígidos",
+        "Muito solidários e dão apoio",
+        "Muito silenciosos"
+    ],
+    correta: 2,
+    explicacao: "Supportive descreve alguém que apoia, incentiva ou ajuda outra pessoa."
+},
+{
+    pergunta: "Qual verbo é mais natural em “Não aguento mais esse barulho”?",
+    opcoes: [
+        "support",
+        "pretend",
+        "stand",
+        "attend"
+    ],
+    correta: 2,
+    explicacao: "I can't stand this noise significa “não aguento esse barulho”. Support normalmente significa apoiar ou dar suporte."
+},
 
+{
+    pergunta: "“I attended the meeting yesterday.” significa:",
+    opcoes: [
+        "Eu atendi a reunião ontem.",
+        "Eu participei/compareci à reunião ontem.",
+        "Eu organizei a reunião ontem.",
+        "Eu cancelei a reunião ontem."
+    ],
+    correta: 1,
+    explicacao: "To attend significa comparecer ou participar de um evento, aula, reunião etc."
+},
+{
+    pergunta: "Você trabalha em uma loja e quer dizer “Vou atender o cliente”. Qual opção é adequada?",
+    opcoes: [
+        "I'll attend the customer.",
+        "I'll help the customer.",
+        "I'll pretend the customer.",
+        "I'll assist to the customer."
+    ],
+    correta: 1,
+    explicacao: "Attend não significa simplesmente “atender alguém”. Em uma loja, help the customer é uma opção natural."
+},
+{
+    pergunta: "“She assisted me with the project.” significa:",
+    opcoes: [
+        "Ela assistiu ao meu projeto.",
+        "Ela me ajudou com o projeto.",
+        "Ela abandonou o projeto.",
+        "Ela apresentou o projeto."
+    ],
+    correta: 1,
+    explicacao: "To assist significa “ajudar” ou “auxiliar”. Para assistir a um filme, usamos watch."
+},
+{
+    pergunta: "Como dizer “Nós assistimos a um filme ontem”?",
+    opcoes: [
+        "We assisted a movie yesterday.",
+        "We attended a movie yesterday.",
+        "We watched a movie yesterday.",
+        "We supported a movie yesterday."
+    ],
+    correta: 2,
+    explicacao: "Watch é usado para assistir a filmes, séries, TV etc. Assist significa ajudar."
+},
+{
+    pergunta: "“The library closes at 8 p.m.” Onde essa pessoa está?",
+    opcoes: [
+        "Em uma livraria",
+        "Em uma biblioteca",
+        "Em um laboratório",
+        "Em uma papelaria"
+    ],
+    correta: 1,
+    explicacao: "Library significa “biblioteca”. “Livraria” em inglês é bookstore ou bookshop."
+},
+{
+    pergunta: "Você quer comprar um livro. Para onde provavelmente vai?",
+    opcoes: [
+        "Library",
+        "Bookstore",
+        "Lecture",
+        "College"
+    ],
+    correta: 1,
+    explicacao: "Bookstore é “livraria”. Library é “biblioteca”."
+},
+{
+    pergunta: "“The professor gave a lecture on history.” Nesse contexto, “lecture” é:",
+    opcoes: [
+        "Uma leitura silenciosa",
+        "Uma palestra/aula expositiva",
+        "Uma livraria",
+        "Uma prova"
+    ],
+    correta: 1,
+    explicacao: "Lecture é uma palestra ou aula expositiva. “Leitura” é reading."
+},
+{
+    pergunta: "Como dizer “A leitura desse livro foi difícil”?",
+    opcoes: [
+        "The lecture of this book was difficult.",
+        "The reading of this book was difficult.",
+        "The library of this book was difficult.",
+        "The lesson of this book was difficult."
+    ],
+    correta: 1,
+    explicacao: "Reading corresponde a “leitura”. Lecture é palestra ou aula expositiva."
+},
+{
+    pergunta: "“I go to college in Boston.” Nesse contexto, “college” normalmente se refere a:",
+    opcoes: [
+        "Ensino superior/faculdade",
+        "Ensino fundamental",
+        "Uma escola infantil",
+        "Um curso de idiomas necessariamente"
+    ],
+    correta: 0,
+    explicacao: "No inglês americano, college normalmente está relacionado ao ensino superior, não ao nosso “colégio”."
+},
+{
+    pergunta: "Qual palavra corresponde melhor a “colégio/escola” de forma geral?",
+    opcoes: [
+        "College",
+        "School",
+        "Library",
+        "Lecture"
+    ],
+    correta: 1,
+    explicacao: "School é a palavra geral para escola. College, especialmente nos EUA, costuma indicar ensino superior."
+},
 
-    /* =====================================================
-       FRANCÊS
-       Mantemos o banco atual por enquanto.
-       Depois podemos transformar em outro banco de 90.
-       ===================================================== */
+{
+    pergunta: "“The fabric is very soft.” A palavra “fabric” significa:",
+    opcoes: [
+        "Fábrica",
+        "Tecido",
+        "Fabricação",
+        "Ferramenta"
+    ],
+    correta: 1,
+    explicacao: "Fabric significa “tecido”. “Fábrica” é factory."
+},
+{
+    pergunta: "Como dizer “Meu pai trabalha em uma fábrica”?",
+    opcoes: [
+        "My father works in a fabric.",
+        "My father works in a factory.",
+        "My father works in a costume.",
+        "My father works in a cafeteria."
+    ],
+    correta: 1,
+    explicacao: "Factory significa “fábrica”. Fabric é “tecido”."
+},
+{
+    pergunta: "“She wore a pirate costume to the party.” O que ela usou?",
+    opcoes: [
+        "Um costume/hábito de pirata",
+        "Uma fantasia de pirata",
+        "Um terno de pirata",
+        "Um uniforme escolar"
+    ],
+    correta: 1,
+    explicacao: "Costume em inglês normalmente significa “fantasia” ou traje característico."
+},
+{
+    pergunta: "Qual palavra significa “costume” no sentido de hábito ou tradição?",
+    opcoes: [
+        "Costume",
+        "Custom",
+        "Customer",
+        "Clothes"
+    ],
+    correta: 1,
+    explicacao: "Custom significa costume, hábito ou tradição. Costume normalmente é fantasia/traje."
+},
+{
+    pergunta: "“The customer asked for the manager.” Quem pediu para falar com o gerente?",
+    opcoes: [
+        "O costume",
+        "O cliente",
+        "O funcionário",
+        "O estilista"
+    ],
+    correta: 1,
+    explicacao: "Customer significa “cliente”. Não confunda com custom, que pode significar costume/tradição."
+},
+{
+    pergunta: "“This is a comprehensive guide.” significa que o guia é:",
+    opcoes: [
+        "Compreensivo e paciente",
+        "Abrangente/completo",
+        "Confuso",
+        "Curto"
+    ],
+    correta: 1,
+    explicacao: "Comprehensive significa “abrangente”, “completo”. Uma pessoa compreensiva pode ser understanding."
+},
+{
+    pergunta: "Como dizer “Ela foi muito compreensiva comigo”?",
+    opcoes: [
+        "She was very comprehensive with me.",
+        "She was very understanding with me.",
+        "She was very eventual with me.",
+        "She was very sensible with me."
+    ],
+    correta: 1,
+    explicacao: "Understanding pode descrever alguém compreensivo. Comprehensive significa abrangente."
+},
+{
+    pergunta: "“Be sensible and take an umbrella.” Nesse contexto, “sensible” significa:",
+    opcoes: [
+        "Sensível",
+        "Sensato",
+        "Sentimental",
+        "Sociável"
+    ],
+    correta: 1,
+    explicacao: "Sensible significa “sensato”, “prudente”. Sensitive significa “sensível”."
+},
+{
+    pergunta: "Qual frase significa “Minha pele é muito sensível”?",
+    opcoes: [
+        "My skin is very sensible.",
+        "My skin is very sensitive.",
+        "My skin is very comprehensive.",
+        "My skin is very sympathetic."
+    ],
+    correta: 1,
+    explicacao: "Sensitive significa “sensível”. Sensible significa “sensato”."
+},
+{
+    pergunta: "“He is a very sympathetic character.” Dependendo do contexto, “sympathetic” transmite a ideia de alguém:",
+    opcoes: [
+        "Necessariamente engraçado",
+        "Solidário/compreensivo ou que desperta simpatia",
+        "Sempre antipático",
+        "Muito sensato"
+    ],
+    correta: 1,
+    explicacao: "Sympathetic está ligado a demonstrar compreensão, solidariedade ou despertar simpatia. Não equivale automaticamente ao nosso “simpático”."
+},
 
-    frances: [
+{
+    pergunta: "Qual palavra costuma ser mais natural para dizer que alguém é “simpático” e amigável?",
+    opcoes: [
+        "Sympathetic",
+        "Friendly",
+        "Pretended",
+        "Sensible"
+    ],
+    correta: 1,
+    explicacao: "Friendly é uma opção comum para “simpático/amigável”. Sympathetic tem outros sentidos."
+},
+{
+    pergunta: "“I realized I had forgotten my keys.” significa:",
+    opcoes: [
+        "Eu realizei que tinha esquecido minhas chaves.",
+        "Eu percebi que tinha esquecido minhas chaves.",
+        "Eu desejei esquecer minhas chaves.",
+        "Eu consegui esquecer minhas chaves."
+    ],
+    correta: 1,
+    explicacao: "To realize frequentemente significa “perceber”, “dar-se conta”."
+},
+{
+    pergunta: "Como dizer “Ela realizou o sonho de viajar pelo mundo” de forma natural?",
+    opcoes: [
+        "She realized the dream to travel the world.",
+        "She achieved her dream of traveling the world.",
+        "She perceived her dream of traveling the world.",
+        "She attended her dream of traveling the world."
+    ],
+    correta: 1,
+    explicacao: "Achieve a dream é uma forma natural de dizer “realizar/conquistar um sonho”. Realize também pode ter esse sentido em alguns contextos, mas não deve ser usado automaticamente como tradução de “realizar”."
+},
+{
+    pergunta: "“The company has several policies.” A palavra “policy” significa:",
+    opcoes: [
+        "Polícia",
+        "Política/diretriz",
+        "Policial",
+        "Político"
+    ],
+    correta: 1,
+    explicacao: "Policy é política no sentido de regra, diretriz ou princípio adotado por uma organização."
+},
+{
+    pergunta: "Qual palavra significa “polícia”?",
+    opcoes: [
+        "Policy",
+        "Politics",
+        "Police",
+        "Politician"
+    ],
+    correta: 2,
+    explicacao: "Police significa “polícia”. Policy significa política/diretriz."
+},
+{
+    pergunta: "“Politics can be a controversial topic.” A palavra “politics” refere-se a:",
+    opcoes: [
+        "Polícia",
+        "Política como atividade/assunto",
+        "Uma regra empresarial",
+        "Um policial"
+    ],
+    correta: 1,
+    explicacao: "Politics é política enquanto área, atividade ou assunto. Policy é uma política/diretriz específica."
+},
+{
+    pergunta: "“She works as an editor.” O que ela faz?",
+    opcoes: [
+        "É editora/profissional de edição",
+        "É escritora necessariamente",
+        "É dona de uma editora necessariamente",
+        "É professora"
+    ],
+    correta: 0,
+    explicacao: "Editor é a pessoa que edita conteúdo. Dependendo do contexto, “editora” como empresa é publishing company/publisher."
+},
+{
+    pergunta: "“The publisher released the book last month.” Quem lançou o livro?",
+    opcoes: [
+        "A biblioteca",
+        "A editora/publicadora",
+        "A escola",
+        "A leitora"
+    ],
+    correta: 1,
+    explicacao: "Publisher pode ser a editora ou a entidade responsável pela publicação."
+},
+{
+    pergunta: "“The data is stored in the cloud.” O que “data” significa aqui?",
+    opcoes: [
+        "Data do calendário",
+        "Dados/informações",
+        "Dia",
+        "Agenda"
+    ],
+    correta: 1,
+    explicacao: "Data significa “dados”. Para data do calendário, usamos date."
+},
+{
+    pergunta: "Como perguntar “Qual é a data da reunião?”",
+    opcoes: [
+        "What is the data of the meeting?",
+        "What is the date of the meeting?",
+        "What is the diary of the meeting?",
+        "What is the agenda date?"
+    ],
+    correta: 1,
+    explicacao: "Date é “data” no calendário. Data significa “dados”."
+},
 
-        {
-            palavra: "poser un lapin",
-            categoria: "EXPRESSION CURIEUSE",
-            pergunta:
-                "O que essa expressão significa?",
-            alternativas: [
-                "Comprar um coelho",
-                "Dar bolo em alguém",
-                "Estar com medo",
-                "Contar uma mentira"
-            ],
-            correta: 1,
-            explicacao:
-                "Poser un lapin significa não aparecer a um encontro combinado.",
-            exemplo:
-                "Il m'a posé un lapin.",
-            traducao:
-                "Ele me deu um bolo."
-        },
+{
+    pergunta: "“I keep a diary.” significa:",
+    opcoes: [
+        "Eu mantenho um diário.",
+        "Eu tenho uma agenda de compromissos necessariamente.",
+        "Eu trabalho diariamente.",
+        "Eu tenho um dicionário."
+    ],
+    correta: 0,
+    explicacao: "Diary pode significar diário pessoal. Em alguns usos britânicos também pode ser agenda, mas não corresponde automaticamente ao português “diário” em todos os contextos."
+},
+{
+    pergunta: "“Let's discuss the agenda for today's meeting.” O que “agenda” significa aqui?",
+    opcoes: [
+        "Um caderno onde anoto compromissos",
+        "A pauta da reunião",
+        "Um diário pessoal",
+        "Um calendário"
+    ],
+    correta: 1,
+    explicacao: "Agenda em inglês frequentemente significa “pauta”, lista de assuntos ou objetivos de uma reunião."
+},
+{
+    pergunta: "Você quer dizer “Anotei o compromisso na minha agenda”. Qual opção é natural?",
+    opcoes: [
+        "I wrote the appointment on the meeting agenda.",
+        "I put the appointment in my planner.",
+        "I put the appointment in my lecture.",
+        "I wrote the appointment in my fabric."
+    ],
+    correta: 1,
+    explicacao: "Planner é uma opção comum para a agenda usada para organizar compromissos."
+},
+{
+    pergunta: "“The mayor announced a new project.” Quem fez o anúncio?",
+    opcoes: [
+        "O maior",
+        "O prefeito",
+        "O gerente",
+        "O policial"
+    ],
+    correta: 1,
+    explicacao: "Mayor significa “prefeito”. “Maior” pode ser bigger, larger, greatest etc., dependendo do contexto."
+},
+{
+    pergunta: "“This is a major problem.” A palavra “major” significa:",
+    opcoes: [
+        "Prefeito",
+        "Maior/importante/principal",
+        "Menor",
+        "Municipal"
+    ],
+    correta: 1,
+    explicacao: "Major pode significar grande, importante ou principal, dependendo do contexto. Mayor é prefeito."
+},
+{
+    pergunta: "“Push the door.” O que você deve fazer?",
+    opcoes: [
+        "Puxar a porta",
+        "Empurrar a porta",
+        "Fechar a porta",
+        "Trancar a porta"
+    ],
+    correta: 1,
+    explicacao: "Push significa “empurrar”. Pull significa “puxar”."
+},
+{
+    pergunta: "A placa diz “PULL”. O que você faz?",
+    opcoes: [
+        "Empurra",
+        "Puxa",
+        "Espera",
+        "Gira"
+    ],
+    correta: 1,
+    explicacao: "Pull significa “puxar”. É o oposto de push."
+},
+{
+    pergunta: "“I need to borrow your pen.” significa:",
+    opcoes: [
+        "Preciso emprestar minha caneta para você.",
+        "Preciso pegar sua caneta emprestada.",
+        "Preciso comprar sua caneta.",
+        "Preciso devolver sua caneta."
+    ],
+    correta: 1,
+    explicacao: "Borrow é pegar algo emprestado. Lend é emprestar algo para outra pessoa."
+},
+{
+    pergunta: "Como dizer “Posso te emprestar meu livro”?",
+    opcoes: [
+        "I can borrow you my book.",
+        "I can lend you my book.",
+        "I can pretend you my book.",
+        "I can attend you my book."
+    ],
+    correta: 1,
+    explicacao: "Lend significa dar algo emprestado. Borrow significa pegar emprestado."
+},
+{
+    pergunta: "“Can I borrow your charger?” A pessoa quer:",
+    opcoes: [
+        "Emprestar o carregador dela para você",
+        "Pegar seu carregador emprestado",
+        "Comprar seu carregador",
+        "Consertar seu carregador"
+    ],
+    correta: 1,
+    explicacao: "Borrow = pegar emprestado. Pense na direção: a coisa vem para quem está pedindo."
+},
 
-        {
-            palavra: "avoir le cafard",
-            categoria: "EXPRESSION CURIEUSE",
-            pergunta:
-                "O que essa expressão significa?",
-            alternativas: [
-                "Ter uma barata",
-                "Estar animado",
-                "Estar triste",
-                "Estar cansado"
-            ],
-            correta: 2,
-            explicacao:
-                "Avoir le cafard é uma maneira informal de dizer que alguém está triste ou para baixo.",
-            exemplo:
-                "J'ai le cafard aujourd'hui.",
-            traducao:
-                "Estou meio para baixo hoje."
-        },
+{
+    pergunta: "“Please lend me your charger.” significa:",
+    opcoes: [
+        "Por favor, pegue meu carregador emprestado.",
+        "Por favor, me empreste seu carregador.",
+        "Por favor, venda seu carregador.",
+        "Por favor, carregue meu celular."
+    ],
+    correta: 1,
+    explicacao: "Lend = emprestar para alguém. Lend me your charger = me empreste seu carregador."
+},
+{
+    pergunta: "“I'm looking for a job.” significa:",
+    opcoes: [
+        "Estou olhando para um trabalho.",
+        "Estou procurando emprego.",
+        "Estou trabalhando agora.",
+        "Estou deixando meu emprego."
+    ],
+    correta: 1,
+    explicacao: "Look for significa “procurar”. Look at significa “olhar para”."
+},
+{
+    pergunta: "Qual frase significa “Olhe para esta foto”?",
+    opcoes: [
+        "Look for this photo.",
+        "Look at this photo.",
+        "Look after this photo.",
+        "Look like this photo."
+    ],
+    correta: 1,
+    explicacao: "Look at = olhar para. Look for = procurar."
+},
+{
+    pergunta: "“She looks like her mother.” significa:",
+    opcoes: [
+        "Ela procura a mãe.",
+        "Ela olha para a mãe.",
+        "Ela se parece com a mãe.",
+        "Ela cuida da mãe."
+    ],
+    correta: 2,
+    explicacao: "Look like significa “parecer-se com” alguém ou algo."
+},
+{
+    pergunta: "“Can you look after my cat?” significa:",
+    opcoes: [
+        "Você pode procurar meu gato?",
+        "Você pode olhar fixamente para meu gato?",
+        "Você pode cuidar do meu gato?",
+        "Você pode desenhar meu gato?"
+    ],
+    correta: 2,
+    explicacao: "Look after significa “cuidar de”. Look for seria procurar."
+},
+{
+    pergunta: "“I missed the bus.” significa:",
+    opcoes: [
+        "Eu senti saudade do ônibus.",
+        "Eu perdi o ônibus.",
+        "Eu encontrei o ônibus.",
+        "Eu dirigi o ônibus."
+    ],
+    correta: 1,
+    explicacao: "Miss pode significar perder uma oportunidade, transporte, aula etc. Também pode significar sentir falta, dependendo do contexto."
+},
+{
+    pergunta: "“I miss my family.” significa:",
+    opcoes: [
+        "Eu perdi minha família.",
+        "Eu sinto falta da minha família.",
+        "Eu encontrei minha família.",
+        "Eu evito minha família."
+    ],
+    correta: 1,
+    explicacao: "Com pessoas, I miss... frequentemente significa “sinto falta/saudade de...”."
+},
+{
+    pergunta: "Qual frase significa “Perdi minhas chaves”?",
+    opcoes: [
+        "I missed my keys.",
+        "I lost my keys.",
+        "I lacked my keys.",
+        "I failed my keys."
+    ],
+    correta: 1,
+    explicacao: "Lose é usado para perder um objeto. Miss não substitui “perder” em todos os contextos."
+},
+{
+    pergunta: "“She passed the exam.” significa:",
+    opcoes: [
+        "Ela passou pela prova fisicamente.",
+        "Ela foi aprovada na prova.",
+        "Ela perdeu a prova.",
+        "Ela entregou a prova."
+    ],
+    correta: 1,
+    explicacao: "Pass an exam significa ser aprovado em uma prova."
+},
+{
+    pergunta: "“He failed the test.” significa:",
+    opcoes: [
+        "Ele faltou à prova.",
+        "Ele foi reprovado/não passou na prova.",
+        "Ele terminou a prova cedo.",
+        "Ele corrigiu a prova."
+    ],
+    correta: 1,
+    explicacao: "Fail a test significa não passar ou ser reprovado."
+},
 
-        {
-            palavra: "beaucoup",
-            categoria: "VOCABULAIRE",
-            pergunta:
-                "O que beaucoup significa?",
-            alternativas: [
-                "Pouco",
-                "Muito",
-                "Sempre",
-                "Talvez"
-            ],
-            correta: 1,
-            explicacao:
-                "Beaucoup significa muito ou muitos e expressa quantidade ou intensidade.",
-            exemplo:
-                "J'aime beaucoup ce film.",
-            traducao:
-                "Eu gosto muito desse filme."
-        }
+{
+    pergunta: "“I'm embarrassed.” significa:",
+    opcoes: [
+        "Estou embaraçada fisicamente.",
+        "Estou com vergonha/constrangida.",
+        "Estou grávida.",
+        "Estou brava."
+    ],
+    correta: 1,
+    explicacao: "Embarrassed significa “envergonhado” ou “constrangido”."
+},
+{
+    pergunta: "“That was an embarrassing situation.” A situação foi:",
+    opcoes: [
+        "Embaraçada com fios",
+        "Constrangedora",
+        "Emocionante",
+        "Perigosa"
+    ],
+    correta: 1,
+    explicacao: "Embarrassing significa “constrangedor”, aquilo que causa vergonha."
+},
+{
+    pergunta: "“She is pregnant.” significa:",
+    opcoes: [
+        "Ela está constrangida.",
+        "Ela está preparada.",
+        "Ela está grávida.",
+        "Ela está preocupada."
+    ],
+    correta: 2,
+    explicacao: "Pregnant significa “grávida”. Embarrassed significa “constrangida/envergonhada”."
+},
+{
+    pergunta: "“He has a strong accent.” significa que ele tem:",
+    opcoes: [
+        "Um acento gráfico forte",
+        "Um sotaque forte",
+        "Uma voz necessariamente alta",
+        "Uma gramática ruim"
+    ],
+    correta: 1,
+    explicacao: "Accent pode significar “sotaque”. O acento gráfico de uma palavra pode ser chamado de accent mark."
+},
+{
+    pergunta: "“This word has an accent mark.” significa que a palavra tem:",
+    opcoes: [
+        "Um sotaque",
+        "Uma marca de acentuação",
+        "Uma pronúncia britânica",
+        "Uma tradução"
+    ],
+    correta: 1,
+    explicacao: "Accent mark refere-se ao sinal gráfico. Accent sozinho também pode se referir ao sotaque."
+},
+{
+    pergunta: "“She gave me some advice.” significa:",
+    opcoes: [
+        "Ela me deu um aviso.",
+        "Ela me deu um conselho.",
+        "Ela me deu uma propaganda.",
+        "Ela me deu uma notícia."
+    ],
+    correta: 1,
+    explicacao: "Advice significa “conselho”. Para aviso/advertência, dependendo do contexto, podemos usar warning ou notice."
+},
+{
+    pergunta: "Qual frase significa “Ele me avisou sobre o problema”?",
+    opcoes: [
+        "He advised me the problem.",
+        "He warned me about the problem.",
+        "He noticed me the problem.",
+        "He pretended me the problem."
+    ],
+    correta: 1,
+    explicacao: "Warn someone about something significa avisar/alertar alguém sobre algo."
+},
+{
+    pergunta: "“I noticed a mistake in the document.” significa:",
+    opcoes: [
+        "Eu noticiei um erro.",
+        "Eu percebi/notei um erro.",
+        "Eu avisei um erro.",
+        "Eu corrigi necessariamente o erro."
+    ],
+    correta: 1,
+    explicacao: "Notice como verbo pode significar “notar” ou “perceber”."
+},
+{
+    pergunta: "“Did you notice anything strange?” significa:",
+    opcoes: [
+        "Você noticiou algo estranho?",
+        "Você percebeu/notou algo estranho?",
+        "Você avisou algo estranho?",
+        "Você escreveu algo estranho?"
+    ],
+    correta: 1,
+    explicacao: "To notice = notar/perceber. “Noticiar” costuma exigir outras construções, como report."
+},
+{
+    pergunta: "“The news was surprising.” A palavra “news” significa:",
+    opcoes: [
+        "Novos",
+        "Notícia/notícias",
+        "Novidade como adjetivo",
+        "Jornal físico necessariamente"
+    ],
+    correta: 1,
+    explicacao: "News significa notícia/notícias. Apesar de terminar em -s, normalmente é tratado como substantivo incontável singular em inglês."
+},
 
-    ]
+{
+    pergunta: "Qual frase está correta?",
+    opcoes: [
+        "The news are good.",
+        "The news is good.",
+        "The news be good.",
+        "The news were a good."
+    ],
+    correta: 1,
+    explicacao: "News normalmente recebe verbo no singular: The news is good."
+},
+{
+    pergunta: "“I read an article about climate change.” A palavra “article” significa:",
+    opcoes: [
+        "Artigo",
+        "Artista",
+        "Arte",
+        "Artesanato"
+    ],
+    correta: 0,
+    explicacao: "Article pode significar “artigo”, inclusive um texto publicado. O contexto determina outros sentidos possíveis."
+},
+{
+    pergunta: "“The application deadline is Friday.” Nesse contexto, “application” é:",
+    opcoes: [
+        "Um aplicativo de celular",
+        "Uma inscrição/candidatura",
+        "Uma aplicação financeira necessariamente",
+        "Uma explicação"
+    ],
+    correta: 1,
+    explicacao: "Application pode significar inscrição ou candidatura. App é a forma comum para aplicativo de celular."
+},
+{
+    pergunta: "Você está se candidatando a uma universidade. “Submit your application” significa:",
+    opcoes: [
+        "Baixe seu aplicativo.",
+        "Envie sua candidatura/inscrição.",
+        "Apague sua inscrição.",
+        "Aplique uma regra."
+    ],
+    correta: 1,
+    explicacao: "Nesse contexto, application é a candidatura ou inscrição."
+},
+{
+    pergunta: "“I downloaded a new app.” O que foi baixado?",
+    opcoes: [
+        "Uma inscrição",
+        "Um aplicativo",
+        "Uma candidatura",
+        "Uma aplicação de prova"
+    ],
+    correta: 1,
+    explicacao: "App é abreviação comum de application no sentido de aplicativo de software."
+},
+{
+    pergunta: "“The medicine had no effect.” significa:",
+    opcoes: [
+        "O remédio não teve efeito.",
+        "O remédio não teve defeito.",
+        "O remédio não foi eficaz necessariamente porque estava vencido.",
+        "O remédio não foi fabricado."
+    ],
+    correta: 0,
+    explicacao: "Effect significa “efeito”. Não confunda effect com defect, que significa defeito."
+},
+{
+    pergunta: "“The product has a defect.” significa:",
+    opcoes: [
+        "O produto tem um efeito.",
+        "O produto tem um defeito.",
+        "O produto é eficiente.",
+        "O produto foi devolvido necessariamente."
+    ],
+    correta: 1,
+    explicacao: "Defect significa “defeito”. Effect significa “efeito”."
+},
+{
+    pergunta: "“The medicine affected my sleep.” O verbo “affected” significa:",
+    opcoes: [
+        "Efetuou",
+        "Afetou/influenciou",
+        "Defeituou",
+        "Evitou"
+    ],
+    correta: 1,
+    explicacao: "Affect costuma ser verbo e significa afetar/influenciar. Effect é frequentemente substantivo: efeito."
+},
+{
+    pergunta: "Complete: “The new rule had a big ___ on students.”",
+    opcoes: [
+        "affect",
+        "effect",
+        "defect",
+        "event"
+    ],
+    correta: 1,
+    explicacao: "Have an effect on = ter um efeito sobre. Aqui precisamos do substantivo effect."
+},
+{
+    pergunta: "“The event starts at 7.” significa:",
+    opcoes: [
+        "O eventual começa às 7.",
+        "O evento começa às 7.",
+        "O efeito começa às 7.",
+        "A reunião terminou às 7."
+    ],
+    correta: 1,
+    explicacao: "Event significa evento ou acontecimento. Não confunda com eventually, que significa por fim/com o tempo."
+},
+
+{
+    pergunta: "“He is an expert in digital marketing.” significa:",
+    opcoes: [
+        "Ele é esperto em marketing digital.",
+        "Ele é especialista em marketing digital.",
+        "Ele é experiente necessariamente em qualquer área.",
+        "Ele é professor de marketing."
+    ],
+    correta: 1,
+    explicacao: "Expert significa “especialista”. “Esperto” pode ser smart, clever etc., dependendo do contexto."
+},
+{
+    pergunta: "Qual palavra corresponde melhor a “esperto/inteligente”?",
+    opcoes: [
+        "Expert",
+        "Smart",
+        "Eventually",
+        "Large"
+    ],
+    correta: 1,
+    explicacao: "Smart pode significar esperto/inteligente. Expert é especialista."
+},
+{
+    pergunta: "“It's a large apartment.” significa:",
+    opcoes: [
+        "É um apartamento largo.",
+        "É um apartamento grande/espaçoso.",
+        "É um apartamento comprido.",
+        "É um apartamento luxuoso necessariamente."
+    ],
+    correta: 1,
+    explicacao: "Large significa grande. “Largo” em português normalmente exige outras palavras em inglês, como wide."
+},
+{
+    pergunta: "Como dizer “A rua é muito larga”?",
+    opcoes: [
+        "The street is very large.",
+        "The street is very wide.",
+        "The street is very long.",
+        "The street is very broaded."
+    ],
+    correta: 1,
+    explicacao: "Wide significa “largo” quando falamos de largura. Large significa grande."
+},
+{
+    pergunta: "“The table is two meters long.” Aqui, “long” indica:",
+    opcoes: [
+        "Largura",
+        "Comprimento",
+        "Altura",
+        "Peso"
+    ],
+    correta: 1,
+    explicacao: "Long está relacionado ao comprimento. Wide está relacionado à largura."
+},
+{
+    pergunta: "“The door is one meter wide.” significa que a porta tem:",
+    opcoes: [
+        "Um metro de largura",
+        "Um metro de altura",
+        "Um metro de comprimento vertical",
+        "Um metro de profundidade"
+    ],
+    correta: 0,
+    explicacao: "Wide descreve largura. One meter wide = um metro de largura."
+},
+{
+    pergunta: "“I need to charge my phone.” O verbo “charge” significa aqui:",
+    opcoes: [
+        "Cobrar dinheiro",
+        "Carregar a bateria",
+        "Acusar alguém",
+        "Todas as opções são sentidos possíveis, mas aqui é carregar a bateria"
+    ],
+    correta: 3,
+    explicacao: "Charge tem vários sentidos. No contexto de phone, significa carregar a bateria."
+},
+{
+    pergunta: "“They charged me $20.” significa:",
+    opcoes: [
+        "Eles carregaram minha bateria com 20 dólares.",
+        "Eles me cobraram 20 dólares.",
+        "Eles me emprestaram 20 dólares.",
+        "Eles perderam 20 dólares."
+    ],
+    correta: 1,
+    explicacao: "Charge someone an amount significa cobrar determinada quantia de alguém."
+},
+{
+    pergunta: "“I'm saving money for a trip.” significa:",
+    opcoes: [
+        "Estou salvando dinheiro de um perigo.",
+        "Estou economizando/guardando dinheiro para uma viagem.",
+        "Estou gastando dinheiro em uma viagem.",
+        "Estou pedindo dinheiro para viajar."
+    ],
+    correta: 1,
+    explicacao: "Save money significa economizar ou guardar dinheiro."
+},
+{
+    pergunta: "“Save the document before closing it.” significa:",
+    opcoes: [
+        "Economize o documento.",
+        "Salve o documento.",
+        "Imprima o documento.",
+        "Compartilhe o documento."
+    ],
+    correta: 1,
+    explicacao: "Em contexto digital, save significa salvar um arquivo ou documento."
+},
+
+{
+    pergunta: "“She graduated from university last year.” significa:",
+    opcoes: [
+        "Ela começou a universidade no ano passado.",
+        "Ela se formou na universidade no ano passado.",
+        "Ela mudou de universidade.",
+        "Ela deu aula na universidade."
+    ],
+    correta: 1,
+    explicacao: "Graduate from university significa formar-se/concluir a universidade."
+},
+{
+    pergunta: "“He has a degree in biology.” Nesse contexto, “degree” significa:",
+    opcoes: [
+        "Grau de temperatura",
+        "Diploma/título acadêmico",
+        "Degrau",
+        "Nota de prova"
+    ],
+    correta: 1,
+    explicacao: "Degree pode significar formação/título acadêmico. Também pode indicar graus de temperatura ou ângulo em outros contextos."
+},
+{
+    pergunta: "“It's 30 degrees outside.” Aqui, “degrees” significa:",
+    opcoes: [
+        "Diplomas",
+        "Graus de temperatura",
+        "Níveis escolares",
+        "Degraus"
+    ],
+    correta: 1,
+    explicacao: "Degree muda de sentido conforme o contexto. Com temperatura, significa “grau”."
+},
+{
+    pergunta: "“She received a scholarship.” significa:",
+    opcoes: [
+        "Ela recebeu uma bolsa de estudos.",
+        "Ela recebeu uma mochila escolar.",
+        "Ela recebeu um salário.",
+        "Ela recebeu um diploma."
+    ],
+    correta: 0,
+    explicacao: "Scholarship significa bolsa de estudos/auxílio acadêmico, não uma bolsa física."
+},
+{
+    pergunta: "Você quer dizer “Comprei uma bolsa nova”. Qual opção pode funcionar para uma bolsa de mão?",
+    opcoes: [
+        "I bought a new scholarship.",
+        "I bought a new handbag.",
+        "I bought a new college.",
+        "I bought a new lecture."
+    ],
+    correta: 1,
+    explicacao: "Handbag é bolsa de mão. Scholarship é bolsa de estudos."
+},
+{
+    pergunta: "“The chef prepared dinner.” Quem preparou o jantar?",
+    opcoes: [
+        "O chefe da empresa",
+        "O cozinheiro/chef",
+        "O cliente",
+        "O garçom"
+    ],
+    correta: 1,
+    explicacao: "Chef é cozinheiro profissional/chef de cozinha. “Chefe” em ambiente de trabalho costuma ser boss ou manager."
+},
+{
+    pergunta: "Como dizer “Meu chefe está em uma reunião”?",
+    opcoes: [
+        "My chef is in a meeting.",
+        "My boss is in a meeting.",
+        "My cooker is in a meeting.",
+        "My customer is in a meeting."
+    ],
+    correta: 1,
+    explicacao: "Boss significa chefe. Chef é profissional de cozinha."
+},
+{
+    pergunta: "“The waiter brought the menu.” Quem trouxe o cardápio?",
+    opcoes: [
+        "O cozinheiro",
+        "O garçom",
+        "O cliente",
+        "O chefe da empresa"
+    ],
+    correta: 1,
+    explicacao: "Waiter significa garçom. Waitress ainda existe para garçonete, embora server seja uma alternativa comum e neutra."
+},
+{
+    pergunta: "“Please wait here.” O verbo “wait” significa:",
+    opcoes: [
+        "Servir",
+        "Esperar",
+        "Pesar",
+        "Atender"
+    ],
+    correta: 1,
+    explicacao: "Wait significa esperar. Apesar de waiter ser “garçom”, o verbo wait não significa “servir”."
+},
+{
+    pergunta: "Você completou as 90 perguntas! Qual é a tradução correta de “Actually, learning false friends can be fun”?",
+    opcoes: [
+        "Atualmente, aprender falsos cognatos pode ser divertido.",
+        "Na verdade, aprender falsos cognatos pode ser divertido.",
+        "Eventualmente, aprender falsos cognatos pode ser divertido.",
+        "Finalmente, aprender falsos cognatos foi divertido."
+    ],
+    correta: 1,
+    explicacao: "Actually = “na verdade”. E agora essa pegadinha já perdeu os dentes. 🐱✨"
+}
+],
+    frances: [{
+    pergunta: "Você lê: « J'attends le bus. » O que « attendre » significa?",
+    opcoes: [
+        "Atender",
+        "Esperar",
+        "Entender",
+        "Entrar"
+    ],
+    correta: 1,
+    explicacao: "Attendre significa “esperar”. Para “atender” alguém, o francês usa outras construções, como s'occuper de quelqu'un, servir ou répondre, dependendo do contexto."
+},
+{
+    pergunta: "Como dizer « Estou esperando minha amiga »?",
+    opcoes: [
+        "J'attends mon amie.",
+        "J'entends mon amie.",
+        "J'attire mon amie.",
+        "J'assiste mon amie."
+    ],
+    correta: 0,
+    explicacao: "Attendre = esperar. « J'attends mon amie » significa “Estou esperando minha amiga”."
+},
+{
+    pergunta: "« J'entends un bruit. » significa:",
+    opcoes: [
+        "Eu entendo um barulho.",
+        "Eu espero um barulho.",
+        "Eu ouço um barulho.",
+        "Eu atendo um barulho."
+    ],
+    correta: 2,
+    explicacao: "Entendre significa “ouvir”. Apesar da semelhança, não significa “entender”."
+},
+{
+    pergunta: "Qual verbo significa « entender/compreender » em francês?",
+    opcoes: [
+        "Entendre",
+        "Attendre",
+        "Comprendre",
+        "Prétendre"
+    ],
+    correta: 2,
+    explicacao: "Comprendre significa “entender/compreender”. Entendre significa “ouvir”."
+},
+{
+    pergunta: "« Je comprends la question. » significa:",
+    opcoes: [
+        "Eu compro a questão.",
+        "Eu compreendo a questão.",
+        "Eu escuto a questão.",
+        "Eu respondo à questão."
+    ],
+    correta: 1,
+    explicacao: "Comprendre significa compreender ou entender."
+},
+{
+    pergunta: "« Pourtant, il a accepté. » O que « pourtant » significa?",
+    opcoes: [
+        "Portanto",
+        "Porém / no entanto",
+        "Por enquanto",
+        "Por isso"
+    ],
+    correta: 1,
+    explicacao: "Pourtant significa “porém”, “contudo” ou “no entanto”. É uma pegadinha clássica para quem fala português."
+},
+{
+    pergunta: "Qual opção completa melhor: « Il était fatigué. ___, il a continué. »",
+    opcoes: [
+        "Pourtant",
+        "Donc",
+        "Parce que",
+        "Depuis"
+    ],
+    correta: 0,
+    explicacao: "Pourtant introduz contraste: “Ele estava cansado. Mesmo assim/no entanto, continuou.”"
+},
+{
+    pergunta: "Você quer dizer « portanto ». Qual palavra francesa funciona nesse contexto?",
+    opcoes: [
+        "Pourtant",
+        "Donc",
+        "Attendre",
+        "Hasard"
+    ],
+    correta: 1,
+    explicacao: "Donc pode significar “portanto”, “então”. Pourtant significa “porém/no entanto”."
+},
+{
+    pergunta: "« Elle prétend connaître la vérité. » O verbo « prétendre » significa aqui:",
+    opcoes: [
+        "Pretender fazer algo",
+        "Afirmar / alegar",
+        "Fingir",
+        "Perguntar"
+    ],
+    correta: 1,
+    explicacao: "Prétendre pode significar “afirmar”, “alegar” ou “sustentar que algo é verdade”. Não corresponde automaticamente ao português “pretender”."
+},
+{
+    pergunta: "Como dizer « Pretendo viajar no próximo ano » de forma natural?",
+    opcoes: [
+        "Je prétends voyager l'année prochaine.",
+        "J'ai l'intention de voyager l'année prochaine.",
+        "J'attends voyager l'année prochaine.",
+        "J'entends voyager l'année prochaine."
+    ],
+    correta: 1,
+    explicacao: "Avoir l'intention de é uma maneira natural de expressar “pretender/ter a intenção de”."
+},
+
+{
+    pergunta: "« Finalement, nous sommes restés à la maison. » significa:",
+    opcoes: [
+        "Finalmente, depois de uma longa espera necessariamente",
+        "No fim das contas, ficamos em casa.",
+        "Finalizamos nossa casa.",
+        "Ficamos temporariamente em casa."
+    ],
+    correta: 1,
+    explicacao: "Finalement muitas vezes significa “no fim das contas”, “por fim”. O sentido depende do contexto."
+},
+{
+    pergunta: "« Éventuellement, nous pouvons changer la date. » Aqui, « éventuellement » significa:",
+    opcoes: [
+        "Eventualmente, de vez em quando",
+        "Possivelmente / se for necessário",
+        "Finalmente",
+        "Imediatamente"
+    ],
+    correta: 1,
+    explicacao: "Éventuellement costuma expressar possibilidade: “possivelmente”, “talvez”, “se for o caso”."
+},
+{
+    pergunta: "Qual frase transmite a ideia de « Podemos, talvez, sair mais cedo »?",
+    opcoes: [
+        "On peut éventuellement partir plus tôt.",
+        "On peut actuellement partir plus tôt.",
+        "On peut pourtant partir plus tôt.",
+        "On peut depuis partir plus tôt."
+    ],
+    correta: 0,
+    explicacao: "Éventuellement pode indicar uma possibilidade, equivalente a “talvez/possivelmente”, conforme o contexto."
+},
+{
+    pergunta: "« Actuellement, j'habite à Lyon. » significa:",
+    opcoes: [
+        "Na verdade, moro em Lyon.",
+        "Atualmente, moro em Lyon.",
+        "Eventualmente, moro em Lyon.",
+        "Antigamente, morava em Lyon."
+    ],
+    correta: 1,
+    explicacao: "Actuellement significa “atualmente”. Aqui francês e português realmente combinam."
+},
+{
+    pergunta: "« En fait, je préfère le thé. » significa:",
+    opcoes: [
+        "Atualmente, prefiro chá.",
+        "Na verdade, prefiro chá.",
+        "Finalmente, prefiro chá.",
+        "Talvez eu prefira chá."
+    ],
+    correta: 1,
+    explicacao: "En fait é muito usado com o sentido de “na verdade”, “na realidade”."
+},
+{
+    pergunta: "« Il a embrassé sa mère. » significa:",
+    opcoes: [
+        "Ele embaraçou a mãe.",
+        "Ele abraçou necessariamente a mãe.",
+        "Ele beijou a mãe.",
+        "Ele encontrou a mãe."
+    ],
+    correta: 2,
+    explicacao: "Embrasser significa “beijar”. A semelhança com “embaraçar” é uma armadilha."
+},
+{
+    pergunta: "Qual verbo francês significa « abraçar »?",
+    opcoes: [
+        "Embrasser",
+        "Serrer dans ses bras",
+        "Embarrasser",
+        "Attendre"
+    ],
+    correta: 1,
+    explicacao: "Serrer quelqu'un dans ses bras significa literalmente apertar alguém nos braços, isto é, abraçar."
+},
+{
+    pergunta: "« Cette question m'embarrasse. » significa:",
+    opcoes: [
+        "Essa questão me abraça.",
+        "Essa questão me deixa constrangido / me causa dificuldade.",
+        "Essa questão me beija.",
+        "Essa questão me interessa."
+    ],
+    correta: 1,
+    explicacao: "Embarrasser pode significar constranger, incomodar ou colocar alguém em dificuldade."
+},
+{
+    pergunta: "« Je suis embarrassé. » significa:",
+    opcoes: [
+        "Estou abraçado.",
+        "Estou constrangido / sem jeito.",
+        "Estou irritado.",
+        "Estou apaixonado."
+    ],
+    correta: 1,
+    explicacao: "Être embarrassé significa estar constrangido, sem jeito ou em uma situação embaraçosa."
+},
+{
+    pergunta: "« Elle porte une robe rouge. » O que ela está usando?",
+    opcoes: [
+        "Uma roupa vermelha qualquer",
+        "Um vestido vermelho",
+        "Um roupão vermelho",
+        "Uma saia vermelha"
+    ],
+    correta: 1,
+    explicacao: "Robe em francês significa “vestido”. Para roupa de forma geral, usamos vêtement."
+},
+
+{
+    pergunta: "Qual palavra francesa significa « roupa/peça de roupa » de forma geral?",
+    opcoes: [
+        "Robe",
+        "Vêtement",
+        "Costume",
+        "Livre"
+    ],
+    correta: 1,
+    explicacao: "Vêtement significa peça de roupa. Robe significa vestido."
+},
+{
+    pergunta: "« Il porte un costume noir. » O que ele provavelmente está usando?",
+    opcoes: [
+        "Uma fantasia preta",
+        "Um terno preto",
+        "Um costume cultural necessariamente",
+        "Uma camiseta preta"
+    ],
+    correta: 1,
+    explicacao: "Costume em francês pode significar “terno”, especialmente um conjunto masculino formal."
+},
+{
+    pergunta: "« J'ai acheté un livre. » O que foi comprado?",
+    opcoes: [
+        "Algo livre",
+        "Um livro",
+        "Uma libra",
+        "Uma livraria"
+    ],
+    correta: 1,
+    explicacao: "Livre, como substantivo masculino, significa “livro”."
+},
+{
+    pergunta: "Como dizer « Eu sou livre » em francês?",
+    opcoes: [
+        "Je suis livre.",
+        "Je suis libre.",
+        "Je suis libraire.",
+        "Je suis liberté."
+    ],
+    correta: 1,
+    explicacao: "Libre, com B, significa “livre”. Livre, com V, significa “livro” quando é substantivo."
+},
+{
+    pergunta: "« Elle travaille dans une librairie. » Onde ela trabalha?",
+    opcoes: [
+        "Em uma biblioteca",
+        "Em uma livraria",
+        "Em uma gráfica",
+        "Em uma escola"
+    ],
+    correta: 1,
+    explicacao: "Librairie significa “livraria”. Biblioteca em francês é bibliothèque."
+},
+{
+    pergunta: "Como dizer « biblioteca » em francês?",
+    opcoes: [
+        "Librairie",
+        "Bibliothèque",
+        "Liberté",
+        "Libraire"
+    ],
+    correta: 1,
+    explicacao: "Bibliothèque significa biblioteca. Librairie é livraria."
+},
+{
+    pergunta: "« Le libraire m'a recommandé ce roman. » Quem recomendou o romance?",
+    opcoes: [
+        "O bibliotecário",
+        "O livreiro",
+        "O escritor",
+        "O professor"
+    ],
+    correta: 1,
+    explicacao: "Libraire é livreiro/livreira, a pessoa que trabalha ou administra uma livraria."
+},
+{
+    pergunta: "« La salle est au premier étage. » O que « étage » significa?",
+    opcoes: [
+        "Estágio",
+        "Andar de um edifício",
+        "Estado",
+        "Estante"
+    ],
+    correta: 1,
+    explicacao: "Étage significa “andar/piso” de um edifício. Estágio profissional é stage."
+},
+{
+    pergunta: "« Je fais un stage dans une entreprise. » significa:",
+    opcoes: [
+        "Estou fazendo um andar em uma empresa.",
+        "Estou fazendo um estágio em uma empresa.",
+        "Estou montando um palco na empresa.",
+        "Estou estudando o estado da empresa."
+    ],
+    correta: 1,
+    explicacao: "Stage pode significar estágio, treinamento ou período de formação prática."
+},
+{
+    pergunta: "Você está procurando o terceiro andar. Qual palavra deve procurar nas placas?",
+    opcoes: [
+        "Stage",
+        "Étage",
+        "État",
+        "Salle"
+    ],
+    correta: 1,
+    explicacao: "Étage = andar de edifício. Stage = estágio/treinamento."
+},
+
+{
+    pergunta: "« La salle est fermée. » O que « salle » significa?",
+    opcoes: [
+        "Sala",
+        "Salgada",
+        "Suja",
+        "Saída"
+    ],
+    correta: 0,
+    explicacao: "Salle significa “sala”. Não confunda com sale, com apenas um L."
+},
+{
+    pergunta: "« La cuisine est sale. » significa:",
+    opcoes: [
+        "A cozinha é uma sala.",
+        "A cozinha está suja.",
+        "A cozinha está salgada.",
+        "A cozinha está vazia."
+    ],
+    correta: 1,
+    explicacao: "Sale significa “sujo/suja”. Salle, com dois L, significa sala."
+},
+{
+    pergunta: "Qual opção significa « uma sala limpa »?",
+    opcoes: [
+        "Une sale propre",
+        "Une salle propre",
+        "Une salle salée",
+        "Une sale salle"
+    ],
+    correta: 1,
+    explicacao: "Salle = sala. Propre = limpo neste contexto. Sale = sujo."
+},
+{
+    pergunta: "« J'ai mal à l'épaule. » Onde a pessoa sente dor?",
+    opcoes: [
+        "Na coluna",
+        "No ombro",
+        "Na cabeça",
+        "No pescoço"
+    ],
+    correta: 1,
+    explicacao: "Épaule significa “ombro”."
+},
+{
+    pergunta: "« Nous nous reposons à l'ombre. » Onde eles estão descansando?",
+    opcoes: [
+        "No ombro",
+        "Na sombra",
+        "Na praia",
+        "No quarto"
+    ],
+    correta: 1,
+    explicacao: "Ombre significa “sombra”. Ombro é épaule."
+},
+{
+    pergunta: "Qual palavra significa « sombra »?",
+    opcoes: [
+        "Épaule",
+        "Ombre",
+        "Chambre",
+        "Hasard"
+    ],
+    correta: 1,
+    explicacao: "Ombre = sombra. A semelhança visual com “ombro” pode enganar."
+},
+{
+    pergunta: "« J'ai réservé une chambre à l'hôtel. » O que foi reservado?",
+    opcoes: [
+        "Uma câmara",
+        "Um quarto",
+        "Uma sala de reuniões",
+        "Um andar inteiro"
+    ],
+    correta: 1,
+    explicacao: "Chambre significa “quarto”, especialmente quarto de dormir ou de hotel."
+},
+{
+    pergunta: "Qual frase significa « Meu quarto é pequeno »?",
+    opcoes: [
+        "Ma chambre est petite.",
+        "Mon quartier est petit.",
+        "Ma salle est sale.",
+        "Mon étage est petit."
+    ],
+    correta: 0,
+    explicacao: "Chambre é quarto. « Ma chambre est petite » = “Meu quarto é pequeno”."
+},
+{
+    pergunta: "« J'habite dans un quartier calme. » significa:",
+    opcoes: [
+        "Moro em um quarto tranquilo.",
+        "Moro em um bairro tranquilo.",
+        "Moro em um prédio tranquilo.",
+        "Moro em uma sala tranquila."
+    ],
+    correta: 1,
+    explicacao: "Quartier significa “bairro” ou região de uma cidade."
+},
+{
+    pergunta: "Qual palavra você usaria para « bairro »?",
+    opcoes: [
+        "Chambre",
+        "Quartier",
+        "Étage",
+        "Salle"
+    ],
+    correta: 1,
+    explicacao: "Quartier = bairro. Chambre = quarto."
+},
+
+{
+    pergunta: "« Nous avons mangé sur le balcon. » Onde eles comeram?",
+    opcoes: [
+        "No balcão de uma loja",
+        "Na varanda/sacada",
+        "No banco",
+        "Na cozinha"
+    ],
+    correta: 1,
+    explicacao: "Balcon significa “varanda/sacada”. Não corresponde automaticamente ao português “balcão”."
+},
+{
+    pergunta: "« Le chat dort sur le canapé. » Quem está dormindo?",
+    opcoes: [
+        "Uma conversa online",
+        "Um gato",
+        "Um cachorro",
+        "Uma criança"
+    ],
+    correta: 1,
+    explicacao: "Chat em francês significa “gato”. A pronúncia é aproximadamente /ʃa/."
+},
+{
+    pergunta: "« J'ai adopté un chaton. » O que foi adotado?",
+    opcoes: [
+        "Uma conversa",
+        "Um gatinho",
+        "Um cachorro",
+        "Um pato"
+    ],
+    correta: 1,
+    explicacao: "Chaton significa “gatinho/filhote de gato”."
+},
+{
+    pergunta: "« Ma femme est française. » significa:",
+    opcoes: [
+        "Minha fêmea é francesa.",
+        "Minha esposa é francesa.",
+        "Minha família é francesa.",
+        "Minha filha é francesa."
+    ],
+    correta: 1,
+    explicacao: "Femme pode significar “mulher” e, em contextos como « ma femme », “esposa”."
+},
+{
+    pergunta: "« Cette femme travaille ici. » significa:",
+    opcoes: [
+        "Esta esposa trabalha aqui necessariamente.",
+        "Esta mulher trabalha aqui.",
+        "Esta família trabalha aqui.",
+        "Esta menina trabalha aqui."
+    ],
+    correta: 1,
+    explicacao: "Femme também significa “mulher”. O contexto determina se a tradução é mulher ou esposa."
+},
+{
+    pergunta: "« Il a mis son casque. » O que ele colocou?",
+    opcoes: [
+        "Um casco",
+        "Um capacete",
+        "Um casaco",
+        "Um cachecol"
+    ],
+    correta: 1,
+    explicacao: "Casque significa “capacete”. Também pode ser usado para certos tipos de fones de ouvido."
+},
+{
+    pergunta: "« J'écoute de la musique avec un casque. » O que « casque » significa aqui?",
+    opcoes: [
+        "Capacete de bicicleta necessariamente",
+        "Fone de ouvido/headset",
+        "Casaco",
+        "Caixa de som"
+    ],
+    correta: 1,
+    explicacao: "Casque pode designar fones de ouvido, especialmente os que ficam sobre a cabeça."
+},
+{
+    pergunta: "« Le gâteau est délicieux. » O que está delicioso?",
+    opcoes: [
+        "O gato",
+        "O bolo",
+        "O prato",
+        "O café"
+    ],
+    correta: 1,
+    explicacao: "Gâteau significa “bolo”. Apesar da aparência, não tem relação com “gato”."
+},
+{
+    pergunta: "Você está em uma pâtisserie e pede « un gâteau au chocolat ». O que receberá?",
+    opcoes: [
+        "Um gato de chocolate",
+        "Um bolo de chocolate",
+        "Um pão de chocolate necessariamente",
+        "Um café com chocolate"
+    ],
+    correta: 1,
+    explicacao: "Un gâteau au chocolat = um bolo de chocolate."
+},
+{
+    pergunta: "« Le pâtissier prépare la pâte. » O que « pâte » significa nesse contexto?",
+    opcoes: [
+        "Pata de animal",
+        "Massa",
+        "Pote",
+        "Prato"
+    ],
+    correta: 1,
+    explicacao: "Pâte pode significar massa, como massa de bolo, pão ou macarrão."
+},
+
+{
+    pergunta: "« Le chien s'est blessé à la patte. » O que « patte » significa?",
+    opcoes: [
+        "Massa",
+        "Pata",
+        "Prato",
+        "Pele"
+    ],
+    correta: 1,
+    explicacao: "Patte significa “pata”. Pâte, com acento circunflexo, pode significar massa."
+},
+{
+    pergunta: "Qual opção significa « massa de pizza »?",
+    opcoes: [
+        "Patte à pizza",
+        "Pâte à pizza",
+        "Pata de pizza",
+        "Plat à pizza"
+    ],
+    correta: 1,
+    explicacao: "Pâte à pizza significa massa de pizza."
+},
+{
+    pergunta: "« Je voudrais un verre d'eau. » O que a pessoa quer?",
+    opcoes: [
+        "Ver água",
+        "Um copo de água",
+        "Um vidro de água necessariamente",
+        "Uma garrafa de água"
+    ],
+    correta: 1,
+    explicacao: "Verre pode significar copo ou vidro, dependendo do contexto. « Un verre d'eau » = um copo de água."
+},
+{
+    pergunta: "Como dizer « ver » em francês?",
+    opcoes: [
+        "Verre",
+        "Voir",
+        "Regard",
+        "Boire"
+    ],
+    correta: 1,
+    explicacao: "Voir é o verbo “ver”. Verre é copo/vidro."
+},
+{
+    pergunta: "« Je veux voir ce film. » significa:",
+    opcoes: [
+        "Quero um copo desse filme.",
+        "Quero ver esse filme.",
+        "Quero beber durante esse filme.",
+        "Quero vender esse filme."
+    ],
+    correta: 1,
+    explicacao: "Voir significa “ver”."
+},
+{
+    pergunta: "« Il boit du jus d'orange. » O que ele está bebendo?",
+    opcoes: [
+        "Um juiz de laranja",
+        "Suco de laranja",
+        "Chá de laranja",
+        "Água de laranja"
+    ],
+    correta: 1,
+    explicacao: "Jus significa “suco”. « Jus d'orange » = suco de laranja."
+},
+{
+    pergunta: "« C'est exquis ! » significa:",
+    opcoes: [
+        "Isso é esquisito!",
+        "Isso é delicioso/refinado!",
+        "Isso é horrível!",
+        "Isso é estranho!"
+    ],
+    correta: 1,
+    explicacao: "Exquis é um elogio. Significa algo como delicioso, requintado ou excelente."
+},
+{
+    pergunta: "Você experimenta uma sobremesa excelente. Qual comentário combina?",
+    opcoes: [
+        "C'est exquis !",
+        "C'est bizarre !",
+        "C'est sale !",
+        "C'est hasard !"
+    ],
+    correta: 0,
+    explicacao: "Exquis pode ser usado para elogiar algo delicioso ou refinado."
+},
+{
+    pergunta: "Como dizer « Isso é estranho/esquisito »?",
+    opcoes: [
+        "C'est exquis.",
+        "C'est bizarre.",
+        "C'est libre.",
+        "C'est propre."
+    ],
+    correta: 1,
+    explicacao: "Bizarre significa estranho/esquisito. Exquis significa delicioso/requintado."
+},
+{
+    pergunta: "« J'ai rencontré Paul par hasard. » significa:",
+    opcoes: [
+        "Encontrei Paul por azar.",
+        "Encontrei Paul por acaso.",
+        "Encontrei Paul atrasado.",
+        "Encontrei Paul de propósito."
+    ],
+    correta: 1,
+    explicacao: "Par hasard significa “por acaso”. Hasard está ligado à ideia de acaso, não simplesmente ao português “azar”."
+},
+
+{
+    pergunta: "Qual expressão significa « por acaso »?",
+    opcoes: [
+        "Par hasard",
+        "Par malheur",
+        "Pourtant",
+        "Depuis"
+    ],
+    correta: 0,
+    explicacao: "Par hasard = por acaso."
+},
+{
+    pergunta: "« Malheureusement, il pleut. » significa:",
+    opcoes: [
+        "Por acaso, está chovendo.",
+        "Infelizmente, está chovendo.",
+        "Felizmente, está chovendo.",
+        "Provavelmente, está chovendo."
+    ],
+    correta: 1,
+    explicacao: "Malheureusement significa “infelizmente”."
+},
+{
+    pergunta: "« Quelle est votre adresse ? » O que estão perguntando?",
+    opcoes: [
+        "Qual é o seu adereço?",
+        "Qual é o seu endereço?",
+        "Qual é a sua idade?",
+        "Qual é a sua profissão?"
+    ],
+    correta: 1,
+    explicacao: "Adresse significa “endereço”."
+},
+{
+    pergunta: "« J'ai envoyé le colis à la mauvaise adresse. » significa:",
+    opcoes: [
+        "Enviei o pacote com o adereço errado.",
+        "Enviei o pacote para o endereço errado.",
+        "Enviei o pacote para a pessoa errada necessariamente.",
+        "Não enviei o pacote."
+    ],
+    correta: 1,
+    explicacao: "Adresse = endereço."
+},
+{
+    pergunta: "« J'envie sa liberté. » O verbo « envier » significa:",
+    opcoes: [
+        "Enviar",
+        "Invejar",
+        "Convidar",
+        "Evitar"
+    ],
+    correta: 1,
+    explicacao: "Envier significa “invejar”. Para enviar, usamos envoyer."
+},
+{
+    pergunta: "Como dizer « Vou enviar uma mensagem »?",
+    opcoes: [
+        "Je vais envier un message.",
+        "Je vais envoyer un message.",
+        "Je vais éviter un message.",
+        "Je vais inviter un message."
+    ],
+    correta: 1,
+    explicacao: "Envoyer significa “enviar”. Envier significa “invejar”."
+},
+{
+    pergunta: "« Elle m'a envoyé une photo. » significa:",
+    opcoes: [
+        "Ela invejou minha foto.",
+        "Ela me enviou uma foto.",
+        "Ela evitou uma foto.",
+        "Ela viu minha foto."
+    ],
+    correta: 1,
+    explicacao: "Envoyer = enviar."
+},
+{
+    pergunta: "« Cette publicité attire l'attention. » O verbo « attirer » significa:",
+    opcoes: [
+        "Atirar",
+        "Atrair",
+        "Retirar",
+        "Atrasar"
+    ],
+    correta: 1,
+    explicacao: "Attirer significa “atrair”. Para atirar/disparar, um verbo comum é tirer."
+},
+{
+    pergunta: "« Ne tirez pas ! » em um contexto de arma significa:",
+    opcoes: [
+        "Não atraiam!",
+        "Não atirem!",
+        "Não retirem!",
+        "Não atrasem!"
+    ],
+    correta: 1,
+    explicacao: "Tirer pode significar atirar/disparar, além de outros sentidos conforme o contexto."
+},
+{
+    pergunta: "Uma porta tem a instrução « TIREZ ». O que você deve fazer?",
+    opcoes: [
+        "Empurrar",
+        "Puxar",
+        "Atirar na porta",
+        "Fechar"
+    ],
+    correta: 1,
+    explicacao: "Em uma porta, tirer significa “puxar”. O contexto manda no significado."
+},
+
+{
+    pergunta: "A outra porta diz « POUSSEZ ». O que você deve fazer?",
+    opcoes: [
+        "Puxar",
+        "Empurrar",
+        "Fechar",
+        "Girar"
+    ],
+    correta: 1,
+    explicacao: "Pousser significa “empurrar”. Uma dupla útil: TIREZ = puxe; POUSSEZ = empurre."
+},
+{
+    pergunta: "« Il pousse la porte. » significa:",
+    opcoes: [
+        "Ele puxa a porta.",
+        "Ele empurra a porta.",
+        "Ele pinta a porta.",
+        "Ele fecha a porta."
+    ],
+    correta: 1,
+    explicacao: "Pousser = empurrar."
+},
+{
+    pergunta: "« Fermez la porte, s'il vous plaît. » significa:",
+    opcoes: [
+        "Firam a porta, por favor.",
+        "Fechem a porta, por favor.",
+        "Empurrem a porta, por favor.",
+        "Abram a porta, por favor."
+    ],
+    correta: 1,
+    explicacao: "Fermer significa “fechar”."
+},
+{
+    pergunta: "Qual verbo significa « fechar »?",
+    opcoes: [
+        "Fermer",
+        "Blesser",
+        "Ouvrir",
+        "Attirer"
+    ],
+    correta: 0,
+    explicacao: "Fermer = fechar. Ouvrir = abrir."
+},
+{
+    pergunta: "« Il s'est blessé au bras. » significa:",
+    opcoes: [
+        "Ele fechou o braço.",
+        "Ele machucou o braço.",
+        "Ele abraçou alguém.",
+        "Ele lavou o braço."
+    ],
+    correta: 1,
+    explicacao: "Se blesser significa machucar-se/ferir-se."
+},
+{
+    pergunta: "« Quel est votre prénom ? » O que estão perguntando?",
+    opcoes: [
+        "Seu sobrenome",
+        "Seu primeiro nome",
+        "Seu apelido",
+        "Seu nome completo necessariamente"
+    ],
+    correta: 1,
+    explicacao: "Prénom é o primeiro nome/nome próprio. Nom de famille é sobrenome."
+},
+{
+    pergunta: "Como perguntar o « sobrenome » de alguém?",
+    opcoes: [
+        "Quel est votre prénom ?",
+        "Quel est votre nom de famille ?",
+        "Quel est votre surnom ?",
+        "Quelle est votre adresse ?"
+    ],
+    correta: 1,
+    explicacao: "Nom de famille significa sobrenome."
+},
+{
+    pergunta: "« Ses amis l'appellent Doudou. C'est son surnom. » O que « surnom » significa?",
+    opcoes: [
+        "Sobrenome",
+        "Apelido",
+        "Primeiro nome",
+        "Nome de solteiro"
+    ],
+    correta: 1,
+    explicacao: "Surnom significa “apelido”. Não é sobrenome."
+},
+{
+    pergunta: "Qual palavra significa « apelido »?",
+    opcoes: [
+        "Prénom",
+        "Surnom",
+        "Nom de famille",
+        "Adresse"
+    ],
+    correta: 1,
+    explicacao: "Surnom = apelido."
+},
+{
+    pergunta: "« Le garçon joue dans le jardin. » Quem está brincando?",
+    opcoes: [
+        "O garçom",
+        "O menino",
+        "O gerente",
+        "O cozinheiro"
+    ],
+    correta: 1,
+    explicacao: "Garçon significa “menino/garoto”. Em restaurantes, « garçon ! » ficou associado historicamente ao garçom, mas não é a palavra neutra que você deve usar para chamar um atendente hoje."
+},
+
+{
+    pergunta: "Como dizer « garçom/atendente » em francês de forma adequada?",
+    opcoes: [
+        "Garçon, obrigatoriamente",
+        "Serveur",
+        "Garçom",
+        "Serviceur"
+    ],
+    correta: 1,
+    explicacao: "Serveur significa garçom/atendente de restaurante. Para uma mulher, serveuse."
+},
+{
+    pergunta: "« Le serveur apporte l'addition. » O que o atendente traz?",
+    opcoes: [
+        "Uma adição matemática",
+        "A conta",
+        "O cardápio",
+        "Uma gorjeta"
+    ],
+    correta: 1,
+    explicacao: "Addition, em restaurante, significa “conta”."
+},
+{
+    pergunta: "Você terminou de comer e diz « L'addition, s'il vous plaît. » O que está pedindo?",
+    opcoes: [
+        "Mais comida",
+        "A conta",
+        "Uma calculadora",
+        "Uma mesa"
+    ],
+    correta: 1,
+    explicacao: "« L'addition, s'il vous plaît » é uma maneira comum de pedir a conta."
+},
+{
+    pergunta: "« Depuis trois ans, j'habite ici. » significa:",
+    opcoes: [
+        "Depois de três anos, moro aqui.",
+        "Moro aqui há três anos.",
+        "Morarei aqui daqui a três anos.",
+        "Morei aqui durante exatamente três anos e fui embora."
+    ],
+    correta: 1,
+    explicacao: "Depuis indica uma ação ou situação iniciada no passado que continua no presente: “há três anos”."
+},
+{
+    pergunta: "Complete: « J'apprends le français ___ six mois. »",
+    opcoes: [
+        "depuis",
+        "pourtant",
+        "hasard",
+        "éventuellement"
+    ],
+    correta: 0,
+    explicacao: "Depuis é usado para indicar há quanto tempo algo que ainda continua começou."
+},
+{
+    pergunta: "« Je suis resté ici pendant deux heures. » O que « pendant » indica?",
+    opcoes: [
+        "Um pingente",
+        "Durante um período",
+        "Desde um ponto no passado",
+        "Uma possibilidade"
+    ],
+    correta: 1,
+    explicacao: "Pendant significa “durante” quando indica duração."
+},
+{
+    pergunta: "Qual frase significa « Estudei durante duas horas »?",
+    opcoes: [
+        "J'ai étudié pendant deux heures.",
+        "J'ai étudié depuis deux heures hier.",
+        "J'ai étudié pourtant deux heures.",
+        "J'ai étudié hasard deux heures."
+    ],
+    correta: 0,
+    explicacao: "Pendant deux heures = durante duas horas."
+},
+{
+    pergunta: "« Il est resté chez lui. » significa:",
+    opcoes: [
+        "Ele é um restaurante na casa dele.",
+        "Ele ficou na casa dele.",
+        "Ele voltou para a casa dele necessariamente.",
+        "Ele comprou uma casa."
+    ],
+    correta: 1,
+    explicacao: "Rester significa “ficar/permanecer”."
+},
+{
+    pergunta: "« Il reste trois places. » significa:",
+    opcoes: [
+        "Há/restam três lugares.",
+        "Ele fica em três lugares.",
+        "Há três restaurantes.",
+        "Faltam três horas."
+    ],
+    correta: 0,
+    explicacao: "Rester também pode significar “restar/sobrar”. O contexto muda a tradução."
+},
+{
+    pergunta: "Última do ciclo! « En fait, j'ai appris beaucoup de choses. » significa:",
+    opcoes: [
+        "Atualmente, aprendi poucas coisas.",
+        "Na verdade, aprendi muitas coisas.",
+        "Eventualmente, esqueci muitas coisas.",
+        "Finalmente, aprendi uma coisa."
+    ],
+    correta: 1,
+    explicacao: "En fait = “na verdade” e beaucoup de = “muito/muitos”. Você fechou os 90 desafios de francês. 🥐✨"
+}
+]
 
 };
 
-/* =========================================================
-   UHM, ACTUALLY...
-   SISTEMA DO QUIZ
-   SEM LIMITE DIÁRIO
-   ========================================================= */
+const DESAFIOS_POR_DIA = 3;
+
+const CONFIG = {
+
+    ingles: {
+        card: "dashboard-ingles",
+        nome: "English Lab"
+    },
+
+    frances: {
+        card: "dashboard-frances",
+        nome: "Le Coin Français"
+    }
+
+};
 
 
-/* =========================================================
-   CONFIGURAÇÕES
-   ========================================================= */
+let idiomaAtual = null;
+let perguntaAtual = null;
+let indicePerguntaAtual = 0;
+let respondeuPergunta = false;
 
-const TAMANHO_RODADA = 3;
+function dataDeHoje() {
 
+    const hoje = new Date();
 
-/* =========================================================
-   CHAVES DO LOCAL STORAGE
-   ========================================================= */
+    const ano = hoje.getFullYear();
 
-function chaveProgresso(idioma) {
-    return `uhmActuallyProgresso_${idioma}`;
+    const mes = String(
+        hoje.getMonth() + 1
+    ).padStart(2, "0");
+
+    const dia = String(
+        hoje.getDate()
+    ).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
 }
 
-function chaveOrdem(idioma) {
-    return `uhmActuallyOrdem_${idioma}`;
+
+function dataDeOntem() {
+
+    const ontem = new Date();
+
+    ontem.setDate(
+        ontem.getDate() - 1
+    );
+
+    const ano = ontem.getFullYear();
+
+    const mes = String(
+        ontem.getMonth() + 1
+    ).padStart(2, "0");
+
+    const dia = String(
+        ontem.getDate()
+    ).padStart(2, "0");
+
+    return `${ano}-${mes}-${dia}`;
 }
 
+function chave(idioma, tipo) {
 
-/* =========================================================
-   PROGRESSO
-   ========================================================= */
+    return `uhmActually_${idioma}_${tipo}`;
+}
 
-function carregarProgresso(idioma) {
+function lerNumero(idioma, tipo) {
 
     const valor = localStorage.getItem(
-        chaveProgresso(idioma)
+        chave(idioma, tipo)
     );
 
     if (valor === null) {
@@ -2035,1135 +2190,1511 @@ function carregarProgresso(idioma) {
 
     const numero = Number(valor);
 
-    if (Number.isNaN(numero) || numero < 0) {
+    if (Number.isNaN(numero)) {
         return 0;
     }
 
     return numero;
 }
 
-
-function salvarProgresso(idioma, quantidade) {
+function salvarNumero(idioma, tipo, valor) {
 
     localStorage.setItem(
-        chaveProgresso(idioma),
-        String(quantidade)
+        chave(idioma, tipo),
+        String(valor)
     );
-
 }
 
+function carregarData(idioma) {
 
-/* =========================================================
-   EMBARALHAR ARRAY
-   ========================================================= */
+    return localStorage.getItem(
+        chave(idioma, "data")
+    );
+}
 
-function embaralharArray(array) {
+function salvarData(idioma, data) {
 
-    const copia = [...array];
+    localStorage.setItem(
+        chave(idioma, "data"),
+        data
+    );
+}
 
-    for (let i = copia.length - 1; i > 0; i--) {
+function carregarProgresso(idioma) {
+
+    return lerNumero(
+        idioma,
+        "progresso"
+    );
+}
+
+function salvarProgresso(idioma, valor) {
+
+    salvarNumero(
+        idioma,
+        "progresso",
+        valor
+    );
+}
+
+function carregarFeitosHoje(idioma) {
+
+    const ultimaData = carregarData(idioma);
+
+    // Se a última atividade não foi hoje,
+    // começa novamente em 0/3.
+
+    if (ultimaData !== dataDeHoje()) {
+        return 0;
+    }
+
+    return lerNumero(
+        idioma,
+        "feitosHoje"
+    );
+}
+
+function salvarFeitosHoje(idioma, valor) {
+
+    salvarNumero(
+        idioma,
+        "feitosHoje",
+        valor
+    );
+}
+
+function completouDesafiosDeHoje(idioma) {
+
+    return (
+        carregarFeitosHoje(idioma)
+        >=
+        DESAFIOS_POR_DIA
+    );
+}
+
+function carregarOfensiva(idioma) {
+
+    return lerNumero(
+        idioma,
+        "ofensiva"
+    );
+}
+
+function atualizarOfensiva(idioma) {
+
+    const hoje = dataDeHoje();
+
+    const ontem = dataDeOntem();
+
+    const chaveUltimaOfensiva = chave(
+        idioma,
+        "ultimaOfensiva"
+    );
+
+    const ultimaOfensiva =
+        localStorage.getItem(
+            chaveUltimaOfensiva
+        );
+
+    let ofensiva =
+        carregarOfensiva(idioma);
+
+
+    if (ultimaOfensiva === hoje) {
+
+        return ofensiva;
+    }
+
+    if (ultimaOfensiva === ontem) {
+
+        ofensiva += 1;
+
+    } else {
+
+        ofensiva = 1;
+    }
+
+    salvarNumero(
+        idioma,
+        "ofensiva",
+        ofensiva
+    );
+
+    localStorage.setItem(
+        chaveUltimaOfensiva,
+        hoje
+    );
+
+    return ofensiva;
+}
+
+function criarOrdemAleatoria(total) {
+
+    const ordem = [];
+
+    for (let i = 0; i < total; i++) {
+
+        ordem.push(i);
+    }
+
+    for (
+        let i = ordem.length - 1;
+        i > 0;
+        i--
+    ) {
 
         const j = Math.floor(
             Math.random() * (i + 1)
         );
 
-        const temporario = copia[i];
-
-        copia[i] = copia[j];
-        copia[j] = temporario;
+        [
+            ordem[i],
+            ordem[j]
+        ] = [
+            ordem[j],
+            ordem[i]
+        ];
     }
 
-    return copia;
+
+    return ordem;
 }
 
 
-/* =========================================================
-   ORDEM DAS PERGUNTAS
-   ========================================================= */
-
 function carregarOrdem(idioma) {
 
-    const banco = perguntas[idioma];
+    const banco = bancos[idioma];
 
-    if (!banco || banco.length === 0) {
+    if (!banco) {
         return [];
     }
 
-    const salvo = localStorage.getItem(
-        chaveOrdem(idioma)
+
+    const salva = localStorage.getItem(
+        chave(idioma, "ordem")
     );
 
-    if (salvo) {
+
+    if (salva) {
 
         try {
 
-            const ordem = JSON.parse(salvo);
+            const ordem = JSON.parse(salva);
 
             if (
-                Array.isArray(ordem) &&
+                Array.isArray(ordem)
+                &&
                 ordem.length === banco.length
             ) {
+
                 return ordem;
             }
 
         } catch (erro) {
 
-            console.error(
-                "Não foi possível carregar a ordem:",
+            console.warn(
+                "Não foi possível carregar a ordem salva.",
                 erro
             );
-
         }
     }
 
 
-    const indices = banco.map(
-        (_, indice) => indice
-    );
+    const novaOrdem =
+        criarOrdemAleatoria(
+            banco.length
+        );
 
-    const novaOrdem = embaralharArray(indices);
 
     localStorage.setItem(
-        chaveOrdem(idioma),
+        chave(idioma, "ordem"),
         JSON.stringify(novaOrdem)
     );
+
 
     return novaOrdem;
 }
 
+function obterPerguntaAtual(idioma) {
 
-/* =========================================================
-   CRIAR NOVO CICLO
-   ========================================================= */
+    const banco = bancos[idioma];
 
-function criarNovoCiclo(idioma) {
+    if (
+        !banco
+        ||
+        banco.length === 0
+    ) {
 
-    const banco = perguntas[idioma];
-
-    if (!banco || banco.length === 0) {
-        return;
-    }
-
-    const indices = banco.map(
-        (_, indice) => indice
-    );
-
-    const novaOrdem = embaralharArray(indices);
-
-    localStorage.setItem(
-        chaveOrdem(idioma),
-        JSON.stringify(novaOrdem)
-    );
-
-    salvarProgresso(idioma, 0);
-
-    perguntaAtual = 0;
-}
-
-
-/* =========================================================
-   PEGAR PERGUNTA ATUAL
-   ========================================================= */
-
-function pegarPerguntaAtual() {
-
-    if (!idiomaAtual) {
         return null;
     }
 
-    const banco = perguntas[idiomaAtual];
 
-    if (!banco || banco.length === 0) {
+    const progresso =
+        carregarProgresso(idioma);
+
+
+    if (
+        progresso >= banco.length
+    ) {
+
         return null;
     }
 
-    const ordem = carregarOrdem(idiomaAtual);
 
-    if (perguntaAtual >= ordem.length) {
+    const ordem =
+        carregarOrdem(idioma);
+
+
+    const indiceReal =
+        ordem[progresso];
+
+
+    if (
+        indiceReal === undefined
+    ) {
+
         return null;
     }
 
-    const indiceReal = ordem[perguntaAtual];
+
+    indicePerguntaAtual =
+        indiceReal;
+
 
     return banco[indiceReal];
 }
 
-
-/* =========================================================
-   NAVEGAÇÃO
-   ========================================================= */
-
 function mostrarPagina(nome) {
 
-    const paginas = document.querySelectorAll(
-        ".pagina"
-    );
-
-    paginas.forEach((pagina) => {
-        pagina.classList.remove("ativa");
-    });
-
-
-    const paginaEscolhida =
-        document.getElementById(nome);
-
-    if (!paginaEscolhida) {
-
-        console.error(
-            `Página "${nome}" não encontrada.`
+    const paginas =
+        document.querySelectorAll(
+            ".pagina"
         );
 
-        return;
+
+    paginas.forEach(
+        pagina => {
+
+            pagina.classList.remove(
+                "ativa"
+            );
+
+        }
+    );
+
+
+    const paginaDestino =
+        document.getElementById(nome);
+
+
+    if (paginaDestino) {
+
+        paginaDestino.classList.add(
+            "ativa"
+        );
     }
 
 
-    paginaEscolhida.classList.add("ativa");
+    fecharMenu();
+
+
+    if (
+        nome === "ingles"
+        ||
+        nome === "frances"
+    ) {
+
+        iniciarQuiz(nome);
+
+    } else if (
+        nome === "home"
+    ) {
+
+        atualizarDashboard();
+    }
 
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+}
+
+function alternarMenu() {
+
+    const menu =
+        document.querySelector(
+            ".menu"
+        );
 
 
-    if (nome === "home") {
-
-        atualizarDashboard();
+    if (!menu) {
         return;
-
     }
 
 
-    if (
-        nome === "ingles" ||
-        nome === "frances"
-    ) {
-
-        iniciarIdioma(nome);
-
-    }
+    menu.classList.toggle(
+        "aberto"
+    );
 }
 
 
-/* =========================================================
-   INICIAR IDIOMA
-   ========================================================= */
+function fecharMenu() {
 
-function iniciarIdioma(idioma) {
+    const menu =
+        document.querySelector(
+            ".menu"
+        );
+
+
+    if (!menu) {
+        return;
+    }
+
+
+    menu.classList.remove(
+        "aberto"
+    );
+}
+
+function irParaAulas() {
+
+    mostrarPagina("home");
+
+
+    setTimeout(
+        () => {
+
+            const aulas =
+                document.getElementById(
+                    "aulas"
+                );
+
+
+            if (aulas) {
+
+                aulas.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+
+        },
+        100
+    );
+}
+
+function iniciarQuiz(idioma) {
 
     idiomaAtual = idioma;
 
-    perguntaAtual = carregarProgresso(
-        idioma
-    );
+    respondeuPergunta = false;
 
 
-    const banco = perguntas[idioma];
+    const banco =
+        bancos[idioma];
 
-    if (!banco || banco.length === 0) {
 
-        console.error(
-            `Não existem perguntas para ${idioma}.`
-        );
+    if (
+        !banco
+        ||
+        banco.length === 0
+    ) {
+
+        mostrarBancoVazio(idioma);
 
         return;
     }
 
 
-    if (perguntaAtual >= banco.length) {
+    const progresso =
+        carregarProgresso(idioma);
+
+
+    if (
+        progresso >= banco.length
+    ) {
 
         mostrarFimDoCiclo();
-        return;
 
+        return;
+    }
+
+    if (
+        completouDesafiosDeHoje(idioma)
+    ) {
+
+        mostrarDesafioConcluido();
+
+        return;
     }
 
 
     mostrarPergunta();
 }
 
+function mostrarBancoVazio(idioma) {
 
-/* =========================================================
-   MOSTRAR PERGUNTA
-   ========================================================= */
-
-function mostrarPergunta() {
-
-    const pergunta = pegarPerguntaAtual();
-
-    if (!pergunta) {
-
-        mostrarFimDoCiclo();
-        return;
-
-    }
-
-
-    const container = document.querySelector(
-        `#${idiomaAtual} .quiz`
-    );
+    const container =
+        obterContainerQuiz(idioma);
 
 
     if (!container) {
 
-        console.error(
-            "O elemento .quiz não foi encontrado."
+        console.warn(
+            "Container do quiz não encontrado."
         );
 
         return;
     }
-
-
-    const total = perguntas[idiomaAtual].length;
-
-    const numero = perguntaAtual + 1;
-
-    const porcentagem = Math.round(
-        (perguntaAtual / total) * 100
-    );
-
-
-    const alternativasHTML =
-        pergunta.alternativas
-            .map((alternativa, indice) => {
-
-                const letra =
-                    String.fromCharCode(
-                        65 + indice
-                    );
-
-                return `
-                    <button
-                        type="button"
-                        onclick="responder(${indice})"
-                    >
-                        <strong>
-                            ${letra}.
-                        </strong>
-
-                        ${alternativa}
-                    </button>
-                `;
-
-            })
-            .join("");
 
 
     container.innerHTML = `
 
-        <button
-            type="button"
-            class="voltar"
-            onclick="mostrarPagina('home')"
-        >
-            <span class="voltar-seta">
-                ←
-            </span>
+        <div class="quiz-final">
 
-            <span>
-                Voltar ao início
-            </span>
-        </button>
+            <div class="quiz-final-emoji">
+                🧩
+            </div>
 
+            <h2>
+                Banco de perguntas vazio
+            </h2>
 
-        <div class="progresso-topo">
-            Desafio ${numero} de ${total}
+            <p>
+                As perguntas deste idioma
+                ainda precisam ser adicionadas
+                ao arquivo <strong>script.js</strong>.
+            </p>
+
         </div>
-
-
-        <div
-            class="barra-quiz"
-            style="
-                width: 100%;
-                height: 8px;
-                background: #EEE8FF;
-                border-radius: 999px;
-                overflow: hidden;
-                margin: 12px 0 28px;
-            "
-        >
-            <div
-                style="
-                    width: ${porcentagem}%;
-                    height: 100%;
-                    background: #B59DFF;
-                    border-radius: 999px;
-                    transition: width .3s ease;
-                "
-            ></div>
-        </div>
-
-
-        <p class="categoria">
-            ${pergunta.categoria}
-        </p>
-
-
-        <h3>
-            ${pergunta.palavra}
-        </h3>
-
-
-        <p class="pergunta">
-            ${pergunta.pergunta}
-        </p>
-
-
-        <div class="alternativas">
-            ${alternativasHTML}
-        </div>
-
-
-        <div
-            id="resposta-atual"
-            class="resposta"
-        ></div>
 
     `;
 }
 
+function obterContainerQuiz(idioma) {
 
-/* =========================================================
-   RESPONDER
-   ========================================================= */
+    return (
+        document.getElementById(
+            `quiz-${idioma}`
+        )
+        ||
+        document.getElementById(
+            `conteudo-${idioma}`
+        )
+        ||
+        document.querySelector(
+            `#${idioma} .quiz`
+        )
+        ||
+        document.querySelector(
+            `#${idioma} .quiz-container`
+        )
+        ||
+        document.querySelector(
+            `#${idioma} .conteudo-quiz`
+        )
+    );
+}
 
-function responder(escolha) {
+function mostrarPergunta() {
 
-    const pergunta = pegarPerguntaAtual();
-
-    if (!pergunta) {
+    if (!idiomaAtual) {
         return;
     }
 
 
-    const resposta = document.getElementById(
-        "resposta-atual"
-    );
+    const banco =
+        bancos[idiomaAtual];
 
 
-    if (!resposta) {
+    if (
+        !banco
+        ||
+        banco.length === 0
+    ) {
+
+        mostrarBancoVazio(
+            idiomaAtual
+        );
+
         return;
     }
 
 
-    const botoes = document.querySelectorAll(
-        `#${idiomaAtual} .alternativas button`
-    );
+    const progresso =
+        carregarProgresso(
+            idiomaAtual
+        );
+
+
+    if (
+        progresso >= banco.length
+    ) {
+
+        mostrarFimDoCiclo();
+
+        return;
+    }
+
+
+    if (
+        completouDesafiosDeHoje(
+            idiomaAtual
+        )
+    ) {
+
+        mostrarDesafioConcluido();
+
+        return;
+    }
+
+
+    perguntaAtual =
+        obterPerguntaAtual(
+            idiomaAtual
+        );
+
+
+    if (!perguntaAtual) {
+
+        mostrarFimDoCiclo();
+
+        return;
+    }
+
+
+    respondeuPergunta = false;
+
+
+    const container =
+        obterContainerQuiz(
+            idiomaAtual
+        );
+
+
+    if (!container) {
+
+        console.warn(
+            `Container do quiz de ${idiomaAtual} não encontrado.`
+        );
+
+        return;
+    }
+
+
+    const feitosHoje =
+        carregarFeitosHoje(
+            idiomaAtual
+        );
+
+
+    const numeroDoDia =
+        feitosHoje + 1;
+
+
+    const total =
+        banco.length;
+
+
+    const numeroTotal =
+        progresso + 1;
+
+
+    const opcoes =
+        perguntaAtual.opcoes || [];
+
+
+    container.innerHTML = `
+
+        <div class="quiz-card">
+
+            <div class="quiz-topo">
+
+                <span class="quiz-dia">
+
+                    Desafio de hoje:
+                    ${numeroDoDia}
+                    de
+                    ${DESAFIOS_POR_DIA}
+
+                </span>
+
+                <span class="quiz-total">
+
+                    ${numeroTotal}/${total}
+
+                </span>
+
+            </div>
+
+
+            <div class="quiz-barra">
+
+                <div
+                    class="quiz-barra-preenchida"
+                    style="
+                        width:
+                        ${
+                            total > 0
+                            ?
+                            (progresso / total) * 100
+                            :
+                            0
+                        }%
+                    "
+                ></div>
+
+            </div>
+
+
+            <h2 class="quiz-pergunta">
+
+                ${perguntaAtual.pergunta || ""}
+
+            </h2>
+
+
+            <div class="quiz-opcoes">
+
+                ${
+
+                    opcoes.map(
+                        (opcao, indice) => `
+
+                            <button
+                                class="quiz-opcao"
+                                onclick="responder(${indice}, this)"
+                            >
+
+                                ${opcao}
+
+                            </button>
+
+                        `
+                    ).join("")
+
+                }
+
+            </div>
+
+
+            <div
+                id="quiz-feedback"
+                class="quiz-feedback"
+            ></div>
+
+        </div>
+
+    `;
+}
+
+function responder(indice, botao) {
+
+    if (
+        respondeuPergunta
+        ||
+        !perguntaAtual
+    ) {
+
+        return;
+    }
+
+
+    respondeuPergunta = true;
+
+
+    const correta =
+        Number(
+            perguntaAtual.correta
+        );
 
 
     const acertou =
-        escolha === pergunta.correta;
+        indice === correta;
 
 
-    /* Bloqueia todos os botões */
-
-    botoes.forEach((botao) => {
-
-        botao.disabled = true;
-
-    });
-
-
-    /* Mostra a alternativa correta */
-
-    botoes.forEach((botao, indice) => {
-
-        if (indice === pergunta.correta) {
-
-            botao.classList.add(
-                "alternativa-correta"
-            );
-
-        }
-
-    });
-
-
-    /* Marca a alternativa errada escolhida */
-
-    if (!acertou && botoes[escolha]) {
-
-        botoes[escolha].classList.add(
-            "alternativa-errada"
+    const botoes =
+        document.querySelectorAll(
+            `#${idiomaAtual} .quiz-opcao`
         );
 
+
+    botoes.forEach(
+        (item, i) => {
+
+            item.disabled = true;
+
+
+            if (i === correta) {
+
+                item.classList.add(
+                    "correta"
+                );
+
+            } else if (
+                i === indice
+            ) {
+
+                item.classList.add(
+                    "errada"
+                );
+            }
+
+        }
+    );
+
+    if (
+        botao
+        &&
+        !acertou
+    ) {
+
+        botao.classList.add(
+            "errada"
+        );
     }
 
+    const feedback =
+        document.getElementById(
+            "quiz-feedback"
+        );
 
-    const total = perguntas[idiomaAtual].length;
 
-    const ultimaPergunta =
-        perguntaAtual === total - 1;
+    if (!feedback) {
+        return;
+    }
+
+    const explicacao =
+        perguntaAtual.explicacao || "";
+
+
+    const feitosDepois =
+        carregarFeitosHoje(
+            idiomaAtual
+        ) + 1;
 
 
     const textoBotao =
-        ultimaPergunta
-            ? "Finalizar"
-            : "Próximo";
+        feitosDepois < DESAFIOS_POR_DIA
+        ?
+        "Próximo desafio"
+        :
+        "Concluir dia";
 
 
-    if (acertou) {
+    feedback.innerHTML = `
 
-        resposta.className =
-            "resposta mostrar correto";
-
-
-        resposta.innerHTML = `
-
-            <h4>
-                ✨ Mandou bem!
-            </h4>
-
-            <p>
-                ${pergunta.explicacao}
-            </p>
-
-
-            <div class="exemplo-resposta">
-
-                <strong>
-                    Exemplo
-                </strong>
-
-                <p>
-                    <em>
-                        ${pergunta.exemplo}
-                    </em>
-                </p>
-
-                <p>
-                    ${pergunta.traducao}
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="botao principal botao-proximo"
-                onclick="proximaPergunta()"
-            >
-                ${textoBotao}
-
-                <span>
-                    →
-                </span>
-            </button>
-
-        `;
-
-    } else {
-
-        resposta.className =
-            "resposta mostrar errado";
-
-
-        resposta.innerHTML = `
-
-            <h4>
-                ☝️🤓 Uhm, actually...
-            </h4>
-
-            <p>
-                Essa tentou te sabotar.
-            </p>
-
-            <p>
-                ${pergunta.explicacao}
-            </p>
-
-
-            <div class="exemplo-resposta">
-
-                <strong>
-                    Exemplo
-                </strong>
-
-                <p>
-                    <em>
-                        ${pergunta.exemplo}
-                    </em>
-                </p>
-
-                <p>
-                    ${pergunta.traducao}
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="botao principal botao-proximo"
-                onclick="proximaPergunta()"
-            >
+        <div
+            class="
+                feedback-caixa
                 ${
-                    ultimaPergunta
-                        ? "Finalizar"
-                        : "Agora eu sei"
+                    acertou
+                    ?
+                    "feedback-correto"
+                    :
+                    "feedback-errado"
+                }
+            "
+        >
+
+            <h3>
+
+                ${
+                    acertou
+                    ?
+                    "Acertou! ✨"
+                    :
+                    "Quase! 👀"
                 }
 
-                <span>
-                    →
-                </span>
+            </h3>
+
+
+            <p>
+
+                ${explicacao}
+
+            </p>
+
+
+            <button
+                class="botao-principal"
+                onclick="finalizarDesafio()"
+            >
+
+                ${textoBotao}
+
             </button>
 
-        `;
-    }
+        </div>
+
+    `;
 }
 
+function finalizarDesafio() {
 
-/* =========================================================
-   PRÓXIMA PERGUNTA
-   ========================================================= */
+    if (!idiomaAtual) {
+        return;
+    }
 
-function proximaPergunta() {
 
-    perguntaAtual++;
+    const banco =
+        bancos[idiomaAtual];
+
+
+    if (
+        !banco
+        ||
+        banco.length === 0
+    ) {
+
+        return;
+    }
+
+
+    let progresso =
+        carregarProgresso(
+            idiomaAtual
+        );
+
+
+    let feitosHoje =
+        carregarFeitosHoje(
+            idiomaAtual
+        );
+
+
+    progresso += 1;
+
+    feitosHoje += 1;
 
 
     salvarProgresso(
         idiomaAtual,
-        perguntaAtual
+        progresso
     );
 
 
-    const total =
-        perguntas[idiomaAtual].length;
+    salvarData(
+        idiomaAtual,
+        dataDeHoje()
+    );
 
 
-    if (perguntaAtual >= total) {
-
-        mostrarFimDoCiclo();
-        atualizarDashboard();
-
-        return;
-    }
-
-
-    /*
-       A cada 3 desafios aparece uma pequena
-       comemoração, MAS NÃO EXISTE BLOQUEIO.
-
-       O usuário pode continuar imediatamente.
-    */
+    salvarFeitosHoje(
+        idiomaAtual,
+        feitosHoje
+    );
 
     if (
-        perguntaAtual % TAMANHO_RODADA === 0
+        progresso >= banco.length
     ) {
 
-        mostrarFimDaRodada();
+        // Se o banco acabar antes de chegar exatamente a 3,
+        // ainda consideramos o dia concluído.
+
+        if (
+            feitosHoje < DESAFIOS_POR_DIA
+        ) {
+
+            salvarFeitosHoje(
+                idiomaAtual,
+                DESAFIOS_POR_DIA
+            );
+        }
+
+
+        atualizarOfensiva(
+            idiomaAtual
+        );
+
+
+        atualizarDashboard();
+
+
+        mostrarFimDoCiclo();
+
+        return;
+    }
+
+    if (
+        feitosHoje < DESAFIOS_POR_DIA
+    ) {
+
+        mostrarPergunta();
+
         atualizarDashboard();
 
         return;
     }
 
-
-    mostrarPergunta();
-}
-
-
-/* =========================================================
-   FIM DA RODADA
-   ========================================================= */
-
-function mostrarFimDaRodada() {
-
-    const container = document.querySelector(
-        `#${idiomaAtual} .quiz`
+    atualizarOfensiva(
+        idiomaAtual
     );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    const total =
-        perguntas[idiomaAtual].length;
-
-
-    const feitas =
-        perguntaAtual;
-
-
-    const restantes =
-        Math.max(
-            0,
-            total - feitas
-        );
-
-
-    const porcentagem =
-        Math.round(
-            (feitas / total) * 100
-        );
-
-
-    container.innerHTML = `
-
-        <button
-            type="button"
-            class="voltar"
-            onclick="mostrarPagina('home')"
-        >
-            <span class="voltar-seta">
-                ←
-            </span>
-
-            <span>
-                Voltar ao início
-            </span>
-        </button>
-
-
-        <div class="fim-dia">
-
-            <div class="icone-final">
-                ✨
-            </div>
-
-
-            <p class="categoria">
-                CHECKPOINT
-            </p>
-
-
-            <h3>
-                Mais 3 desafios concluídos!
-            </h3>
-
-
-            <p>
-                Quer fazer uma pausa?
-                Pode parar aqui.
-                Seu progresso já está salvo.
-            </p>
-
-
-            <div class="contador-card">
-
-                <small>
-                    PROGRESSO
-                </small>
-
-                <strong>
-                    ${feitas}/${total}
-                </strong>
-
-                <p>
-                    ${porcentagem}% concluído
-                </p>
-
-            </div>
-
-
-            <p>
-                Restam
-                <strong>
-                    ${restantes}
-                </strong>
-                desafios.
-            </p>
-
-
-            <div
-                class="botoes"
-                style="
-                    justify-content: center;
-                    gap: 12px;
-                    flex-wrap: wrap;
-                "
-            >
-
-                <button
-                    type="button"
-                    class="botao principal"
-                    onclick="continuarQuiz()"
-                >
-                    Continuar aprendendo
-                    <span>→</span>
-                </button>
-
-
-                <button
-                    type="button"
-                    class="botao amarelo"
-                    onclick="mostrarPagina('home')"
-                >
-                    Parar por agora
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   CONTINUAR QUIZ
-   ========================================================= */
-
-function continuarQuiz() {
-
-    mostrarPergunta();
-
-}
-
-
-/* =========================================================
-   FIM DO CICLO
-   ========================================================= */
-
-function mostrarFimDoCiclo() {
-
-    const container = document.querySelector(
-        `#${idiomaAtual} .quiz`
-    );
-
-
-    if (!container) {
-        return;
-    }
-
-
-    const total =
-        perguntas[idiomaAtual].length;
-
-
-    container.innerHTML = `
-
-        <button
-            type="button"
-            class="voltar"
-            onclick="mostrarPagina('home')"
-        >
-            <span class="voltar-seta">
-                ←
-            </span>
-
-            <span>
-                Voltar ao início
-            </span>
-        </button>
-
-
-        <div class="fim-dia">
-
-            <div class="icone-final">
-                🏆
-            </div>
-
-
-            <p class="categoria">
-                CICLO COMPLETO
-            </p>
-
-
-            <h3>
-                Você zerou!
-            </h3>
-
-
-            <p>
-                Você completou todos os
-                <strong>
-                    ${total} desafios
-                </strong>
-                disponíveis.
-            </p>
-
-
-            <div class="contador-card">
-
-                <small>
-                    PROGRESSO
-                </small>
-
-                <strong>
-                    ${total}/${total}
-                </strong>
-
-                <p>
-                    100% concluído ✨
-                </p>
-
-            </div>
-
-
-            <p>
-                Você pode embaralhar as perguntas
-                e começar um novo ciclo.
-            </p>
-
-
-            <div
-                class="botoes"
-                style="
-                    justify-content: center;
-                    gap: 12px;
-                    flex-wrap: wrap;
-                "
-            >
-
-                <button
-                    type="button"
-                    class="botao principal"
-                    onclick="reiniciarCiclo()"
-                >
-                    Jogar novamente
-                    <span>↻</span>
-                </button>
-
-
-                <button
-                    type="button"
-                    class="botao amarelo"
-                    onclick="mostrarPagina('home')"
-                >
-                    Voltar ao dashboard
-                </button>
-
-            </div>
-
-        </div>
-
-    `;
-}
-
-
-/* =========================================================
-   REINICIAR CICLO
-   ========================================================= */
-
-function reiniciarCiclo() {
-
-    criarNovoCiclo(idiomaAtual);
 
     atualizarDashboard();
 
-    mostrarPergunta();
+
+    mostrarDesafioConcluido();
 }
 
+function mostrarDesafioConcluido() {
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
+    if (!idiomaAtual) {
+        return;
+    }
+
+
+    const container =
+        obterContainerQuiz(
+            idiomaAtual
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const ofensiva =
+        carregarOfensiva(
+            idiomaAtual
+        );
+
+
+    const progresso =
+        carregarProgresso(
+            idiomaAtual
+        );
+
+
+    const total =
+        bancos[idiomaAtual]
+        ?
+        bancos[idiomaAtual].length
+        :
+        0;
+
+
+    container.innerHTML = `
+
+        <div class="quiz-final">
+
+            <div class="quiz-final-emoji">
+                🔥
+            </div>
+
+
+            <h2>
+                Desafios de hoje concluídos!
+            </h2>
+
+
+            <p>
+
+                Você completou os
+                ${DESAFIOS_POR_DIA}
+                desafios de hoje.
+
+            </p>
+
+
+            <div class="quiz-resumo">
+
+                <div class="quiz-resumo-item">
+
+                    <strong>
+                        ${ofensiva}
+                    </strong>
+
+                    <span>
+                        🔥 ofensiva
+                    </span>
+
+                </div>
+
+
+                <div class="quiz-resumo-item">
+
+                    <strong>
+                        ${progresso}/${total}
+                    </strong>
+
+                    <span>
+                        progresso
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <p class="quiz-volte">
+
+                Volte amanhã para continuar. 🌙
+
+            </p>
+
+
+            <button
+                class="botao-secundario"
+                onclick="mostrarPagina('home')"
+            >
+
+                Voltar ao início
+
+            </button>
+
+        </div>
+
+    `;
+}
+
+function mostrarFimDoCiclo() {
+
+    if (!idiomaAtual) {
+        return;
+    }
+
+    const container =
+        obterContainerQuiz(
+            idiomaAtual
+        );
+
+    if (!container) {
+        return;
+    }
+
+    const banco =
+        bancos[idiomaAtual];
+
+    const total =
+        banco
+        ?
+        banco.length
+        :
+        0;
+
+    const ofensiva =
+        carregarOfensiva(
+            idiomaAtual
+        );
+
+    container.innerHTML = `
+
+        <div class="quiz-final">
+
+            <div class="quiz-final-emoji">
+                🏆
+            </div>
+
+            <h2>
+                Você completou o ciclo!
+            </h2>
+
+            <p>
+
+                Você chegou ao final de
+                <strong>
+                    ${total}/${total}
+                </strong>
+                desafios.
+
+            </p>
+
+            <p>
+
+                Ofensiva atual:
+                <strong>
+                    🔥 ${ofensiva}
+                </strong>
+
+            </p>
+
+            <button
+                class="botao-principal"
+                onclick="reiniciarCiclo()"
+            >
+
+                Começar um novo ciclo
+
+            </button>
+
+
+            <button
+                class="botao-secundario"
+                onclick="mostrarPagina('home')"
+            >
+
+                Voltar ao início
+
+            </button>
+
+        </div>
+
+    `;
+}
+
+function reiniciarCiclo() {
+
+    if (!idiomaAtual) {
+        return;
+    }
+
+    const banco =
+        bancos[idiomaAtual];
+
+    if (!banco) {
+        return;
+    }
+
+    salvarProgresso(
+        idiomaAtual,
+        0
+    );
+
+
+    const novaOrdem =
+        criarOrdemAleatoria(
+            banco.length
+        );
+
+
+    localStorage.setItem(
+        chave(
+            idiomaAtual,
+            "ordem"
+        ),
+        JSON.stringify(
+            novaOrdem
+        )
+    );
+
+    if (
+        completouDesafiosDeHoje(
+            idiomaAtual
+        )
+    ) {
+
+        mostrarDesafioConcluido();
+
+        atualizarDashboard();
+
+        return;
+    }
+
+
+    iniciarQuiz(
+        idiomaAtual
+    );
+
+
+    atualizarDashboard();
+}
 
 function atualizarDashboard() {
 
-    atualizarCardDashboard(
-        "dashboard-ingles",
-        "ingles"
+    Object.keys(CONFIG).forEach(
+        idioma => {
+
+            atualizarCardDashboard(
+                idioma
+            );
+
+        }
     );
-
-
-    atualizarCardDashboard(
-        "dashboard-frances",
-        "frances"
-    );
-
-
-    atualizarSaudacao();
 }
 
+function atualizarCardDashboard(idioma) {
 
-/* =========================================================
-   ATUALIZAR CARD
-   ========================================================= */
+    const configuracao =
+        CONFIG[idioma];
 
-function atualizarCardDashboard(
-    idCard,
-    idioma
-) {
+    if (!configuracao) {
+        return;
+    }
 
     const card =
-        document.getElementById(idCard);
-
+        document.getElementById(
+            configuracao.card
+        );
 
     if (!card) {
         return;
     }
 
+    const banco =
+        bancos[idioma] || [];
 
     const total =
-        perguntas[idioma].length;
-
+        banco.length;
 
     const progresso =
-        Math.min(
-            carregarProgresso(idioma),
-            total
+        carregarProgresso(
+            idioma
         );
 
+    const feitosHoje =
+        carregarFeitosHoje(
+            idioma
+        );
 
-    const porcentagem =
-        total > 0
-            ? (progresso / total) * 100
-            : 0;
+    const ofensiva =
+        carregarOfensiva(
+            idioma
+        );
 
+    const concluidoHoje =
+        completouDesafiosDeHoje(
+            idioma
+        );
 
-    const texto =
+    const textoProgresso =
         card.querySelector(
             ".dashboard-progresso-texto"
         );
 
+    if (textoProgresso) {
+
+        textoProgresso.textContent =
+            `${progresso}/${total}`;
+    }
 
     const barra =
         card.querySelector(
             ".dashboard-barra-preenchida"
         );
 
-
-    const botao =
-        card.querySelector(
-            ".dashboard-botao"
-        );
-
-
-    if (texto) {
-
-        texto.textContent =
-            `${progresso}/${total} desafios`;
-
-    }
-
-
     if (barra) {
+
+        const porcentagem =
+            total > 0
+            ?
+            Math.min(
+                100,
+                (progresso / total) * 100
+            )
+            :
+            0;
+
 
         barra.style.width =
             `${porcentagem}%`;
-
     }
 
-
-    if (!botao) {
-        return;
-    }
-
-
-    if (progresso >= total) {
-
-        card.classList.add(
-            "dashboard-concluido"
+    const textoOfensiva =
+        card.querySelector(
+            ".dashboard-ofensiva"
         );
 
 
-        botao.innerHTML = `
-            Ver resultado
-            <span>✓</span>
-        `;
+    if (textoOfensiva) {
 
-    } else {
+        textoOfensiva.textContent =
+            `🔥 ${ofensiva}`;
+    }
 
-        card.classList.remove(
-            "dashboard-concluido"
+    const status =
+        card.querySelector(
+            ".dashboard-status"
         );
 
 
-        if (progresso === 0) {
+    if (status) {
 
-            botao.innerHTML = `
-                Começar
-                <span>→</span>
-            `;
+        if (total === 0) {
+
+            status.textContent =
+                "Em breve";
+
+        } else if (
+            progresso >= total
+        ) {
+
+            status.textContent =
+                "Ciclo completo 🏆";
+
+        } else if (
+            concluidoHoje
+        ) {
+
+            status.textContent =
+                "Concluído hoje ✓";
+
+        } else if (
+            feitosHoje > 0
+        ) {
+
+            status.textContent =
+                `${feitosHoje}/${DESAFIOS_POR_DIA} hoje`;
 
         } else {
 
-            botao.innerHTML = `
-                Continuar
-                <span>→</span>
-            `;
+            status.textContent =
+                "Disponível hoje";
+        }
+    }
 
+    const botao =
+        card.querySelector(
+            "button"
+        );
+
+
+    if (botao) {
+
+        if (total === 0) {
+
+            botao.textContent =
+                "Em breve";
+
+            botao.disabled = true;
+
+        } else if (
+            progresso >= total
+        ) {
+
+            botao.textContent =
+                "Ver resultado";
+
+            botao.disabled = false;
+
+        } else if (
+            concluidoHoje
+        ) {
+
+            botao.textContent =
+                "Concluído hoje";
+
+            botao.disabled = false;
+
+        } else if (
+            feitosHoje > 0
+        ) {
+
+            botao.textContent =
+                `Continuar ${feitosHoje}/${DESAFIOS_POR_DIA}`;
+
+            botao.disabled = false;
+
+        } else {
+
+            botao.textContent =
+                "Começar";
+
+            botao.disabled = false;
         }
     }
 }
 
-
-/* =========================================================
-   SAUDAÇÃO
-   ========================================================= */
-
-function atualizarSaudacao() {
-
-    const elemento =
-        document.getElementById(
-            "saudacao"
-        );
-
-
-    if (!elemento) {
-        return;
-    }
-
-
-    const hora =
-        new Date().getHours();
-
-
-    if (hora >= 5 && hora < 12) {
-
-        elemento.textContent =
-            "Bom dia ☀️";
-
-    } else if (
-        hora >= 12 &&
-        hora < 18
-    ) {
-
-        elemento.textContent =
-            "Boa tarde ✨";
-
-    } else {
-
-        elemento.textContent =
-            "Boa noite 🌙";
-
-    }
-}
-
-
-/* =========================================================
-   RESET OPCIONAL
-
-   Esta função NÃO aparece para o aluno.
-   É útil durante seus testes.
-   ========================================================= */
-
-function resetarProgresso() {
+function liberarHoje(idioma) {
 
     localStorage.removeItem(
-        chaveProgresso("ingles")
+        chave(
+            idioma,
+            "data"
+        )
     );
 
-    localStorage.removeItem(
-        chaveProgresso("frances")
-    );
 
     localStorage.removeItem(
-        chaveOrdem("ingles")
+        chave(
+            idioma,
+            "feitosHoje"
+        )
     );
 
-    localStorage.removeItem(
-        chaveOrdem("frances")
-    );
 
     atualizarDashboard();
 
+
     console.log(
-        "Progresso do Uhm, Actually... resetado."
+        `Desafios de ${idioma} liberados novamente.`
     );
 }
 
+function resetarProgresso() {
 
-/* =========================================================
-   INICIALIZAÇÃO
-   ========================================================= */
+    const idiomas = [
+        "ingles",
+        "frances"
+    ];
+
+
+    idiomas.forEach(
+        idioma => {
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "progresso"
+                )
+            );
+
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "data"
+                )
+            );
+
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "ordem"
+                )
+            );
+
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "ofensiva"
+                )
+            );
+
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "feitosHoje"
+                )
+            );
+
+
+            localStorage.removeItem(
+                chave(
+                    idioma,
+                    "ultimaOfensiva"
+                )
+            );
+
+        }
+    );
+
+
+    idiomaAtual = null;
+
+    perguntaAtual = null;
+
+    indicePerguntaAtual = 0;
+
+    respondeuPergunta = false;
+
+
+    atualizarDashboard();
+
+
+    console.log(
+        "Todo o progresso foi resetado."
+    );
+}
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    () => {
 
         atualizarDashboard();
 
