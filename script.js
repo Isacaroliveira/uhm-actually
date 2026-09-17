@@ -3700,3 +3700,1005 @@ document.addEventListener(
 
     }
 );
+const SUPABASE_URL = "https://irmabgsbhbkrsccradzx.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_4LIQEBQFBPDjVJQCYKO4ow_p1ndtlbY";
+
+let clienteSupabase = null;
+let usuarioAtual = null;
+
+function supabaseConfigurado() {
+    return (
+        SUPABASE_URL.startsWith("https://") &&
+        SUPABASE_ANON_KEY.startsWith("sb_publishable_")
+    );
+}
+
+function mensagemAuth(texto, erro = false) {
+    const elemento = document.getElementById("auth-mensagem");
+
+    if (!elemento) return;
+
+    elemento.textContent = texto;
+    elemento.style.color = erro ? "#9B3F63" : "#7256C8";
+}
+
+function atualizarInterfaceConta(usuario) {
+    usuarioAtual = usuario || null;
+
+    const botao = document.getElementById("botao-conta");
+    const deslogado = document.getElementById("auth-deslogado");
+    const logado = document.getElementById("auth-logado");
+    const emailModal = document.getElementById("auth-email-logado");
+    const emailArea = document.getElementById("aluno-email");
+
+    if (usuarioAtual) {
+        if (botao) {
+            botao.textContent = "Minha conta";
+        }
+
+        if (deslogado) {
+            deslogado.hidden = true;
+        }
+
+        if (logado) {
+            logado.hidden = false;
+        }
+
+        if (emailModal) {
+            emailModal.textContent =
+                usuarioAtual.email || "Conta conectada";
+        }
+
+        if (emailArea) {
+            emailArea.textContent =
+                usuarioAtual.email || "Conta conectada";
+        }
+
+    } else {
+        if (botao) {
+            botao.textContent = "Entrar";
+        }
+
+        if (deslogado) {
+            deslogado.hidden = false;
+        }
+
+        if (logado) {
+            logado.hidden = true;
+        }
+
+        if (emailModal) {
+            emailModal.textContent = "";
+        }
+
+        if (emailArea) {
+            emailArea.textContent = "";
+        }
+
+        const paginaAluno = document.getElementById("aluno");
+
+        if (paginaAluno?.classList.contains("ativa")) {
+            mostrarPagina("home");
+        }
+    }
+}
+
+function abrirConta() {
+    fecharMenu();
+
+    const overlay = document.getElementById("auth-overlay");
+
+    if (!overlay) return;
+
+    overlay.classList.add("aberto");
+    overlay.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("auth-travado");
+
+    mensagemAuth("");
+
+    setTimeout(() => {
+        const elementoParaFocar = usuarioAtual
+            ? document.getElementById("auth-sair")
+            : document.getElementById("auth-email");
+
+        elementoParaFocar?.focus();
+    }, 50);
+}
+
+function fecharConta() {
+    const overlay = document.getElementById("auth-overlay");
+
+    if (!overlay) return;
+
+    overlay.classList.remove("aberto");
+    overlay.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("auth-travado");
+}
+
+function abrirAreaAluno() {
+    if (!usuarioAtual) {
+        abrirConta();
+        return;
+    }
+
+    fecharConta();
+    mostrarPagina("aluno");
+}
+
+async function entrarNaConta(evento) {
+    evento?.preventDefault();
+
+    if (!clienteSupabase) {
+        mensagemAuth(
+            "Não foi possível conectar ao sistema de login.",
+            true
+        );
+
+        return;
+    }
+
+    const email =
+        document.getElementById("auth-email")?.value.trim();
+
+    const senha =
+        document.getElementById("auth-senha")?.value;
+
+    if (!email || !senha) {
+        mensagemAuth(
+            "Preencha seu e-mail e sua senha.",
+            true
+        );
+
+        return;
+    }
+
+    mensagemAuth("Entrando...");
+
+    const { data, error } =
+        await clienteSupabase.auth.signInWithPassword({
+            email,
+            password: senha
+        });
+
+    if (error) {
+        mensagemAuth(
+            traduzirErroAuth(error.message),
+            true
+        );
+
+        return;
+    }
+
+    atualizarInterfaceConta(data.user);
+
+    mensagemAuth("");
+}
+
+async function alterarSenha(evento) {
+    evento?.preventDefault();
+
+    const mensagem =
+        document.getElementById("senha-mensagem");
+
+    const novaSenha =
+        document.getElementById("nova-senha")?.value || "";
+
+    const confirmar =
+        document.getElementById("confirmar-nova-senha")?.value || "";
+
+    function mostrar(texto, erro = false) {
+        if (!mensagem) return;
+
+        mensagem.textContent = texto;
+        mensagem.style.color =
+            erro ? "#9B3F63" : "#7256C8";
+    }
+
+    if (!usuarioAtual || !clienteSupabase) {
+        mostrar(
+            "Entre na sua conta antes de alterar a senha.",
+            true
+        );
+
+        return;
+    }
+
+    if (novaSenha.length < 6) {
+        mostrar(
+            "A nova senha precisa ter pelo menos 6 caracteres.",
+            true
+        );
+
+        return;
+    }
+
+    if (novaSenha !== confirmar) {
+        mostrar(
+            "As duas senhas não são iguais.",
+            true
+        );
+
+        return;
+    }
+
+    mostrar("Alterando sua senha...");
+
+    const { error } =
+        await clienteSupabase.auth.updateUser({
+            password: novaSenha
+        });
+
+    if (error) {
+        mostrar(
+            traduzirErroAuth(error.message),
+            true
+        );
+
+        return;
+    }
+
+    evento.target.reset();
+
+    mostrar("Senha alterada com sucesso! ✓");
+}
+
+async function sairDaConta() {
+    if (!clienteSupabase) return;
+
+    const { error } =
+        await clienteSupabase.auth.signOut();
+
+    if (error) {
+        mensagemAuth(
+            traduzirErroAuth(error.message),
+            true
+        );
+
+        return;
+    }
+
+    atualizarInterfaceConta(null);
+
+    fecharConta();
+}
+
+function traduzirErroAuth(mensagem = "") {
+    const texto = mensagem.toLowerCase();
+
+    if (
+        texto.includes("invalid login credentials")
+    ) {
+        return "E-mail ou senha incorretos.";
+    }
+
+    if (
+        texto.includes("email not confirmed")
+    ) {
+        return "Este e-mail ainda não foi confirmado.";
+    }
+
+    if (
+        texto.includes("password")
+    ) {
+        return "Não foi possível alterar ou validar a senha. Confira os dados e tente novamente.";
+    }
+
+    return "Não foi possível concluir. Tente novamente em instantes.";
+}
+
+async function iniciarAutenticacao() {
+    atualizarInterfaceConta(null);
+
+    if (
+        !supabaseConfigurado() ||
+        !window.supabase?.createClient
+    ) {
+        return;
+    }
+
+clienteSupabase =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+const { data, error } =
+    await clienteSupabase.auth.getSession();
+
+if (error) {
+    console.error(
+        "Erro ao recuperar sessão:",
+        error.message
+    );
+} else {
+    atualizarInterfaceConta(
+        data.session?.user || null
+    );
+}
+
+clienteSupabase.auth.onAuthStateChange(
+    (_evento, sessao) => {
+        atualizarInterfaceConta(
+            sessao?.user || null
+        );
+    }
+);
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        document
+            .getElementById("auth-form")
+            ?.addEventListener(
+                "submit",
+                entrarNaConta
+            );
+
+        document
+            .getElementById("auth-sair")
+            ?.addEventListener(
+                "click",
+                sairDaConta
+            );
+
+        document
+            .getElementById("form-alterar-senha")
+            ?.addEventListener(
+                "submit",
+                alterarSenha
+            );
+
+        document
+            .getElementById("auth-overlay")
+            ?.addEventListener(
+                "click",
+                evento => {
+                    if (
+                        evento.target.id ===
+                        "auth-overlay"
+                    ) {
+                        fecharConta();
+                    }
+                }
+            );
+
+        iniciarAutenticacao();
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    evento => {
+        if (evento.key === "Escape") {
+            fecharConta();
+        }
+    }
+);
+
+async function carregarExerciciosExclusivos(idioma) {
+    if (!usuarioAtual || !clienteSupabase) {
+        abrirConta();
+        return;
+    }
+
+    const container = document.getElementById(
+        `exercicios-exclusivos-${idioma}`
+    );
+
+    if (!container) {
+        console.error(
+            `Não encontrei a área de exercícios de ${idioma}.`
+        );
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="exclusivo-carregando">
+            <span>✦</span>
+            <p>Buscando seus exercícios...</p>
+        </div>
+    `;
+
+    const { data, error } = await clienteSupabase
+        .from("exercicios_exclusivos")
+        .select(`
+            id,
+            idioma,
+            titulo,
+            pergunta,
+            opcoes,
+            resposta_correta,
+            explicacao,
+            ordem
+        `)
+        .eq("idioma", idioma)
+        .eq("ativo", true)
+        .order("ordem", { ascending: true });
+
+    if (error) {
+        console.error(
+            "Erro ao buscar exercícios:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="exclusivo-erro">
+                <span>:(</span>
+                <p>Não conseguimos carregar os exercícios.</p>
+
+                <button
+                    class="botao principal"
+                    type="button"
+                    onclick="carregarExerciciosExclusivos('${idioma}')"
+                >
+                    Tentar novamente
+                </button>
+            </div>
+        `;
+
+        return;
+    }
+
+       if (!data || data.length === 0) {
+        container.innerHTML = `
+            <div class="exclusivo-vazio">
+                <span>✦</span>
+                <p>Nenhum exercício por aqui ainda.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const idsExercicios = data.map(
+        exercicio => exercicio.id
+    );
+
+    const { data: progresso, error: erroProgresso } =
+        await clienteSupabase
+            .from("progresso_exercicios")
+            .select(`
+                exercicio_id,
+                concluido,
+                acertou,
+                respondido_em
+            `)
+            .eq("usuario_id", usuarioAtual.id)
+            .in("exercicio_id", idsExercicios);
+
+    if (erroProgresso) {
+        console.error(
+            "Erro ao buscar progresso:",
+            erroProgresso
+        );
+    }
+
+    const progressoPorExercicio = {};
+
+    if (progresso) {
+        progresso.forEach(item => {
+            progressoPorExercicio[item.exercicio_id] =
+                item;
+        });
+    }
+
+    mostrarExerciciosExclusivos(
+        idioma,
+        data,
+        progressoPorExercicio
+    );
+
+}
+
+function mostrarExerciciosExclusivos(
+    idioma,
+    exercicios,
+    progressoPorExercicio = {}
+) {
+    const container = document.getElementById(
+        `exercicios-exclusivos-${idioma}`
+    );
+
+    if (!container) return;
+
+    const totalExercicios = exercicios.length;
+
+    const totalConcluidos = exercicios.filter(
+        exercicio =>
+            progressoPorExercicio[exercicio.id]
+                ?.concluido === true
+    ).length;
+
+    const porcentagem =
+        totalExercicios > 0
+            ? Math.round(
+                (totalConcluidos / totalExercicios) * 100
+            )
+            : 0;
+
+    container.innerHTML = `
+        <div class="progresso-exclusivos">
+            <div class="progresso-exclusivos-info">
+                <div>
+                    <span>SEU PROGRESSO</span>
+                    <strong>
+                        ${totalConcluidos} de ${totalExercicios} concluídos
+                    </strong>
+                </div>
+
+                <strong class="progresso-exclusivos-porcentagem">
+                    ${porcentagem}%
+                </strong>
+            </div>
+
+            <div class="progresso-exclusivos-barra">
+                <div
+                    class="progresso-exclusivos-preenchimento"
+                    style="width: ${porcentagem}%"
+                ></div>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML += exercicios
+        .map((exercicio, indice) => {
+            const opcoes =
+                Array.isArray(exercicio.opcoes)
+                    ? exercicio.opcoes
+                    : [];
+
+            const progresso =
+                progressoPorExercicio[exercicio.id];
+
+            const concluido =
+                progresso?.concluido === true;
+
+            return `
+                <article
+                    class="exercicio-exclusivo-card ${
+                        concluido ? "concluido" : ""
+                    }"
+                    data-exercicio-id="${exercicio.id}"
+                >
+                    <div class="exercicio-exclusivo-topo">
+
+                        <span class="exercicio-numero">
+                            ${indice + 1}
+                        </span>
+
+                        <span class="exercicio-categoria">
+                            ${escaparHTML(
+                                exercicio.titulo
+                            )}
+                        </span>
+
+                        ${
+                            concluido
+                                ? `
+                                    <span class="exercicio-concluido">
+                                        ✓ Concluído
+                                    </span>
+                                `
+                                : ""
+                        }
+
+                    </div>
+
+                    <h3>
+                        ${escaparHTML(
+                            exercicio.pergunta
+                        )}
+                    </h3>
+
+                    <div class="exercicio-opcoes">
+
+                        ${opcoes
+                            .map(
+                                (
+                                    opcao,
+                                    indiceOpcao
+                                ) => `
+                                    <button
+                                        class="exercicio-opcao ${
+                                            concluido &&
+                                            indiceOpcao ===
+                                                Number(
+                                                    exercicio.resposta_correta
+                                                )
+                                                ? "correta"
+                                                : ""
+                                        }"
+                                        type="button"
+                                        ${
+                                            concluido
+                                                ? "disabled"
+                                                : ""
+                                        }
+                                        onclick="responderExercicioExclusivo(
+                                            ${exercicio.id},
+                                            ${indiceOpcao},
+                                            '${idioma}'
+                                        )"
+                                    >
+                                        ${escaparHTML(
+                                            opcao
+                                        )}
+                                    </button>
+                                `
+                            )
+                            .join("")}
+
+                    </div>
+
+                    <div
+                        class="exercicio-feedback ${
+                            concluido
+                                ? progresso.acertou
+                                    ? "acertou"
+                                    : "errou"
+                                : ""
+                        }"
+                        id="feedback-exercicio-${exercicio.id}"
+                    >
+                        ${
+                            concluido
+                                ? `
+                                    <strong>
+                                        ${
+                                            progresso.acertou
+                                                ? "Você acertou! ✦"
+                                                : "Exercício concluído ✓"
+                                        }
+                                    </strong>
+
+                                    ${
+                                        exercicio.explicacao
+                                            ? `
+                                                <p>
+                                                    ${escaparHTML(
+                                                        exercicio.explicacao
+                                                    )}
+                                                </p>
+                                            `
+                                            : ""
+                                    }
+                                `
+                                : ""
+                        }
+                    </div>
+
+                </article>
+            `;
+        })
+        .join("");
+
+    window.exerciciosExclusivosCarregados =
+        window.exerciciosExclusivosCarregados || {};
+
+    window.exerciciosExclusivosCarregados[
+        idioma
+    ] = exercicios;
+}
+
+function escaparHTML(valor) {
+    const elemento =
+        document.createElement("div");
+
+    elemento.textContent =
+        valor == null
+            ? ""
+            : String(valor);
+
+    return elemento.innerHTML;
+}
+
+function abrirExerciciosExclusivos(idioma) {
+    if (!usuarioAtual) {
+        abrirConta();
+        return;
+    }
+
+    const painel = document.getElementById(
+        `painel-exercicios-${idioma}`
+    );
+
+    if (!painel) {
+        console.error(
+            `Não encontrei o painel de exercícios de ${idioma}.`
+        );
+        return;
+    }
+
+    // Esconde os cards principais da área do aluno
+    const grid = document.querySelector(
+        "#aluno .aluno-grid"
+    );
+
+    // Esconde a área de troca de senha
+    const seguranca = document.querySelector(
+        "#aluno .aluno-seguranca"
+    );
+
+    if (grid) {
+        grid.hidden = true;
+    }
+
+    if (seguranca) {
+        seguranca.hidden = true;
+    }
+
+    // Garante que apenas o painel escolhido apareça
+    document
+        .querySelectorAll(
+            "#aluno .aluno-exercicios-exclusivos"
+        )
+        .forEach(outroPainel => {
+            outroPainel.hidden = true;
+        });
+
+    painel.hidden = false;
+
+    carregarExerciciosExclusivos(idioma);
+
+    painel.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+function fecharExerciciosExclusivos(idioma) {
+    const painel = document.getElementById(
+        `painel-exercicios-${idioma}`
+    );
+
+    if (painel) {
+        painel.hidden = true;
+    }
+
+    const grid = document.querySelector(
+        "#aluno .aluno-grid"
+    );
+
+    const seguranca = document.querySelector(
+        "#aluno .aluno-seguranca"
+    );
+
+    if (grid) {
+        grid.hidden = false;
+    }
+
+    if (seguranca) {
+        seguranca.hidden = false;
+    }
+
+    const cabecalho = document.querySelector(
+        "#aluno .aluno-cabecalho"
+    );
+
+      cabecalho?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+async function responderExercicioExclusivo(
+    exercicioId,
+    indiceEscolhido,
+    idioma
+) {
+    if (!usuarioAtual || !clienteSupabase) {
+        abrirConta();
+        return;
+    }
+
+    const exercicios =
+        window.exerciciosExclusivosCarregados?.[idioma];
+
+    if (!exercicios) {
+        return;
+    }
+
+    const exercicio = exercicios.find(
+        item => Number(item.id) === Number(exercicioId)
+    );
+
+    if (!exercicio) {
+        return;
+    }
+
+    const card = document.querySelector(
+        `[data-exercicio-id="${exercicioId}"]`
+    );
+
+    const feedback = document.getElementById(
+        `feedback-exercicio-${exercicioId}`
+    );
+
+    if (!card || !feedback) {
+        return;
+    }
+
+    const botoes = card.querySelectorAll(
+        ".exercicio-opcao"
+    );
+
+    const acertou =
+        Number(indiceEscolhido) ===
+        Number(exercicio.resposta_correta);
+
+    botoes.forEach((botao, indice) => {
+        botao.disabled = true;
+
+        if (
+            indice ===
+            Number(exercicio.resposta_correta)
+        ) {
+            botao.classList.add("correta");
+        }
+
+        if (
+            indice === Number(indiceEscolhido) &&
+            !acertou
+        ) {
+            botao.classList.add("incorreta");
+        }
+    });
+
+    feedback.className =
+        `exercicio-feedback ${
+            acertou ? "acertou" : "errou"
+        }`;
+
+    feedback.innerHTML = `
+        <strong>
+            ${acertou
+                ? "Acertou! ✦"
+                : "Quase! Veja a resposta correta."}
+        </strong>
+
+        ${
+            exercicio.explicacao
+                ? `
+                    <p>
+                        ${escaparHTML(
+                            exercicio.explicacao
+                        )}
+                    </p>
+                `
+                : ""
+        }
+    `;
+
+    const { error } = await clienteSupabase
+        .from("progresso_exercicios")
+        .upsert(
+            {
+                usuario_id: usuarioAtual.id,
+                exercicio_id: exercicio.id,
+                concluido: true,
+                acertou: acertou,
+                respondido_em:
+                    new Date().toISOString()
+            },
+            {
+                onConflict:
+                    "usuario_id,exercicio_id"
+            }
+        );
+
+if (error) {
+    console.error(
+        "Erro ao salvar progresso:",
+        error
+    );
+}
+
+}
+
+function alternarMenuAluno() {
+    const menu = document.getElementById(
+        "aluno-menu-dropdown"
+    );
+
+    if (!menu) return;
+
+    menu.hidden = !menu.hidden;
+}
+function abrirSegurancaAluno() {
+    const modal =
+        document.getElementById("modal-senha");
+
+    const menu =
+        document.getElementById(
+            "aluno-menu-dropdown"
+        );
+
+    if (!modal) {
+        console.error(
+            "Modal de senha não encontrado."
+        );
+        return;
+    }
+
+    if (menu) {
+        menu.hidden = true;
+    }
+
+    modal.hidden = false;
+}
+
+
+function fecharSegurancaAluno() {
+    const modal =
+        document.getElementById("modal-senha");
+
+    if (!modal) return;
+
+    modal.hidden = true;
+}
+
+    async function alterarSenhaPeloMenu(event) {
+    event.preventDefault();
+
+    const novaSenha =
+        document.getElementById("nova-senha-menu").value;
+
+    const confirmarSenha =
+        document.getElementById(
+            "confirmar-nova-senha-menu"
+        ).value;
+
+    const mensagem =
+        document.getElementById("senha-mensagem-menu");
+
+    mensagem.textContent = "";
+
+    if (novaSenha.length < 6) {
+        mensagem.textContent =
+            "A senha precisa ter pelo menos 6 caracteres.";
+        return;
+    }
+
+    if (novaSenha !== confirmarSenha) {
+        mensagem.textContent =
+            "As senhas não coincidem.";
+        return;
+    }
+
+    const { error } =
+        await clienteSupabase.auth.updateUser({
+            password: novaSenha
+        });
+
+    if (error) {
+        console.error(
+            "Erro ao alterar senha:",
+            error
+        );
+
+        mensagem.textContent =
+            "Não foi possível alterar a senha.";
+        return;
+    }
+
+    mensagem.textContent =
+        "Senha alterada com sucesso! ✦";
+
+    document.getElementById(
+        "form-alterar-senha-menu"
+    ).reset();
+}
+const formAlterarSenhaMenu =
+    document.getElementById(
+        "form-alterar-senha-menu"
+    );
+
+if (formAlterarSenhaMenu) {
+    formAlterarSenhaMenu.addEventListener(
+        "submit",
+        alterarSenhaPeloMenu
+    );
+}

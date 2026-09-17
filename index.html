@@ -82,6 +82,15 @@
                 Francês
             </button>
 
+            <button
+                class="menu-conta"
+                id="botao-conta"
+                type="button"
+                onclick="abrirConta()"
+            >
+                Entrar
+            </button>
+
             <a
                 class="menu-contato"
                 href="https://wa.me/5514991112390?text=Oi%21%20Encontrei%20a%20Uhm%2C%20Actually...%20pelo%20site%20e%20queria%20saber%20mais%20sobre%20as%20aulas%20particulares%20%F0%9F%98%8A"
@@ -703,8 +712,302 @@
         </section>
 
 
-    </main>
 
+        <!-- ÁREA DO ALUNO -->
+        <section id="aluno" class="pagina area-aluno">
+            <button class="voltar" type="button" onclick="mostrarPagina('home')">
+                <span class="voltar-seta">←</span> Voltar
+            </button>
+
+            <div class="aluno-cabecalho">
+                <span class="etiqueta">ÁREA DO ALUNO</span>
+                <div class="aluno-menu-container">
+
+<button
+    class="aluno-menu-botao"
+    type="button"
+    onclick="alternarMenuAluno()"
+    aria-label="Abrir menu da conta"
+>
+    ☰
+</button>
+
+    <div
+        class="aluno-menu-dropdown"
+        id="aluno-menu-dropdown"
+        hidden
+    >
+        <button
+            type="button"
+            onclick="abrirSegurancaAluno()"
+        >
+            🔐 Alterar senha
+        </button>
+
+        <button
+            type="button"
+            class="aluno-menu-sair"
+            onclick="sairDaConta()"
+        >
+            ↪ Sair
+        </button>
+    </div>
+
+</div>
+                <h2>Seu cantinho de estudos ✦</h2>
+                <p>Conteúdos exclusivos das aulas, organizados em um só lugar.</p>
+                <div class="aluno-identidade">
+                    <span>Conectada como</span>
+                    <strong id="aluno-email"></strong>
+                </div>
+            </div>
+
+            <div class="aluno-grid">
+                <article class="aluno-card">
+                    <div class="aluno-card-icone">🇬🇧</div>
+                    <span class="mini-etiqueta">ENGLISH</span>
+                    <h3>Exercícios de inglês</h3>
+                    <p>Atividades exclusivas das suas aulas aparecerão aqui.</p>
+                    <button
+    class="botao principal"
+    type="button"
+    onclick="abrirExerciciosExclusivos('ingles')"
+>
+    Ver exercícios →
+</button>
+                </article>
+
+                <article class="aluno-card aluno-card-frances">
+                    <div class="aluno-card-icone">🇫🇷</div>
+                    <span class="mini-etiqueta">FRANÇAIS</span>
+                    <h3>Exercícios de francês</h3>
+                    <p>Atividades exclusivas das suas aulas aparecerão aqui.</p>
+                    <button
+    class="botao principal"
+    type="button"
+    onclick="abrirExerciciosExclusivos('frances')"
+>
+    Ver exercícios →
+</button>
+                </article>
+            </div>
+<!-- ==================================================
+     EXERCÍCIOS EXCLUSIVOS
+=================================================== -->
+
+<section
+    class="aluno-exercicios-exclusivos"
+    id="painel-exercicios-ingles"
+    hidden
+>
+
+    <div class="aluno-exercicios-cabecalho">
+
+        <div>
+            <span class="etiqueta">
+                ENGLISH
+            </span>
+
+            <h2>
+                Exercícios de inglês 🇬🇧
+            </h2>
+
+            <p>
+                Atividades exclusivas para praticar
+                o conteúdo das suas aulas.
+            </p>
+        </div>
+
+        <button
+            class="botao"
+            type="button"
+            onclick="fecharExerciciosExclusivos('ingles')"
+        >
+            ← Voltar
+        </button>
+
+    </div>
+
+    <div
+        id="exercicios-exclusivos-ingles"
+        class="lista-exercicios-exclusivos"
+    ></div>
+
+</section>
+
+
+<section
+    class="aluno-exercicios-exclusivos"
+    id="painel-exercicios-frances"
+    hidden
+>
+
+    <div class="aluno-exercicios-cabecalho">
+
+        <div>
+            <span class="etiqueta">
+                FRANÇAIS
+            </span>
+
+            <h2>
+                Exercícios de francês 🇫🇷
+            </h2>
+
+            <p>
+                Atividades exclusivas para praticar
+                o conteúdo das suas aulas.
+            </p>
+        </div>
+
+        <button
+            class="botao"
+            type="button"
+            onclick="fecharExerciciosExclusivos('frances')"
+        >
+            ← Voltar
+        </button>
+
+    </div>
+
+    <div
+        id="exercicios-exclusivos-frances"
+        class="lista-exercicios-exclusivos"
+    ></div>
+
+      <div
+        id="exercicios-exclusivos-frances"
+        class="lista-exercicios-exclusivos"
+    ></div>
+
+</section>
+
+<!-- ==================================================
+     MODAL ALTERAR SENHA
+================================================== -->
+
+<div
+    class="modal-senha"
+    id="modal-senha"
+    hidden
+>
+    <div
+        class="modal-senha-fundo"
+        onclick="fecharSegurancaAluno()"
+    ></div>
+
+    <div
+        class="modal-senha-caixa"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-senha-titulo"
+    >
+        <button
+            class="modal-senha-fechar"
+            type="button"
+            onclick="fecharSegurancaAluno()"
+            aria-label="Fechar"
+        >
+            ×
+        </button>
+
+        <span class="etiqueta">
+            SEGURANÇA
+        </span>
+
+        <h2 id="modal-senha-titulo">
+            Alterar senha
+        </h2>
+
+        <p>
+            Escolha uma nova senha para a sua conta.
+        </p>
+
+        <form
+            id="form-alterar-senha-menu"
+            class="form-alterar-senha"
+        >
+            <label for="nova-senha-menu">
+                Nova senha
+            </label>
+
+            <input
+                id="nova-senha-menu"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                placeholder="Mínimo de 6 caracteres"
+                required
+            >
+
+            <label for="confirmar-nova-senha-menu">
+                Confirme a nova senha
+            </label>
+
+            <input
+                id="confirmar-nova-senha-menu"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                placeholder="Digite novamente"
+                required
+            >
+
+            <button
+                class="botao principal"
+                type="submit"
+            >
+                Alterar senha
+            </button>
+
+            <p
+                class="auth-mensagem"
+                id="senha-mensagem-menu"
+                aria-live="polite"
+            ></p>
+        </form>
+    </div>
+</div>
+
+        </section>
+
+    </main>
+    
+<div class="auth-overlay" id="auth-overlay" aria-hidden="true">
+        <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-titulo">
+            <button class="auth-fechar" type="button" onclick="fecharConta()" aria-label="Fechar">×</button>
+
+            <div id="auth-deslogado">
+                <span class="etiqueta">MINHA CONTA</span>
+                <h2 id="auth-titulo">Entre para guardar seu progresso ✦</h2>
+                <p class="auth-intro">Entre com o e-mail e a senha fornecidos para acessar sua conta.</p>
+
+                <form id="auth-form">
+                    <label for="auth-email">E-mail</label>
+                    <input id="auth-email" type="email" autocomplete="email" placeholder="voce@email.com" required>
+
+                    <label for="auth-senha">Senha</label>
+                    <input id="auth-senha" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres" minlength="6" required>
+
+                    <div class="auth-acoes">
+                        <button class="botao principal" id="auth-entrar" type="submit">Entrar</button>
+                    </div>
+                </form>
+
+                <p class="auth-mensagem" id="auth-mensagem" aria-live="polite"></p>
+            </div>
+
+            <div id="auth-logado" hidden>
+                <span class="etiqueta">MINHA CONTA</span>
+                <div class="auth-avatar">✓</div>
+                <h2>Você está conectada!</h2>
+                <p class="auth-email-logado" id="auth-email-logado"></p>
+                <div class="auth-logado-acoes">
+                    <button class="botao principal" type="button" onclick="abrirAreaAluno()">Ir para Área do Aluno →</button>
+                    <button class="botao auth-secundario" id="auth-sair" type="button">Sair da conta</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
     <!-- ==================================================
@@ -775,6 +1078,7 @@
          JAVASCRIPT PRINCIPAL
     =================================================== -->
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 
 
