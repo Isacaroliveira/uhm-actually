@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 
     <!-- ==================================================
@@ -33,7 +32,6 @@
             Uhm, <span>Actually...</span>
         </button>
 
-
         <button
             class="menu-hamburguer"
             type="button"
@@ -46,7 +44,6 @@
             <span></span>
             <span></span>
         </button>
-
 
         <nav
             class="menu-principal"
@@ -66,20 +63,6 @@
                 onclick="irParaAulas(); fecharMenu();"
             >
                 Aulas
-            </button>
-
-            <button
-                type="button"
-                onclick="mostrarPagina('ingles'); fecharMenu();"
-            >
-                Inglês
-            </button>
-
-            <button
-                type="button"
-                onclick="mostrarPagina('frances'); fecharMenu();"
-            >
-                Francês
             </button>
 
             <button
@@ -106,7 +89,6 @@
     </header>
 
 
-
     <main>
 
         <!-- ==================================================
@@ -118,13 +100,11 @@
             class="pagina ativa"
         >
 
-
             <!-- HERO -->
 
             <section class="hero">
 
                 <div class="hero-conteudo">
-
 
                     <div class="hero-texto">
 
@@ -147,7 +127,6 @@
                             plano pensado para você.
                         </p>
 
-
                         <div class="hero-botoes">
 
                             <button
@@ -169,7 +148,6 @@
 
                         </div>
 
-
                         <div class="hero-mini-info">
                             <span>💻 Aulas online</span>
                             <span>✨ Personalizadas</span>
@@ -177,7 +155,6 @@
                         </div>
 
                     </div>
-
 
 
                     <div class="hero-card">
@@ -200,12 +177,14 @@
                             </p>
 
                             <div class="hero-card-resposta">
+
                                 <span>✨</span>
 
                                 <p>
                                     <strong>Uhm, actually...</strong><br>
                                     não precisa.
                                 </p>
+
                             </div>
 
                             <div class="hero-card-tags">
@@ -218,11 +197,9 @@
 
                     </div>
 
-
                 </div>
 
             </section>
-
 
 
             <!-- ==================================================
@@ -257,6 +234,7 @@
                 <div class="beneficios-grid">
 
                     <article class="beneficio-card destaque">
+
                         <div class="beneficio-icone">💬</div>
 
                         <h3>
@@ -267,6 +245,7 @@
                             Você pratica para falar com mais naturalidade,
                             confiança e autonomia.
                         </p>
+
                     </article>
 
 
@@ -322,7 +301,6 @@
             </section>
 
 
-
             <!-- ==================================================
                  EXPERIÊNCIA
             =================================================== -->
@@ -330,7 +308,6 @@
             <section class="secao-experiencia">
 
                 <div class="experiencia-card">
-
 
                     <div class="experiencia-texto">
 
@@ -348,7 +325,6 @@
                             entender tudo e travar quando chega a hora
                             de falar.
                         </p>
-
 
                         <div class="experiencia-lista">
 
@@ -377,7 +353,6 @@
                     </div>
 
 
-
                     <div
                         class="experiencia-visual"
                         aria-hidden="true"
@@ -397,175 +372,9 @@
 
                     </div>
 
-
                 </div>
 
             </section>
-
-
-
-            <!-- ==================================================
-                 PRATIQUE
-            =================================================== -->
-
-            <section class="secao-pratique">
-
-                <div class="secao-cabecalho">
-
-                    <span class="etiqueta">
-                        PRATIQUE UM POUQUINHO
-                    </span>
-
-                    <h2>
-                        Conheça nossos
-                        <span>cantinhos de prática.</span>
-                    </h2>
-
-                    <p>
-                        Teste seu inglês e seu francês com desafios
-                        rápidos e acompanhe seu progresso.
-                    </p>
-
-                </div>
-
-
-
-                <div class="dashboard-grid">
-
-
-                    <!-- INGLÊS -->
-
-                    <article
-                        class="dashboard-card"
-                        id="dashboard-ingles"
-                    >
-
-                        <div class="dashboard-card-topo">
-
-                            <div class="idioma-icone">
-                                🇬🇧
-                            </div>
-
-                            <span>
-                                ENGLISH LAB
-                            </span>
-
-                        </div>
-
-
-                        <h2>
-                            English Lab
-                        </h2>
-
-                        <p>
-                            False friends, expressões e inglês
-                            que aparece fora do livro.
-                        </p>
-
-
-                        <div class="dashboard-progresso">
-
-                            <div class="dashboard-progresso-info">
-                                <span>Progresso</span>
-
-                                <strong id="progresso-texto-ingles">
-                                    0%
-                                </strong>
-                            </div>
-
-                            <div class="dashboard-barra">
-
-                                <div
-                                    class="dashboard-barra-preenchida"
-                                    id="progresso-barra-ingles"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            class="dashboard-botao"
-                            type="button"
-                            onclick="mostrarPagina('ingles')"
-                        >
-                            Praticar inglês
-                            <span>→</span>
-                        </button>
-
-                    </article>
-
-
-
-                    <!-- FRANCÊS -->
-
-                    <article
-                        class="dashboard-card"
-                        id="dashboard-frances"
-                    >
-
-                        <div class="dashboard-card-topo">
-
-                            <div class="idioma-icone">
-                                🇫🇷
-                            </div>
-
-                            <span>
-                                LE COIN FRANÇAIS
-                            </span>
-
-                        </div>
-
-
-                        <h2>
-                            Le Coin Français
-                        </h2>
-
-                        <p>
-                            Expressões, pegadinhas e francês
-                            usado na vida real.
-                        </p>
-
-
-                        <div class="dashboard-progresso">
-
-                            <div class="dashboard-progresso-info">
-                                <span>Progresso</span>
-
-                                <strong id="progresso-texto-frances">
-                                    0%
-                                </strong>
-                            </div>
-
-                            <div class="dashboard-barra">
-
-                                <div
-                                    class="dashboard-barra-preenchida"
-                                    id="progresso-barra-frances"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            class="dashboard-botao frances"
-                            type="button"
-                            onclick="mostrarPagina('frances')"
-                        >
-                            Praticar francês
-                            <span>→</span>
-                        </button>
-
-                    </article>
-
-
-                </div>
-
-            </section>
-
 
 
             <!-- ==================================================
@@ -597,7 +406,6 @@
                         particulares de inglês e francês.
                     </p>
 
-
                     <a
                         class="botao contato-botao"
                         href="https://wa.me/5514991112390?text=Oi%21%20Encontrei%20a%20Uhm%2C%20Actually...%20pelo%20site%20e%20queria%20saber%20mais%20sobre%20as%20aulas%20particulares%20%F0%9F%98%8A"
@@ -615,18 +423,16 @@
 
             </section>
 
-
         </section>
 
 
-
         <!-- ==================================================
-             ENGLISH LAB
+             ÁREA DO ALUNO
         =================================================== -->
 
         <section
-            id="ingles"
-            class="pagina"
+            id="aluno"
+            class="pagina area-aluno"
         >
 
             <button
@@ -638,375 +444,365 @@
                 Voltar
             </button>
 
-
-            <div class="titulo-pagina">
-
-                <span class="etiqueta">
-                    ENGLISH LAB
-                </span>
-
-                <h2>
-                    Uhm, actually... 🇬🇧
-                </h2>
-
-                <p>
-                    False friends, expressões e aquelas palavras
-                    que parecem uma coisa em português,
-                    mas significam outra.
-                </p>
-
-            </div>
-
-
-            <div
-                class="quiz"
-                id="quiz-ingles"
-            ></div>
-
-        </section>
-
-
-
-        <!-- ==================================================
-             LE COIN FRANÇAIS
-        =================================================== -->
-
-        <section
-            id="frances"
-            class="pagina"
-        >
-
-            <button
-                class="voltar"
-                type="button"
-                onclick="mostrarPagina('home')"
-            >
-                <span class="voltar-seta">←</span>
-                Voltar
-            </button>
-
-
-            <div class="titulo-pagina">
-
-                <span class="etiqueta">
-                    LE COIN FRANÇAIS
-                </span>
-
-                <h2>
-                    Uhm, actually... 🇫🇷
-                </h2>
-
-                <p>
-                    Expressões, vocabulário e pequenas pegadinhas
-                    para conhecer o francês usado de verdade.
-                </p>
-
-            </div>
-
-
-            <div
-                class="quiz"
-                id="quiz-frances"
-            ></div>
-
-        </section>
-
-
-
-        <!-- ÁREA DO ALUNO -->
-        <section id="aluno" class="pagina area-aluno">
-            <button class="voltar" type="button" onclick="mostrarPagina('home')">
-                <span class="voltar-seta">←</span> Voltar
-            </button>
 
             <div class="aluno-cabecalho">
-                <span class="etiqueta">ÁREA DO ALUNO</span>
+
+                <span class="etiqueta">
+                    ÁREA DO ALUNO
+                </span>
+
                 <div class="aluno-menu-container">
 
-<button
-    class="aluno-menu-botao"
-    type="button"
-    onclick="alternarMenuAluno()"
-    aria-label="Abrir menu da conta"
->
-    ☰
-</button>
+                    <button
+                        class="aluno-menu-botao"
+                        type="button"
+                        onclick="alternarMenuAluno()"
+                        aria-label="Abrir menu da conta"
+                    >
+                        ☰
+                    </button>
 
-    <div
-        class="aluno-menu-dropdown"
-        id="aluno-menu-dropdown"
-        hidden
-    >
-        <button
-            type="button"
-            onclick="abrirSegurancaAluno()"
-        >
-            🔐 Alterar senha
-        </button>
+                    <div
+                        class="aluno-menu-dropdown"
+                        id="aluno-menu-dropdown"
+                        hidden
+                    >
 
-        <button
-            type="button"
-            class="aluno-menu-sair"
-            onclick="sairDaConta()"
-        >
-            ↪ Sair
-        </button>
-    </div>
+                        <button
+                            type="button"
+                            onclick="abrirSegurancaAluno()"
+                        >
+                            🔐 Alterar senha
+                        </button>
 
-</div>
-                <h2>Seu cantinho de estudos ✦</h2>
-                <p>Conteúdos exclusivos das aulas, organizados em um só lugar.</p>
-                <div class="aluno-identidade">
-                    <span>Conectada como</span>
-                    <strong id="aluno-email"></strong>
+                        <button
+                            type="button"
+                            class="aluno-menu-sair"
+                            onclick="sairDaConta()"
+                        >
+                            ↪ Sair
+                        </button>
+
+                    </div>
+
                 </div>
+
+
+                <h2>
+                    Seu cantinho de estudos ✦
+                </h2>
+
+                <p>
+                    Sua conta está pronta para receber conteúdos
+                    exclusivos das aulas.
+                </p>
+
+
+                <div class="aluno-identidade">
+
+                    <span>
+                        Conectada como
+                    </span>
+
+                    <strong id="aluno-email"></strong>
+
+                </div>
+
             </div>
+
 
             <div class="aluno-grid">
+
                 <article class="aluno-card">
-                    <div class="aluno-card-icone">🇬🇧</div>
-                    <span class="mini-etiqueta">ENGLISH</span>
-                    <h3>Exercícios de inglês</h3>
-                    <p>Atividades exclusivas das suas aulas aparecerão aqui.</p>
-                    <button
-    class="botao principal"
-    type="button"
-    onclick="abrirExerciciosExclusivos('ingles')"
->
-    Ver exercícios →
-</button>
+
+                    <div class="aluno-card-icone">
+                        ✨
+                    </div>
+
+                    <span class="mini-etiqueta">
+                        UHM, ACTUALLY...
+                    </span>
+
+                    <h3>
+                        Área do aluno
+                    </h3>
+
+                    <p>
+                        Os exercícios diários foram removidos para deixar
+                        o site mais leve. Novos materiais exclusivos podem
+                        ser adicionados aqui depois.
+                    </p>
+
                 </article>
 
-                <article class="aluno-card aluno-card-frances">
-                    <div class="aluno-card-icone">🇫🇷</div>
-                    <span class="mini-etiqueta">FRANÇAIS</span>
-                    <h3>Exercícios de francês</h3>
-                    <p>Atividades exclusivas das suas aulas aparecerão aqui.</p>
-                    <button
-    class="botao principal"
-    type="button"
-    onclick="abrirExerciciosExclusivos('frances')"
->
-    Ver exercícios →
-</button>
-                </article>
             </div>
-<!-- ==================================================
-     EXERCÍCIOS EXCLUSIVOS
-=================================================== -->
-
-<section
-    class="aluno-exercicios-exclusivos"
-    id="painel-exercicios-ingles"
-    hidden
->
-
-    <div class="aluno-exercicios-cabecalho">
-
-        <div>
-            <span class="etiqueta">
-                ENGLISH
-            </span>
-
-            <h2>
-                Exercícios de inglês 🇬🇧
-            </h2>
-
-            <p>
-                Atividades exclusivas para praticar
-                o conteúdo das suas aulas.
-            </p>
-        </div>
-
-        <button
-            class="botao"
-            type="button"
-            onclick="fecharExerciciosExclusivos('ingles')"
-        >
-            ← Voltar
-        </button>
-
-    </div>
-
-    <div
-        id="exercicios-exclusivos-ingles"
-        class="lista-exercicios-exclusivos"
-    ></div>
-
-</section>
 
 
-<section
-    class="aluno-exercicios-exclusivos"
-    id="painel-exercicios-frances"
-    hidden
->
+            <!-- MODAL ALTERAR SENHA -->
 
-    <div class="aluno-exercicios-cabecalho">
-
-        <div>
-            <span class="etiqueta">
-                FRANÇAIS
-            </span>
-
-            <h2>
-                Exercícios de francês 🇫🇷
-            </h2>
-
-            <p>
-                Atividades exclusivas para praticar
-                o conteúdo das suas aulas.
-            </p>
-        </div>
-
-        <button
-            class="botao"
-            type="button"
-            onclick="fecharExerciciosExclusivos('frances')"
-        >
-            ← Voltar
-        </button>
-
-    </div>
-
-    <div
-        id="exercicios-exclusivos-frances"
-        class="lista-exercicios-exclusivos"
-    ></div>
-
-      <div
-        id="exercicios-exclusivos-frances"
-        class="lista-exercicios-exclusivos"
-    ></div>
-
-</section>
-
-<!-- ==================================================
-     MODAL ALTERAR SENHA
-================================================== -->
-
-<div
-    class="modal-senha"
-    id="modal-senha"
-    hidden
->
-    <div
-        class="modal-senha-fundo"
-        onclick="fecharSegurancaAluno()"
-    ></div>
-
-    <div
-        class="modal-senha-caixa"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-senha-titulo"
-    >
-        <button
-            class="modal-senha-fechar"
-            type="button"
-            onclick="fecharSegurancaAluno()"
-            aria-label="Fechar"
-        >
-            ×
-        </button>
-
-        <span class="etiqueta">
-            SEGURANÇA
-        </span>
-
-        <h2 id="modal-senha-titulo">
-            Alterar senha
-        </h2>
-
-        <p>
-            Escolha uma nova senha para a sua conta.
-        </p>
-
-        <form
-            id="form-alterar-senha-menu"
-            class="form-alterar-senha"
-        >
-            <label for="nova-senha-menu">
-                Nova senha
-            </label>
-
-            <input
-                id="nova-senha-menu"
-                type="password"
-                autocomplete="new-password"
-                minlength="6"
-                placeholder="Mínimo de 6 caracteres"
-                required
+            <div
+                class="modal-senha"
+                id="modal-senha"
+                hidden
             >
 
-            <label for="confirmar-nova-senha-menu">
-                Confirme a nova senha
-            </label>
+                <div
+                    class="modal-senha-fundo"
+                    onclick="fecharSegurancaAluno()"
+                ></div>
 
-            <input
-                id="confirmar-nova-senha-menu"
-                type="password"
-                autocomplete="new-password"
-                minlength="6"
-                placeholder="Digite novamente"
-                required
-            >
 
-            <button
-                class="botao principal"
-                type="submit"
-            >
-                Alterar senha
-            </button>
+                <div
+                    class="modal-senha-caixa"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-senha-titulo"
+                >
 
-            <p
-                class="auth-mensagem"
-                id="senha-mensagem-menu"
-                aria-live="polite"
-            ></p>
-        </form>
-    </div>
-</div>
+                    <button
+                        class="modal-senha-fechar"
+                        type="button"
+                        onclick="fecharSegurancaAluno()"
+                        aria-label="Fechar"
+                    >
+                        ×
+                    </button>
+
+
+                    <span class="etiqueta">
+                        SEGURANÇA
+                    </span>
+
+                    <h2 id="modal-senha-titulo">
+                        Alterar senha
+                    </h2>
+
+                    <p>
+                        Escolha uma nova senha para a sua conta.
+                    </p>
+
+
+                    <form
+                        id="form-alterar-senha-menu"
+                        class="form-alterar-senha"
+                    >
+
+                        <label for="nova-senha-menu">
+                            Nova senha
+                        </label>
+
+                        <input
+                            id="nova-senha-menu"
+                            type="password"
+                            autocomplete="new-password"
+                            minlength="6"
+                            placeholder="Mínimo de 6 caracteres"
+                            required
+                        >
+
+
+                        <label for="confirmar-nova-senha-menu">
+                            Confirme a nova senha
+                        </label>
+
+                        <input
+                            id="confirmar-nova-senha-menu"
+                            type="password"
+                            autocomplete="new-password"
+                            minlength="6"
+                            placeholder="Digite novamente"
+                            required
+                        >
+
+
+                        <button
+                            class="botao principal"
+                            type="submit"
+                        >
+                            Alterar senha
+                        </button>
+
+
+                        <p
+                            class="auth-mensagem"
+                            id="senha-mensagem-menu"
+                            aria-live="polite"
+                        ></p>
+
+                    </form>
+
+                </div>
+
+            </div>
 
         </section>
 
     </main>
-    
-<div class="auth-overlay" id="auth-overlay" aria-hidden="true">
-        <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-titulo">
-            <button class="auth-fechar" type="button" onclick="fecharConta()" aria-label="Fechar">×</button>
+
+
+    <!-- ==================================================
+         LOGIN / CADASTRO
+    =================================================== -->
+
+    <div
+        class="auth-overlay"
+        id="auth-overlay"
+        aria-hidden="true"
+    >
+
+        <section
+            class="auth-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="auth-titulo"
+        >
+
+            <button
+                class="auth-fechar"
+                type="button"
+                onclick="fecharConta()"
+                aria-label="Fechar"
+            >
+                ×
+            </button>
+
+
+            <!-- USUÁRIO DESLOGADO -->
 
             <div id="auth-deslogado">
-                <span class="etiqueta">MINHA CONTA</span>
-                <h2 id="auth-titulo">Entre para guardar seu progresso ✦</h2>
-                <p class="auth-intro">Entre com o e-mail e a senha fornecidos para acessar sua conta.</p>
+
+                <span class="etiqueta">
+                    MINHA CONTA
+                </span>
+
+                <h2 id="auth-titulo">
+                    Entre na sua conta ✦
+                </h2>
+
+                <p class="auth-intro">
+                    Use seu e-mail e senha ou crie uma conta nova.
+                </p>
+
 
                 <form id="auth-form">
-                    <label for="auth-email">E-mail</label>
-                    <input id="auth-email" type="email" autocomplete="email" placeholder="voce@email.com" required>
 
-                    <label for="auth-senha">Senha</label>
-                    <input id="auth-senha" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres" minlength="6" required>
+                    <label for="auth-email">
+                        E-mail
+                    </label>
+
+                    <input
+                        id="auth-email"
+                        type="email"
+                        autocomplete="email"
+                        placeholder="voce@email.com"
+                        required
+                    >
+
+
+                    <label for="auth-senha">
+                        Senha
+                    </label>
+
+                    <input
+                        id="auth-senha"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Mínimo de 6 caracteres"
+                        minlength="6"
+                        required
+                    >
+
 
                     <div class="auth-acoes">
-                        <button class="botao principal" id="auth-entrar" type="submit">Entrar</button>
+
+                        <button
+                            class="botao principal"
+                            id="auth-entrar"
+                            type="submit"
+                        >
+                            Entrar
+                        </button>
+
+                        <button
+                            class="botao auth-secundario"
+                            id="auth-criar"
+                            type="button"
+                        >
+                            Criar conta
+                        </button>
+
                     </div>
+
+
+                    <button
+                        class="auth-link"
+                        id="auth-recuperar"
+                        type="button"
+                    >
+                        Esqueci minha senha
+                    </button>
+
                 </form>
 
-                <p class="auth-mensagem" id="auth-mensagem" aria-live="polite"></p>
+
+                <p
+                    class="auth-mensagem"
+                    id="auth-mensagem"
+                    aria-live="polite"
+                ></p>
+
             </div>
 
-            <div id="auth-logado" hidden>
-                <span class="etiqueta">MINHA CONTA</span>
-                <div class="auth-avatar">✓</div>
-                <h2>Você está conectada!</h2>
-                <p class="auth-email-logado" id="auth-email-logado"></p>
-                <div class="auth-logado-acoes">
-                    <button class="botao principal" type="button" onclick="abrirAreaAluno()">Ir para Área do Aluno →</button>
-                    <button class="botao auth-secundario" id="auth-sair" type="button">Sair da conta</button>
+
+            <!-- USUÁRIO LOGADO -->
+
+            <div
+                id="auth-logado"
+                hidden
+            >
+
+                <span class="etiqueta">
+                    MINHA CONTA
+                </span>
+
+                <div class="auth-avatar">
+                    ✓
                 </div>
+
+                <h2>
+                    Você está conectada!
+                </h2>
+
+                <p
+                    class="auth-email-logado"
+                    id="auth-email-logado"
+                ></p>
+
+
+                <div class="auth-logado-acoes">
+
+                    <button
+                        class="botao principal"
+                        type="button"
+                        onclick="abrirAreaAluno()"
+                    >
+                        Ir para Área do Aluno →
+                    </button>
+
+                    <button
+                        class="botao auth-secundario"
+                        id="auth-sair"
+                        type="button"
+                    >
+                        Sair da conta
+                    </button>
+
+                </div>
+
             </div>
+
         </section>
+
     </div>
 
 
@@ -1047,20 +843,6 @@
                     Aulas
                 </button>
 
-                <button
-                    type="button"
-                    onclick="mostrarPagina('ingles')"
-                >
-                    Inglês
-                </button>
-
-                <button
-                    type="button"
-                    onclick="mostrarPagina('frances')"
-                >
-                    Francês
-                </button>
-
             </div>
 
         </div>
@@ -1073,99 +855,24 @@
     </footer>
 
 
+    <!-- ==================================================
+         FIREBASE
+    =================================================== -->
+
+    <script
+        src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"
+    ></script>
+
+    <script
+        src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"
+    ></script>
+
 
     <!-- ==================================================
          JAVASCRIPT PRINCIPAL
     =================================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
-
-
-    <!-- ==================================================
-         NAVEGAÇÃO DA LANDING PAGE
-    =================================================== -->
-
-    <script>
-
-        function irParaAulas() {
-
-            mostrarPagina("home");
-
-            requestAnimationFrame(() => {
-
-                document
-                    .getElementById("aulas")
-                    ?.scrollIntoView({
-                        behavior: "smooth"
-                    });
-
-            });
-
-        }
-
-
-        function alternarMenu() {
-
-            const menu =
-                document.getElementById("menu-principal");
-
-            const botao =
-                document.querySelector(".menu-hamburguer");
-
-            const aberto =
-                menu.classList.toggle("aberto");
-
-            botao.setAttribute(
-                "aria-expanded",
-                String(aberto)
-            );
-
-        }
-
-
-        function fecharMenu() {
-
-            const menu =
-                document.getElementById("menu-principal");
-
-            const botao =
-                document.querySelector(".menu-hamburguer");
-
-            menu?.classList.remove("aberto");
-
-            botao?.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        }
-
-
-        document.addEventListener(
-            "keydown",
-            (evento) => {
-
-                if (evento.key === "Escape") {
-                    fecharMenu();
-                }
-
-            }
-        );
-
-
-        window.addEventListener(
-            "resize",
-            () => {
-
-                if (window.innerWidth > 850) {
-                    fecharMenu();
-                }
-
-            }
-        );
-
-    </script>
 
 </body>
 
