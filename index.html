@@ -451,6 +451,7 @@
                     ÁREA DO ALUNO
                 </span>
 
+
                 <div class="aluno-menu-container">
 
                     <button
@@ -641,7 +642,7 @@
 
 
     <!-- ==================================================
-         LOGIN / CADASTRO
+         LOGIN
     =================================================== -->
 
     <div
@@ -680,7 +681,7 @@
                 </h2>
 
                 <p class="auth-intro">
-                    Use seu e-mail e senha ou crie uma conta nova.
+                    Acesse sua Área do Aluno com o e-mail e a senha cadastrados.
                 </p>
 
 
@@ -723,14 +724,6 @@
                             Entrar
                         </button>
 
-                        <button
-                            class="botao auth-secundario"
-                            id="auth-criar"
-                            type="button"
-                        >
-                            Criar conta
-                        </button>
-
                     </div>
 
 
@@ -752,82 +745,12 @@
                 ></p>
 
 
-                <!-- ==================================================
-                     VERIFICAÇÃO DE E-MAIL
-                =================================================== -->
-
-                <div
-                    id="auth-verificacao"
-                    hidden
-                >
-
-                    <span class="etiqueta">
-                        VERIFICAÇÃO
+                <p class="auth-acesso-info">
+                    Ainda não tem acesso?
+                    <span>
+                        As contas são cadastradas pela professora.
                     </span>
-
-                    <h2 id="auth-verificacao-titulo">
-                        Confira seu e-mail ✦
-                    </h2>
-
-                    <p class="auth-intro">
-                        Enviamos um código de 6 dígitos para
-                        <strong id="auth-verificacao-email"></strong>.
-                    </p>
-
-
-                    <form id="auth-verificacao-form">
-
-                        <label for="auth-codigo">
-                            Código de verificação
-                        </label>
-
-                        <input
-                            id="auth-codigo"
-                            type="text"
-                            inputmode="numeric"
-                            autocomplete="one-time-code"
-                            maxlength="6"
-                            pattern="[0-9]{6}"
-                            placeholder="000000"
-                            required
-                        >
-
-
-                        <button
-                            class="botao principal"
-                            type="submit"
-                        >
-                            Confirmar código
-                        </button>
-
-
-                        <button
-                            class="auth-link"
-                            id="auth-reenviar-codigo"
-                            type="button"
-                        >
-                            Reenviar código
-                        </button>
-
-
-                        <button
-                            class="auth-link"
-                            id="auth-voltar-verificacao"
-                            type="button"
-                        >
-                            ← Voltar
-                        </button>
-
-                    </form>
-
-
-                    <p
-                        class="auth-mensagem"
-                        id="auth-verificacao-mensagem"
-                        aria-live="polite"
-                    ></p>
-
-                </div>
+                </p>
 
             </div>
 

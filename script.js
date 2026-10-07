@@ -1,7 +1,7 @@
 /* =========================================================
    UHM, ACTUALLY...
    JavaScript principal
-   Firebase Authentication + verificação por código
+   Firebase Authentication
 ========================================================= */
 
 
@@ -19,26 +19,13 @@ const firebaseConfig = {
     measurementId: "G-41RCZ4QV33"
 };
 
+
+// Inicializa o Firebase apenas uma vez
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
 const auth = firebase.auth();
-
-
-/* =========================================================
-   CLOUDFLARE WORKER
-========================================================= */
-
-const VERIFICATION_API =
-    "https://uhm-actually-verification.isabellacarolini450.workers.dev/";
-
-let verificacao = {
-    finalidade: null,
-    email: "",
-    senha: "",
-    ultimoEnvio: 0
-};
 
 
 /* =========================================================
@@ -53,7 +40,6 @@ const authForm = document.getElementById("auth-form");
 const authEmail = document.getElementById("auth-email");
 const authSenha = document.getElementById("auth-senha");
 
-const authCriar = document.getElementById("auth-criar");
 const authRecuperar = document.getElementById("auth-recuperar");
 const authSair = document.getElementById("auth-sair");
 
@@ -67,7 +53,9 @@ const formAlterarSenha = document.getElementById(
     "form-alterar-senha-menu"
 );
 
-const novaSenha = document.getElementById("nova-senha-menu");
+const novaSenha = document.getElementById(
+    "nova-senha-menu"
+);
 
 const confirmarNovaSenha = document.getElementById(
     "confirmar-nova-senha-menu"
@@ -75,43 +63,6 @@ const confirmarNovaSenha = document.getElementById(
 
 const senhaMensagem = document.getElementById(
     "senha-mensagem-menu"
-);
-
-
-/* =========================================================
-   ELEMENTOS DA VERIFICAÇÃO
-========================================================= */
-
-const authVerificacao = document.getElementById(
-    "auth-verificacao"
-);
-
-const authVerificacaoForm = document.getElementById(
-    "auth-verificacao-form"
-);
-
-const authVerificacaoEmail = document.getElementById(
-    "auth-verificacao-email"
-);
-
-const authVerificacaoTitulo = document.getElementById(
-    "auth-verificacao-titulo"
-);
-
-const authCodigo = document.getElementById(
-    "auth-codigo"
-);
-
-const authReenviarCodigo = document.getElementById(
-    "auth-reenviar-codigo"
-);
-
-const authVoltarVerificacao = document.getElementById(
-    "auth-voltar-verificacao"
-);
-
-const authVerificacaoMensagem = document.getElementById(
-    "auth-verificacao-mensagem"
 );
 
 
@@ -193,7 +144,10 @@ function fecharMenu() {
     }
 
     if (botao) {
-        botao.setAttribute("aria-expanded", "false");
+        botao.setAttribute(
+            "aria-expanded",
+            "false"
+        );
     }
 }
 
@@ -239,7 +193,6 @@ function fecharConta() {
     document.body.classList.remove("auth-travado");
 
     limparMensagemAuth();
-    fecharTelaVerificacao();
 }
 
 
@@ -278,39 +231,6 @@ function limparMensagemAuth() {
 }
 
 
-function mostrarMensagemVerificacao(
-    texto,
-    tipo = ""
-) {
-
-    if (!authVerificacaoMensagem) return;
-
-    authVerificacaoMensagem.textContent = texto;
-
-    authVerificacaoMensagem.classList.remove(
-        "erro",
-        "sucesso"
-    );
-
-    if (tipo) {
-        authVerificacaoMensagem.classList.add(tipo);
-    }
-}
-
-
-function limparMensagemVerificacao() {
-
-    if (!authVerificacaoMensagem) return;
-
-    authVerificacaoMensagem.textContent = "";
-
-    authVerificacaoMensagem.classList.remove(
-        "erro",
-        "sucesso"
-    );
-}
-
-
 /* =========================================================
    TRADUZ ERROS DO FIREBASE
 ========================================================= */
@@ -329,9 +249,6 @@ function traduzirErroFirebase(erro) {
 
         "auth/weak-password":
             "Sua senha precisa ter pelo menos 6 caracteres.",
-
-        "auth/email-already-in-use":
-            "Já existe uma conta cadastrada com esse e-mail.",
 
         "auth/user-not-found":
             "Não encontramos uma conta com esse e-mail.",
@@ -366,183 +283,7 @@ function traduzirErroFirebase(erro) {
 
 
 /* =========================================================
-   COMUNICAÇÃO COM O WORKER
-========================================================= */
-
-async function chamarWorker(dados) {
-
-    const resposta = await fetch(
-        VERIFICATION_API,
-        {
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(dados)
-        }
-    );
-
-    let resultado = {};
-
-    try {
-        resultado = await resposta.json();
-    } catch (erro) {
-        console.error(
-            "Resposta inválida do Worker:",
-            erro
-        );
-    }
-
-    if (!resposta.ok || !resultado.success) {
-
-        throw new Error(
-            resultado.error ||
-            resultado.message ||
-            "Não foi possível enviar ou validar o código."
-        );
-    }
-
-    return resultado;
-}
-
-
-/* =========================================================
-   MOSTRAR TELA DE VERIFICAÇÃO
-========================================================= */
-
-function mostrarTelaVerificacao(
-    finalidade,
-    email,
-    senha = ""
-) {
-
-    verificacao = {
-        finalidade: finalidade,
-        email: email,
-        senha: senha,
-        ultimoEnvio: Date.now()
-    };
-
-    if (authForm) {
-        authForm.hidden = true;
-    }
-
-    if (authMensagem) {
-        authMensagem.hidden = true;
-    }
-
-    if (authVerificacao) {
-        authVerificacao.hidden = false;
-    }
-
-    if (authVerificacaoEmail) {
-        authVerificacaoEmail.textContent = email;
-    }
-
-    if (authVerificacaoTitulo) {
-
-        if (finalidade === "cadastro") {
-
-            authVerificacaoTitulo.textContent =
-                "Confirme seu e-mail ✦";
-
-        } else {
-
-            authVerificacaoTitulo.textContent =
-                "Confirme seu e-mail para recuperar a senha ✦";
-        }
-    }
-
-    if (authCodigo) {
-        authCodigo.value = "";
-    }
-
-    mostrarMensagemVerificacao(
-        "Código enviado. Confira sua caixa de entrada.",
-        "sucesso"
-    );
-
-    setTimeout(() => {
-        authCodigo?.focus();
-    }, 100);
-}
-
-
-/* =========================================================
-   FECHAR TELA DE VERIFICAÇÃO
-========================================================= */
-
-function fecharTelaVerificacao() {
-
-    if (authVerificacao) {
-        authVerificacao.hidden = true;
-    }
-
-    if (authForm) {
-        authForm.hidden = false;
-    }
-
-    if (authMensagem) {
-        authMensagem.hidden = false;
-    }
-
-    if (authCodigo) {
-        authCodigo.value = "";
-    }
-
-    limparMensagemVerificacao();
-}
-
-
-/* =========================================================
-   ENVIAR CÓDIGO
-========================================================= */
-
-async function enviarCodigo(
-    finalidade,
-    email,
-    senha = ""
-) {
-
-    mostrarMensagemAuth(
-        "Enviando código de verificação..."
-    );
-
-    try {
-
-        await chamarWorker({
-            action: "send",
-            email: email
-        });
-
-        mostrarTelaVerificacao(
-            finalidade,
-            email,
-            senha
-        );
-
-        limparMensagemAuth();
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao enviar código:",
-            erro
-        );
-
-        mostrarMensagemAuth(
-            erro.message ||
-            "Não foi possível enviar o código. Tente novamente.",
-            "erro"
-        );
-    }
-}
-
-
-/* =========================================================
-   LOGIN NORMAL
+   LOGIN
 ========================================================= */
 
 if (authForm) {
@@ -555,11 +296,8 @@ if (authForm) {
 
             limparMensagemAuth();
 
-            const email =
-                authEmail.value.trim();
-
-            const senha =
-                authSenha.value;
+            const email = authEmail.value.trim();
+            const senha = authSenha.value;
 
             if (!email || !senha) {
 
@@ -577,11 +315,10 @@ if (authForm) {
                     "Entrando..."
                 );
 
-                await auth
-                    .signInWithEmailAndPassword(
-                        email,
-                        senha
-                    );
+                await auth.signInWithEmailAndPassword(
+                    email,
+                    senha
+                );
 
                 mostrarMensagemAuth(
                     "Login realizado! ✨",
@@ -615,73 +352,7 @@ if (authForm) {
 
 
 /* =========================================================
-   CRIAR CONTA
-   1. Envia código
-   2. Confirma código
-   3. Só depois cria no Firebase
-========================================================= */
-
-if (authCriar) {
-
-    authCriar.addEventListener(
-        "click",
-        async () => {
-
-            limparMensagemAuth();
-
-            const email =
-                authEmail.value.trim();
-
-            const senha =
-                authSenha.value;
-
-            if (!email) {
-
-                mostrarMensagemAuth(
-                    "Digite o e-mail que deseja usar na sua conta.",
-                    "erro"
-                );
-
-                authEmail.focus();
-
-                return;
-            }
-
-            if (!senha) {
-
-                mostrarMensagemAuth(
-                    "Agora escolha uma senha.",
-                    "erro"
-                );
-
-                authSenha.focus();
-
-                return;
-            }
-
-            if (senha.length < 6) {
-
-                mostrarMensagemAuth(
-                    "A senha precisa ter pelo menos 6 caracteres.",
-                    "erro"
-                );
-
-                return;
-            }
-
-            await enviarCodigo(
-                "cadastro",
-                email,
-                senha
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   ESQUECI MINHA SENHA
-   Primeiro confirma o código
+   RECUPERAR SENHA
 ========================================================= */
 
 if (authRecuperar) {
@@ -692,8 +363,7 @@ if (authRecuperar) {
 
             limparMensagemAuth();
 
-            const email =
-                authEmail.value.trim();
+            const email = authEmail.value.trim();
 
             if (!email) {
 
@@ -707,229 +377,33 @@ if (authRecuperar) {
                 return;
             }
 
-            await enviarCodigo(
-                "recuperacao",
-                email
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   CONFIRMAR CÓDIGO
-========================================================= */
-
-if (authVerificacaoForm) {
-
-    authVerificacaoForm.addEventListener(
-        "submit",
-        async (evento) => {
-
-            evento.preventDefault();
-
-            const codigo = (
-                authCodigo?.value || ""
-            ).replace(/\D/g, "");
-
-            if (!/^\d{6}$/.test(codigo)) {
-
-                mostrarMensagemVerificacao(
-                    "Digite os 6 números do código.",
-                    "erro"
-                );
-
-                return;
-            }
-
-            mostrarMensagemVerificacao(
-                "Confirmando código..."
-            );
-
             try {
 
-                await chamarWorker({
-                    action: "verify",
-                    email: verificacao.email,
-                    code: codigo
-                });
-
-
-                /* =========================================
-                   CÓDIGO CERTO: CRIAR CONTA
-                ========================================= */
-
-                if (
-                    verificacao.finalidade ===
-                    "cadastro"
-                ) {
-
-                    mostrarMensagemVerificacao(
-                        "Código confirmado. Criando sua conta..."
-                    );
-
-                    await auth
-                        .createUserWithEmailAndPassword(
-                            verificacao.email,
-                            verificacao.senha
-                        );
-
-                    mostrarMensagemVerificacao(
-                        "Conta criada com sucesso! ✨",
-                        "sucesso"
-                    );
-
-                    authForm?.reset();
-
-                    setTimeout(() => {
-
-                        fecharConta();
-                        abrirAreaAluno();
-
-                    }, 700);
-                }
-
-
-                /* =========================================
-                   CÓDIGO CERTO: REDEFINIR SENHA
-                ========================================= */
-
-                else if (
-                    verificacao.finalidade ===
-                    "recuperacao"
-                ) {
-
-                    mostrarMensagemVerificacao(
-                        "Código confirmado. Enviando o e-mail para redefinir sua senha..."
-                    );
-
-                    await auth
-                        .sendPasswordResetEmail(
-                            verificacao.email
-                        );
-
-                    mostrarMensagemVerificacao(
-                        "Código confirmado! Enviamos o link para você criar uma nova senha. 📩",
-                        "sucesso"
-                    );
-                }
-
-            } catch (erro) {
-
-                console.error(
-                    "Erro ao confirmar código:",
-                    erro
+                mostrarMensagemAuth(
+                    "Enviando e-mail de recuperação..."
                 );
 
-                if (erro?.code) {
-
-                    mostrarMensagemVerificacao(
-                        traduzirErroFirebase(erro),
-                        "erro"
-                    );
-
-                } else {
-
-                    mostrarMensagemVerificacao(
-                        erro.message ||
-                        "O código está incorreto ou expirou.",
-                        "erro"
-                    );
-                }
-            }
-        }
-    );
-}
-
-
-/* =========================================================
-   REENVIAR CÓDIGO
-========================================================= */
-
-if (authReenviarCodigo) {
-
-    authReenviarCodigo.addEventListener(
-        "click",
-        async () => {
-
-            if (!verificacao.email) {
-                return;
-            }
-
-            const tempoPassado =
-                Date.now() -
-                verificacao.ultimoEnvio;
-
-            const tempoRestante =
-                60000 - tempoPassado;
-
-            if (tempoRestante > 0) {
-
-                mostrarMensagemVerificacao(
-                    `Aguarde ${Math.ceil(
-                        tempoRestante / 1000
-                    )} segundos para reenviar.`,
-                    "erro"
+                await auth.sendPasswordResetEmail(
+                    email
                 );
 
-                return;
-            }
-
-            mostrarMensagemVerificacao(
-                "Reenviando código..."
-            );
-
-            try {
-
-                await chamarWorker({
-                    action: "send",
-                    email: verificacao.email
-                });
-
-                verificacao.ultimoEnvio =
-                    Date.now();
-
-                mostrarMensagemVerificacao(
-                    "Novo código enviado. Confira seu e-mail.",
+                mostrarMensagemAuth(
+                    "Pronto! Enviamos um e-mail para você redefinir sua senha. 📩",
                     "sucesso"
                 );
 
             } catch (erro) {
 
                 console.error(
-                    "Erro ao reenviar código:",
+                    "Erro ao recuperar senha:",
                     erro
                 );
 
-                mostrarMensagemVerificacao(
-                    erro.message ||
-                    "Não foi possível reenviar o código.",
+                mostrarMensagemAuth(
+                    traduzirErroFirebase(erro),
                     "erro"
                 );
             }
-        }
-    );
-}
-
-
-/* =========================================================
-   VOLTAR DA VERIFICAÇÃO
-========================================================= */
-
-if (authVoltarVerificacao) {
-
-    authVoltarVerificacao.addEventListener(
-        "click",
-        () => {
-
-            fecharTelaVerificacao();
-
-            verificacao = {
-                finalidade: null,
-                email: "",
-                senha: "",
-                ultimoEnvio: 0
-            };
         }
     );
 }
@@ -1365,14 +839,15 @@ window.addEventListener(
 );
 
 
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        if (authVerificacao) {
-            authVerificacao.hidden = true;
-        }
-
         mostrarPagina("home");
+
     }
 );
